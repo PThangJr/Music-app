@@ -1,0 +1,10 @@
+@import '../../scss/variables';
+
+.playlists {
+    padding: 20px 0;
+
+    &-header {
+        margin: 10px 0;
+        font-size: $font-size-xl;
+    }
+}

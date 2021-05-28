@@ -1,0 +1,86 @@
+@import '../../scss/variables';
+
+.rank {
+    &__heading {
+        font-size: $font-size-hg;
+        margin-bottom: 20px;
+    }
+
+    &-item {
+        display: flex;
+        align-items: center;
+        border-radius: 8px;
+        transition: background .4s;
+
+        &:hover {
+            background: rgb(122, 116, 116);
+
+            .card-song {
+                &-info {
+                    color: var(--text-color-reverse);
+                }
+
+                &-views {
+                    color: var(--text-color-reverse);
+                }
+            }
+        }
+    }
+
+    &-number {
+        font-size: $font-size-hg;
+        font-weight: bold;
+        // color: red;
+        width: 60px;
+        text-align: center;
+    }
+
+    &-number {
+        &--1 {
+            color: #f02f19;
+            font-size: 3.5rem;
+
+        }
+
+        &--2 {
+            color: #d35400;
+            font-size: 3.5rem;
+        }
+
+        &--3 {
+            color: #8e44ad;
+            font-size: 3.5rem;
+        }
+    }
+
+
+
+    &-card {
+        .card-song {
+
+
+
+            &-content {
+                align-items: space-between;
+
+                &__img {
+                    $size: 60px;
+                    width: $size;
+                    height: $size;
+
+                }
+
+            }
+
+            &-info {
+                &__name {
+                    font-size: $font-size-md;
+                }
+
+                &__description {
+                    font-size: $font-size-xs;
+                }
+            }
+        }
+    }
+}

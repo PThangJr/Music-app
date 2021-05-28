@@ -1,0 +1,78 @@
+@import '../../scss/variables';
+
+.card {
+    transition: all .5s;
+    margin: 5px 0;
+
+    &-image {
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+
+        &__img {
+            transition: transform .4s;
+        }
+
+        &:hover {
+            .card-image__img {
+                transform: scale(1.1);
+            }
+
+            .card-image__overlay {
+                display: flex;
+            }
+        }
+
+        &__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: .5s;
+
+            &:hover {
+                p.icon {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            p.icon {
+                font-size: 4rem;
+                color: $color-white;
+                transform: scale(0);
+                opacity: 0;
+                transition: .3s;
+                z-index: 10;
+                cursor: pointer;
+            }
+        }
+
+        &__img {
+            width: 100%;
+            min-height: 145px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+    }
+
+    &-content {
+        font-size: $font-size-sm;
+
+        &-title {
+            margin: 5px 0;
+        }
+
+        &-descriptions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    }
+}
