@@ -51,8 +51,12 @@ body {
         }
     }
 
+    &--purple {
+        color: #6e0fbd !important;
+    }
+
     &--black {
-        color: rgb(63, 59, 59);
+        color: #3f3b3b;
     }
 }
 

@@ -10,20 +10,11 @@
         display: flex;
         align-items: center;
         border-radius: 8px;
-        transition: background .4s;
+        // transition: background .4s;
 
         &:hover {
             background: rgb(122, 116, 116);
 
-            .card-song {
-                &-info {
-                    color: var(--text-color-reverse);
-                }
-
-                &-views {
-                    color: var(--text-color-reverse);
-                }
-            }
         }
     }
 
@@ -56,31 +47,6 @@
 
 
     &-card {
-        .card-song {
-
-
-
-            &-content {
-                align-items: space-between;
-
-                &__img {
-                    $size: 60px;
-                    width: $size;
-                    height: $size;
-
-                }
-
-            }
-
-            &-info {
-                &__name {
-                    font-size: $font-size-md;
-                }
-
-                &__description {
-                    font-size: $font-size-xs;
-                }
-            }
-        }
+        .card-song {}
     }
 }

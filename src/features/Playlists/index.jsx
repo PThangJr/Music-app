@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Card from "../../components/Card";
-import { fetchAlbums } from "./albumsSlice";
 import "./styles.scss";
 const Playlists = (props) => {
   let { name = "", linkName = "", type = "", albums = [], col = "" } = props;
@@ -22,15 +21,11 @@ const Playlists = (props) => {
         {albums.map((album) => {
           return (
             <div
-              key={album._id}
+              key={album._id + "-playlists"}
               className={col || "col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-6"}
             >
               <Card
-                title={album.name}
-                linkImage={album.linkImage}
-                linkTitle={`/albums/${album.slug}`}
-                descriptions={album.singers}
-                titleSlug={album.slug}
+                album={album}
                 // slugTitle={album.slug}
                 // handleChooseAlbum={handleChooseAlbum}
               />

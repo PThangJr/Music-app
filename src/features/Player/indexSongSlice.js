@@ -4,6 +4,7 @@ const initialState = {
   indexCurrentSong: 0,
   indexPreviousSong: 0,
   indexNextSong: 0,
+  idCurrentSong: "",
 };
 const indexSongSlice = createSlice({
   name: "index-song",

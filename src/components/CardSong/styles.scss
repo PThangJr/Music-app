@@ -4,8 +4,22 @@
     display: flex;
     // padding: 15px;
     justify-content: space-between;
-    margin: 10px 0;
+    padding: 10px;
     width: 100%;
+    border-radius: 8px;
+
+
+
+
+    .btn {
+        &--favorite {
+            height: auto;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
 
     &-content {
         display: flex;
@@ -33,15 +47,8 @@
         }
 
         &__description {
-            // color: var(--text-color-reverse);
             font-size: $font-size-xs;
-
         }
-    }
-
-    &-image {
-        overflow: hidden;
-
     }
 
     &-views {
@@ -50,6 +57,50 @@
 
         p.icon {
             margin-right: 8px;
+        }
+    }
+
+
+}
+
+.card-song--full-info {
+    &:hover {
+        background: #7a7474;
+
+        .card-song {
+            &-info {
+                color: var(--text-color-reverse);
+            }
+
+            &-views {
+                color: var(--text-color-reverse);
+            }
+
+            .btn.btn--favorite {
+                color: var(--text-color-reverse);
+            }
+        }
+    }
+
+
+    .card-song-content {
+        align-items: space-between;
+
+        &__img {
+            $size: 60px;
+            width: $size;
+            height: $size;
+        }
+    }
+
+    .card-song-info {
+
+        &__name {
+            font-size: $font-size-md;
+        }
+
+        &__description {
+            font-size: $font-size-xs;
         }
     }
 }

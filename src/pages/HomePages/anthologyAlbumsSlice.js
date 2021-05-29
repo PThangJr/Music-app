@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import albumsAPI from "../../api/albumsAPI";
 
 const initialState = {
-  data: [{ slug: "" }],
+  data: [],
   isLoading: false,
   message: "",
   errors: null,

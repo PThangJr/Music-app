@@ -1,0 +1,11 @@
+@import '../../../../scss/variables';
+
+.songs-suggestion {
+    padding: 15px 0;
+
+    &__heading {
+        font-size: $font-size-lg;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+}

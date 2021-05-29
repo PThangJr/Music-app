@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.scss";
 import Slide from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card";
+import { fetchAlbums } from "../Playlists/albumsSlice";
 const Trending = () => {
+  const dispatch = useDispatch();
   const settings = {
     dots: true,
     infinite: true,
@@ -41,14 +43,16 @@ const Trending = () => {
     ],
   };
   const albums = useSelector((state) => state.albums);
-
+  useEffect(() => {
+    dispatch(fetchAlbums());
+  }, [dispatch]);
   return (
     <div className="trending">
       <Slide {...settings}>
         {albums.data.map((album) => {
           return (
             <div key={`${album._id} album`} className="trending-item">
-              <Card title={album.name} linkImage={album.linkImage} />
+              <Card album={album} />
             </div>
           );
         })}

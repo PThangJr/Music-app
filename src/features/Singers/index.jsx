@@ -23,16 +23,7 @@ const Singers = (props) => {
         <div className="col-xl-9 col-lg-9 col-md-12 col-12">
           <h3 className="albums__heading heading-15">Bài hát</h3>
           {songsOfSinger.data.map((song) => {
-            return (
-              <CardSong
-                key={song._id}
-                fullInfo
-                name={song.name}
-                linkImage={song.linkImage}
-                descriptions={song.singers}
-                views={song.views}
-              />
-            );
+            return <CardSong key={song._id} fullInfo song={song} />;
           })}
         </div>
         <div className="col-xl-3 col-lg-3 col-md-12 col-12">

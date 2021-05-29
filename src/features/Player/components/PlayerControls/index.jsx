@@ -2,21 +2,34 @@ import formatDuration from "format-duration";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { randomSongs } from "../../../PlayerQueue/songsPlaySlice";
+import {
+  randomSongs,
+  removeNextSong,
+  setNextSongs,
+  updateSongList,
+} from "../../../PlayerQueue/songsPlaySlice";
+import { setCurrentSong } from "../../currentSongSlice";
 import { nextSong, setIndexSong } from "../../indexSongSlice";
 import { setFavoriteSongs, setPlayerControls } from "./playerControlsSlice";
+import {
+  choosePrevSong,
+  setPrevSongs,
+} from "../../../PlayerQueue/prevSongsSlice";
 import "./styles.scss";
 const PlayerControls = (props) => {
+  const { handleProgressSong } = props;
   const dispatch = useDispatch();
   const indexSong = useSelector((state) => state.indexSong);
   const { indexCurrentSong } = indexSong;
   const songsPlay = useSelector((state) => state.songsPlay);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(0);
+  const [volume, setVolume] = useState(100);
   let songsList = songsPlay.data;
 
   const playerControls = useSelector((state) => state.playerControls);
+  const currentSong = useSelector((state) => state.currentSong);
+  const prevSongs = useSelector((state) => state.prevSongs);
 
   const { isPlaying, isRandom, favorites, isRepeat } = playerControls;
   const isFavorite = favorites.find(
@@ -30,28 +43,44 @@ const PlayerControls = (props) => {
         isPlaying ? audioRef.current.play() : audioRef.current.pause();
       }
     }
-  }, [isPlaying, isRandom, songsPlay.data, indexCurrentSong, isRepeat]);
+  }, [
+    isPlaying,
+    isRandom,
+    songsPlay.data,
+    indexCurrentSong,
+    isRepeat,
+    currentSong,
+  ]);
 
   const togglePlayMusic = (status) => {
     // isPlaying ? audioRef.current.play() : audioRef.current.pause();
     dispatch(setPlayerControls({ isPlaying: status }));
   };
   const handleNextSong = () => {
-    dispatch(
-      nextSong({
-        indexCurrentSong:
-          indexCurrentSong === songsList.length - 1 ? 0 : indexCurrentSong + 1,
-      })
-    );
+    // dispatch(
+    //   nextSong({
+    //     indexCurrentSong:
+    //       indexCurrentSong === songsList.length - 1 ? 0 : indexCurrentSong + 1,
+    //   })
+    // );
+    // dispatch(setCurrentSong(songsList[1]));
+    dispatch(setCurrentSong(songsList[0]));
+    dispatch(removeNextSong());
+    dispatch(setPrevSongs(songsList[0]));
+
     dispatch(setPlayerControls({ isPlaying: true }));
   };
   const handlePrevSong = () => {
-    dispatch(
-      nextSong({
-        indexCurrentSong:
-          indexCurrentSong < 1 ? songsList.length - 1 : indexCurrentSong - 1,
-      })
-    );
+    // dispatch(
+    //   nextSong({
+    //     indexCurrentSong:
+    //       indexCurrentSong < 1 ? songsList.length - 1 : indexCurrentSong - 1,
+    //   })
+    // );
+
+    dispatch(setCurrentSong(prevSongs.data[prevSongs.data.length - 2]));
+    dispatch(choosePrevSong());
+    dispatch(setNextSongs(prevSongs.data[prevSongs.data.length - 1]));
     dispatch(setPlayerControls({ isPlaying: true }));
   };
   const handleRandomSong = () => {
@@ -88,7 +117,10 @@ const PlayerControls = (props) => {
     audioRef.current.volume = value ? value / 100 : value;
   };
   const handleTimeUpdate = (e) => {
-    setCurrentTime(e.target.currentTime);
+    if (isPlaying) {
+      setCurrentTime(e.target.currentTime);
+      handleProgressSong(e.target.currentTime);
+    }
   };
   const handleLoadedData = () => {
     setDuration(audioRef.current.duration);
@@ -184,7 +216,7 @@ const PlayerControls = (props) => {
         <audio
           controls
           className="d-none"
-          src={songsList[indexCurrentSong]?.linkMp3}
+          src={currentSong.linkMp3}
           ref={audioRef}
           onTimeUpdate={handleTimeUpdate}
           onLoadedData={handleLoadedData}

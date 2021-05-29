@@ -1,13 +1,18 @@
-import React from "react";
-import "./styles.scss";
 import PropTypes from "prop-types";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchSongsPlayOfAlbum } from "../../features/PlayerQueue/songsPlaySlice";
 import { setPlayerControls } from "../../features/Player/components/PlayerControls/playerControlsSlice";
 import { setIndexSong } from "../../features/Player/indexSongSlice";
+import { removePrevSongs } from "../../features/PlayerQueue/prevSongsSlice";
+import {
+  fetchSongsPlayOfAlbum,
+  removeNextSongs,
+} from "../../features/PlayerQueue/songsPlaySlice";
+import "./styles.scss";
 const Card = (props) => {
   const dispatch = useDispatch();
+  const songsPlay = useSelector((state) => state.songsPlay);
   const {
     title = "",
     linkImage = "",
@@ -15,6 +20,12 @@ const Card = (props) => {
     descriptions = [],
     titleSlug = "",
     handleChooseAlbum,
+    album = {
+      name: "",
+      linkImage: "",
+      singers: [],
+      slug: "",
+    },
   } = props;
   const fallBackImage = (e) => {
     if (e) {
@@ -22,44 +33,50 @@ const Card = (props) => {
     }
   };
 
-  const onHandleChooseAlbum = (titleSlug) => {
-    dispatch(fetchSongsPlayOfAlbum({ albumSlug: titleSlug }));
+  const onHandleChooseAlbum = (albumSlug) => {
+    dispatch(fetchSongsPlayOfAlbum({ albumSlug: albumSlug }));
     dispatch(setPlayerControls({ isPlaying: true }));
     dispatch(setIndexSong({ indexCurrentSong: 0 }));
+    dispatch(removeNextSongs([]));
+    dispatch(removePrevSongs());
     if (handleChooseAlbum) {
-      handleChooseAlbum(titleSlug);
+      handleChooseAlbum(albumSlug);
+      // dispatch(updateSongList())
     }
   };
   return (
     <div className="card">
       <div className="card-image">
         <img
-          src={linkImage}
+          src={album.linkImage || linkImage}
           onError={fallBackImage}
           alt=""
           className="card-image__img"
         />
         <div className="card-image__overlay">
-          <p className="icon" onClick={() => onHandleChooseAlbum(titleSlug)}>
+          <p className="icon" onClick={() => onHandleChooseAlbum(album.slug)}>
             <i className="far fa-play-circle"></i>
           </p>
         </div>
       </div>
       <div className="card-content">
         <div className="card-content-title">
-          <Link to={linkTitle} className="card-content__link">
-            {title}
+          <Link
+            to={`/albums/${album.slug}` || linkTitle}
+            className="card-content__link"
+          >
+            {album.name || title}
           </Link>
         </div>
         <div className="card-content-descriptions">
-          {descriptions.map((des, index) => {
+          {album?.singers.map((des, index, singers) => {
             return (
               <Link
                 key={des.id || index}
                 to={`/singers/${des.slug}`}
                 className="card-content__link"
               >
-                {des?.name} ,
+                {des?.name} {index > 0 && index < singers.length && ", "}
               </Link>
             );
           })}

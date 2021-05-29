@@ -11,7 +11,7 @@ export const fetchSongsOfSinger = createAsyncThunk(
   "/songs-of-singer",
   async (payload, thunkAPI) => {
     try {
-      const response = songsAPI.getSongsOfSinger(payload);
+      const response = await songsAPI.getSongsOfSinger(payload);
       return response;
     } catch (error) {
       console.log("Fetch Songs has errors: ", error);

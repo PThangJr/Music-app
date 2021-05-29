@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import playerControlsSlice from "../../features/Player/components/PlayerControls/playerControlsSlice";
+import currentSongSlice from "../../features/Player/currentSongSlice";
 import indexSongSlice from "../../features/Player/indexSongSlice";
 import songsSlice from "../../features/Player/songsSlice";
+import prevSongsSlice from "../../features/PlayerQueue/prevSongsSlice";
 import songsOfAlbumSlice from "../../features/PlayerQueue/songsOfAlbumSlice";
 import songsPlaySlice from "../../features/PlayerQueue/songsPlaySlice";
 import albumsSlice from "../../features/Playlists/albumsSlice";
@@ -20,6 +22,8 @@ const store = configureStore({
     songsOfSinger: songsOfSingerSlice,
     songsOfRanking: songsOfRankingSlice,
     songsPlay: songsPlaySlice,
+    currentSong: currentSongSlice,
+    prevSongs: prevSongsSlice,
 
     playerControls: playerControlsSlice,
     indexSong: indexSongSlice,

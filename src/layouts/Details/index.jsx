@@ -24,14 +24,7 @@ const Details = () => {
               Bài hát gợi ý
             </h3>
             {songs.data.map((song) => {
-              return (
-                <CardSong
-                  name={song.name}
-                  linkImage={song.linkImage}
-                  descriptions={song.singers}
-                  key={song._id}
-                />
-              );
+              return <CardSong fullInfo song={song} />;
             })}
           </div>
         </div>

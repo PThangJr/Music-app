@@ -42,9 +42,9 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="menu-item">
-                  <a href="/" className="menu-item__link">
+                  <Link to="/rank" className="menu-item__link">
                     Bảng xếp hạng
-                  </a>
+                  </Link>
                 </li>
                 <li className="menu-item">
                   <a href="/" className="menu-item__link">

@@ -11,7 +11,7 @@ export const fetchAlbums = createAsyncThunk(
   "/albums",
   async (payload, thunkAPI) => {
     try {
-      const response = albumsAPI.getAlbums(payload);
+      const response = await albumsAPI.getAlbums(payload);
       return response;
     } catch (error) {
       console.log("Fetch Albums has errors: ", error);
