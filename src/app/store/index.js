@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import playerControlsSlice from "../../features/Player/components/PlayerControls/playerControlsSlice";
 import currentSongSlice from "../../features/Player/currentSongSlice";
-import indexSongSlice from "../../features/Player/indexSongSlice";
 import songsSlice from "../../features/Player/songsSlice";
 import prevSongsSlice from "../../features/PlayerQueue/prevSongsSlice";
 import songsOfAlbumSlice from "../../features/PlayerQueue/songsOfAlbumSlice";
@@ -13,10 +12,13 @@ import albumsListSlice from "../../layouts/Details/pages/AlbumsPage/albumsListSl
 import playlistDetailSlice from "../../layouts/Details/pages/AlbumsPage/playlistDetailSlice";
 import anthologyAlbumsSlice from "../../pages/HomePages/anthologyAlbumsSlice";
 import balladUsUkAlbumSlice from "../../pages/HomePages/balladUsUkAlbumSlice";
+import displayFormSlice from "../../pages/HomePages/displayFormSlice";
 import playlistsSlice from "../../pages/HomePages/playlistsSlice";
 
 const store = configureStore({
   reducer: {
+    displayForm: displayFormSlice,
+
     songs: songsSlice,
     songsOfAlbum: songsOfAlbumSlice,
     songsOfSinger: songsOfSingerSlice,
@@ -26,7 +28,6 @@ const store = configureStore({
     prevSongs: prevSongsSlice,
 
     playerControls: playerControlsSlice,
-    indexSong: indexSongSlice,
 
     playlists: playlistsSlice,
     playlistDetail: playlistDetailSlice,

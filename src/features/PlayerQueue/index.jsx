@@ -1,104 +1,99 @@
+import classNames from "classnames";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardSong from "../../components/CardSong";
-import { setPlayerControls } from "../Player/components/PlayerControls/playerControlsSlice";
-import { setIndexSong } from "../Player/indexSongSlice";
-import SongsSuggestion from "./components/SongsSuggestion";
+import { setDisplayPlayerQueue } from "../../pages/HomePages/displayFormSlice";
+import { setCurrentSong } from "../Player/currentSongSlice";
+import Songs from "../Songs";
+import { setPrevSongs } from "./prevSongsSlice";
+import { setSongsPlay } from "./songsPlaySlice";
 import "./styles.scss";
 const PlayerQueue = () => {
   const songsPlay = useSelector((state) => state.songsPlay);
-  const indexSong = useSelector((state) => state.indexSong);
   const currentSong = useSelector((state) => state.currentSong);
   const prevSongs = useSelector((state) => state.prevSongs);
-  const { indexCurrentSong } = indexSong;
+  const displayForm = useSelector((state) => state.displayForm);
+
   const songsList = songsPlay.data;
   const dispatch = useDispatch();
-  useEffect(() => {}, []);
-  const handleCurrentSong = (indexCurrentSong, songId) => {
-    dispatch(
-      setIndexSong({
-        indexCurrentSong,
-        songId,
-      })
-    );
-    dispatch(setPlayerControls({ isPlaying: true }));
-  };
+  useEffect(() => {
+    if (!prevSongs.data.length) {
+      const [firstSong, ...otherSongs] = songsPlay.data;
+      if (firstSong) {
+        dispatch(setPrevSongs(firstSong));
+        dispatch(setCurrentSong(firstSong));
+        dispatch(setSongsPlay(otherSongs));
+      }
+    }
+  }, [dispatch, prevSongs.data, songsPlay.data]);
+  // const handleCurrentSong = (indexCurrentSong, songId) => {
+  //   dispatch(
+  //     setIndexSong({
+  //       indexCurrentSong,
+  //       songId,
+  //     })
+  //   );
+  //   dispatch(setPlayerControls({ isPlaying: true }));
+  // };
   const handleFavoriteSong = (e) => {
     e.stopPropagation();
   };
+  const handleClosePlayerQueue = () => {
+    dispatch(setDisplayPlayerQueue({ playerQueue: false }));
+  };
   return (
-    <div className="player-queue">
+    <div
+      className={classNames("player-queue", {
+        "player-queue--active": displayForm.playerQueue,
+      })}
+    >
       <div className="player-queue-header">
-        <p className="icon icon-close-player-queue">
+        <p
+          className="icon icon-close-player-queue"
+          onClick={handleClosePlayerQueue}
+        >
           <i className="fas fa-times"></i>
         </p>
         <h3 className="player-queue-header__heading">Danh sách phát</h3>
       </div>
-      <h4>Bài hát đang phát</h4>
       <ul className="player-queue-list">
-        {currentSong._id && !prevSongs.data.length && (
-          <li className={"player-queue-item  player-queue-item--active"}>
-            <CardSong
-              linkImage={currentSong.linkImage}
-              name={currentSong.name}
-              descriptions={currentSong.singers}
-            />
-            <button
-              onClick={handleFavoriteSong}
-              className={"btn btn--favorite "}
-            ></button>
-          </li>
+        {currentSong._id && (
+          <h4 className="player-queue-list__heading">Bài hát đang phát</h4>
         )}
-        {prevSongs.data.map((song, index) => {
+        <Songs songs={prevSongs.data} />
+        {/* {prevSongs.data.map((song, index) => {
           return (
-            <React.Fragment key={song._id + "-player-queue"}>
-              <li
-                className={
-                  "player-queue-item " +
-                  (song._id === currentSong._id
-                    ? " player-queue-item--active"
-                    : "")
-                }
-                onClick={() => handleCurrentSong(index, song._id)}
-              >
-                <CardSong
-                  linkImage={song.linkImage}
-                  name={song.name}
-                  descriptions={song.singers}
-                />
-                <button
-                  onClick={handleFavoriteSong}
-                  className={"btn btn--favorite "}
-                ></button>
-              </li>
-            </React.Fragment>
+            <li
+              key={song._id + "-player-queue"}
+              className={
+                "player-queue-item " +
+                (song._id === currentSong._id
+                  ? " player-queue-item--active"
+                  : "")
+              }
+            >
+              <CardSong song={song} />
+            </li>
           );
-        })}
+        })} */}
       </ul>
-      <h3>Bài hát tiếp theo</h3>
       <ul className="player-queue-list">
-        {songsList.map((song, index) => {
+        {songsList.length > 0 && (
+          <h4 className="player-queue-list__heading">Bài hát tiếp theo</h4>
+        )}
+        <Songs songs={songsList} />
+        {/* {songsList.map((song, index) => {
           return (
-            <React.Fragment key={song._id + "-player-queue"}>
-              <li
-                className={"player-queue-item "}
-                onClick={() => handleCurrentSong(index, song._id)}
-              >
-                <CardSong
-                  linkImage={song.linkImage}
-                  name={song.name}
-                  descriptions={song.singers}
-                />
-                <button
-                  onClick={handleFavoriteSong}
-                  className={"btn btn--favorite "}
-                ></button>
-              </li>
-            </React.Fragment>
+            <li
+              key={song._id + "-player-queue"}
+              className={"player-queue-item "}
+            >
+              <CardSong song={song} />
+            </li>
           );
-        })}
+        })} */}
       </ul>
-      {currentSong._id && <SongsSuggestion />}
+      {/* {currentSong._id && <SongsSuggestion />} */}
     </div>
   );
 };

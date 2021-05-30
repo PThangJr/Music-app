@@ -34,7 +34,7 @@ body {
     outline: none;
     color: inherit;
     min-width: 80px;
-    height: 35px;
+    min-height: 30px;
     border-radius: 6px;
     transition: .5s;
 
@@ -42,9 +42,13 @@ body {
         opacity: 0.8;
     }
 
+    &--primary {}
+
     &--favorite {
         font-size: 2.2rem;
         color: $color-white;
+        min-width: 40px;
+        height: auto;
 
         &--active {
             color: #6e0fbd;
@@ -69,8 +73,10 @@ body {
 }
 
 .btn--primary {
-    background: #2ecc71;
     color: $color-white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .d-none {

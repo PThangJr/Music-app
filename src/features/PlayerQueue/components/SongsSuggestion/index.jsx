@@ -18,22 +18,18 @@ const SongsSuggestion = () => {
   };
   return (
     <div className=" songs-suggestion">
-      <h4 className=" songs-suggestion__heading">Bài hát gợi ý</h4>
       <ul className="player-queue-list">
+        <h4 className="player-queue-list__heading">Bài hát gợi ý</h4>
         {songsList
           .filter((songId) => songId._id !== currentSong._id)
           .map((song, index) => {
             return (
-              <React.Fragment key={song._id}>
+              <React.Fragment key={song._id + "songs-suggestion"}>
                 <li
                   className={"player-queue-item "}
-                  onClick={() => handleChooseSong(song)}
+                  // onClick={() => handleChooseSong(song)}
                 >
-                  <CardSong
-                    linkImage={song.linkImage}
-                    name={song.name}
-                    descriptions={song.singers}
-                  />
+                  <CardSong song={song} />
                   <button className={"btn btn--favorite "}></button>
                 </li>
               </React.Fragment>

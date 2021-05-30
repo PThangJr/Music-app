@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlayerControls } from "../../features/Player/components/PlayerControls/playerControlsSlice";
-import { fetchSongsOfAlbum } from "../../features/PlayerQueue/songsOfAlbumSlice";
 import Playlists from "../../features/Playlists";
 import Rank from "../../features/Rank";
+import { fetchSongsOfRanking } from "../../features/Rank/songsOfRankingSlice";
 import Trending from "../../features/Trending";
 import { fetchAnthologyAlbums } from "./anthologyAlbumsSlice";
 import { fetchBalladUsUkAlbums } from "./balladUsUkAlbumSlice";
@@ -11,9 +10,9 @@ import { fetchPlaylists } from "./playlistsSlice";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const albums = useSelector((state) => state.albums);
   const anthologyAlbums = useSelector((state) => state.anthologyAlbums);
   const balladUsUkAlbums = useSelector((state) => state.balladUsUkAlbums);
+  const songsOfRanking = useSelector((state) => state.songsOfRanking);
   const playlists = useSelector((state) => state.playlists);
   useEffect(() => {
     dispatch(fetchPlaylists());
@@ -39,16 +38,22 @@ const HomePage = () => {
         })
       );
     }
+    dispatch(fetchSongsOfRanking({ params: { limit: 10 } }));
   }, [dispatch, playlists.data]);
-  const handleChooseAlbum = (albumSlug) => {
-    console.log(albumSlug);
-    // dispatch(fetchSongsOfAlbum({ albumSlug }));
-    // dispatch(setPlayerControls({ isPlaying: true }));
-  };
   return (
     <div>
       <Trending />
       <Playlists
+        playlist={playlists.data[0]}
+        isLoading={anthologyAlbums.loading}
+        albums={anthologyAlbums.data}
+      />
+      <Playlists
+        playlist={playlists.data[1]}
+        isLoading={balladUsUkAlbums.isLoading}
+        albums={balladUsUkAlbums.data}
+      />
+      {/* <Playlists
         albums={anthologyAlbums.data}
         type={playlists.data[0]?.slug}
         name={playlists.data[0]?.name}
@@ -59,45 +64,14 @@ const HomePage = () => {
         name={playlists.data[1]?.name}
         type={playlists.data[1]?.slug}
         linkName={`/playlists/${playlists.data[1]?.slug}`}
-      />
-      {/* <Playlists type={playlists.data[1]?.slug} /> */}
-      {/* {playlists.data.map((playlist) => {
-        const name = playlist.name;
-        const linkName = `/playlists/${playlist.slug}`;
-        const playlistSlug = playlist.slug;
-
-        return (
-          <Playlists key={playlist._id} name={name} linkName={linkName}>
-            {albums.data
-              .filter((album) => album.playlists[0].slug === playlistSlug)
-              .map((album) => {
-                console.log(album);
-                const { linkImage } = album;
-                const title = album.name;
-                const linkTitle = `/albums/${album.slug}`;
-
-                return (
-                  <div
-                    key={album._id}
-                    className="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-6"
-                  >
-                    <Card
-                      title={title}
-                      linkImage={linkImage}
-                      linkTitle={linkTitle}
-                      slugTitle={album.slug}
-                      handleChooseAlbum={handleChooseAlbum}
-                    />
-                  </div>
-                );
-              })}
-          </Playlists>
-        );
-      })} */}
+      /> */}
 
       <div className="row">
         <div className="col-xl-9 col-lg-9 col-md-12">
-          <Rank />
+          <Rank
+            songs={songsOfRanking.data}
+            isLoading={songsOfRanking.isLoading}
+          />
         </div>
         <div className="col-xl-3 col-lg-3 col-md-12"></div>
       </div>

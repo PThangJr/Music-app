@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import Card from "../../components/Card";
-import CardSong from "../../components/CardSong";
-import { fetchAlbums, fetchAlbumsOfSinger } from "../Playlists/albumsSlice";
+import { fetchAlbumsOfSinger } from "../Playlists/albumsSlice";
+import Rank from "../Rank";
 import { fetchSongsOfSinger } from "./songsOfSingerSlice";
 
 const Singers = (props) => {
@@ -22,9 +22,10 @@ const Singers = (props) => {
       <div className="row">
         <div className="col-xl-9 col-lg-9 col-md-12 col-12">
           <h3 className="albums__heading heading-15">Bài hát</h3>
-          {songsOfSinger.data.map((song) => {
+          <Rank songs={songsOfSinger.data} />
+          {/* {songsOfSinger.data.map((song) => {
             return <CardSong key={song._id} fullInfo song={song} />;
-          })}
+          })} */}
         </div>
         <div className="col-xl-3 col-lg-3 col-md-12 col-12">
           <h3 className="heading-15">Albums</h3>

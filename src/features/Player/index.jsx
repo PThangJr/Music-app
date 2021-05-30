@@ -1,35 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import PlayerControls from "./components/PlayerControls";
-import { setIndexSong } from "./indexSongSlice";
 import { fetchSongs } from "./songsSlice";
 import "./styles.scss";
 const Player = () => {
   const dispatch = useDispatch();
-  const indexSong = useSelector((state) => state.indexSong);
-  const { indexCurrentSong } = indexSong;
-  const playerControls = useSelector((state) => state.playerControls);
-  const songs = useSelector((state) => state.songs);
-  const songsPlay = useSelector((state) => state.songsPlay);
   const currentSong = useSelector((state) => state.currentSong);
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     dispatch(fetchSongs());
   }, [dispatch]);
-  useEffect(() => {
-    if (songsPlay.data.length) {
-      dispatch(
-        setIndexSong({
-          ...JSON.parse(localStorage.getItem("currentSong")),
-        })
-      );
-    }
-  }, [dispatch, songs.data, songsPlay.data.length]);
-  const handleProgressSong = (value) => {
-    setProgress(value);
-  };
+
   return (
     <div className="player">
       <div className="container-md player">
@@ -55,11 +37,7 @@ const Player = () => {
             </Link>
           </div>
         </div>
-        <PlayerControls
-          songs={songsPlay.data}
-          linkMp3={songsPlay.data[indexCurrentSong]?.linkMp3}
-          handleProgressSong={handleProgressSong}
-        />
+        <PlayerControls />
       </div>
     </div>
   );

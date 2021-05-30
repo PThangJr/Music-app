@@ -8,6 +8,7 @@ const prevSongsSlice = createSlice({
   reducers: {
     setPrevSongs(state, action) {
       const song = action.payload;
+
       let newState = { ...state };
       if (!newState.data.find((item) => item._id === song._id)) {
         newState = { ...newState, data: [...newState.data, song] };

@@ -3,7 +3,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setPlayerControls } from "../../features/Player/components/PlayerControls/playerControlsSlice";
-import { setIndexSong } from "../../features/Player/indexSongSlice";
 import { removePrevSongs } from "../../features/PlayerQueue/prevSongsSlice";
 import {
   fetchSongsPlayOfAlbum,
@@ -36,12 +35,10 @@ const Card = (props) => {
   const onHandleChooseAlbum = (albumSlug) => {
     dispatch(fetchSongsPlayOfAlbum({ albumSlug: albumSlug }));
     dispatch(setPlayerControls({ isPlaying: true }));
-    dispatch(setIndexSong({ indexCurrentSong: 0 }));
     dispatch(removeNextSongs([]));
     dispatch(removePrevSongs());
     if (handleChooseAlbum) {
       handleChooseAlbum(albumSlug);
-      // dispatch(updateSongList())
     }
   };
   return (

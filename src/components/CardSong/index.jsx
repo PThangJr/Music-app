@@ -1,16 +1,16 @@
-import React from "react";
+import classNames from "classnames";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import "./styles.scss";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   setFavoriteSongs,
   setPlayerControls,
 } from "../../features/Player/components/PlayerControls/playerControlsSlice";
-import { updateSongList } from "../../features/PlayerQueue/songsPlaySlice";
-import { setIndexSong } from "../../features/Player/indexSongSlice";
 import { setCurrentSong } from "../../features/Player/currentSongSlice";
 import { setPrevSongs } from "../../features/PlayerQueue/prevSongsSlice";
+import { updateSongList } from "../../features/PlayerQueue/songsPlaySlice";
+import "./styles.scss";
 const CardSong = (props) => {
   const dispatch = useDispatch();
   let {
@@ -34,13 +34,39 @@ const CardSong = (props) => {
     }
   };
   let singers = song.singers.length ? song.singers : descriptions;
-  const { favorites } = useSelector((state) => state.playerControls);
+  const { favorites, isPlaying } = useSelector((state) => state.playerControls);
+  const songsPlay = useSelector((state) => state.songsPlay);
+  const prevSongs = useSelector((state) => state.prevSongs);
+  const currentSong = useSelector((state) => state.currentSong);
+  const playerControls = useSelector((state) => state.playerControls);
+
   const isFavorite = favorites.find((fav) => fav?._id === song?._id);
+  const isCurrentSong = currentSong._id === song._id;
   const handleChooseSong = () => {
-    // console.log("click");
-    dispatch(setPlayerControls({ isPlaying: true }));
-    dispatch(setCurrentSong(song));
-    dispatch(setPrevSongs(song));
+    if (currentSong._id === song._id) {
+      dispatch(setPlayerControls({ isPlaying: !playerControls.isPlaying }));
+    } else {
+      dispatch(setPlayerControls({ isPlaying: true }));
+      dispatch(setPrevSongs(song));
+      dispatch(setCurrentSong(song));
+      if (prevSongs.data.find((prevSong) => prevSong._id === song._id)) {
+        console.log("prevSong match");
+
+        dispatch(
+          updateSongList([
+            ...prevSongs.data.filter((songPlay) => songPlay._id !== song._id),
+            ...songsPlay.data,
+          ])
+        );
+      }
+      if (songsPlay.data.find((songPlay) => songPlay._id === song._id)) {
+        console.log("songPlay match");
+
+        dispatch(
+          updateSongList(songsPlay.data.filter((s) => s._id !== song._id))
+        );
+      }
+    }
     // dispatch(updateSongList([song]));
     // dispatch(setIndexSong({ indexCurrentSong: 0 }));
   };
@@ -50,21 +76,37 @@ const CardSong = (props) => {
   };
   return (
     <div
-      className={"card-song " + ((fullInfo && "card-song--full-info") || "")}
+      className={classNames(
+        "card-song ",
+        { "card-song--full-info": fullInfo },
+        { "card-song--active": isCurrentSong }
+      )}
     >
       <div className="card-song-content" onClick={handleChooseSong}>
-        <img
-          src={song.linkImage || linkImage}
-          onError={fallbackImage}
-          alt=""
-          className="card-song-content__img"
-        ></img>
+        <div className="card-song-content-image">
+          <img
+            src={song.linkImage || linkImage}
+            onError={fallbackImage}
+            alt=""
+            className="card-song-content-image__img"
+          ></img>
+          {!isCurrentSong && (
+            <p className="icon">
+              <i className="far fa-play-circle"></i>
+            </p>
+          )}
+          {isPlaying && isCurrentSong && (
+            <p className="icon icon--playing">
+              <i className=""></i>
+            </p>
+          )}
+        </div>
         <div className="card-song-info">
           <p className="card-song-info__name">{song.name || name}</p>
           {singers.map((singer, index) => {
             return (
               <Link
-                key={singer._id}
+                key={singer._id + "-singers"}
                 to={`/singers/${singer.slug}`}
                 className="card-song-info__description"
               >
@@ -85,16 +127,14 @@ const CardSong = (props) => {
         </div>
       )}
 
-      {fullInfo && (
-        <button
-          className={
-            "btn btn--favorite  btn--black " + (isFavorite ? "btn--purple" : "")
-          }
-          onClick={handleFavoriteSong}
-        >
-          <i className="fas fa-heart"></i>
-        </button>
-      )}
+      <button
+        className={
+          "btn  btn--black btn--favorite " + (isFavorite ? "btn--purple" : "")
+        }
+        onClick={handleFavoriteSong}
+      >
+        <i className="fas fa-heart"></i>
+      </button>
     </div>
   );
 };

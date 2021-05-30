@@ -13,7 +13,14 @@
     color: var(--text-color-reverse);
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 92vh;
+    height: 100vh;
+    transition: all .5s;
+    transform: translateX(100%);
+    padding-bottom: 80px;
+
+    &--active {
+        transform: translateX(0);
+    }
 
     &-header {
         position: relative;
@@ -44,12 +51,17 @@
     }
 
     &-list {
-        margin: 0 10px;
+        margin: 10px;
+
+        &__heading {
+            font-size: $font-size-lg;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
     }
 
     &-item {
         cursor: pointer;
-        padding: 1px 10px;
         border-radius: 8px;
         position: relative;
 

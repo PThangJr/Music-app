@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import songsAPI from "../../api/songsAPI";
 import { setCurrentSong } from "../Player/currentSongSlice";
+import { setPrevSongs } from "./prevSongsSlice";
 
 const initialState = {
   data: [],
@@ -13,11 +14,9 @@ export const fetchSongsPlayOfAlbum = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await songsAPI.getSongsOfAlbum(payload);
-      if (response) {
-        thunkAPI.dispatch(setCurrentSong(response.songs[0]));
-      }
 
-      return response;
+      // return { ...response, songs: response.songs.slice(1) };
+      return response.songs;
     } catch (error) {
       console.log("Fetch Songs has errors: ", error);
     }
@@ -39,11 +38,14 @@ const songsPlaySlice = createSlice({
         state.data = [...currentSong, ...randomSongs];
       }
     },
+    setSongsPlay(state, action) {
+      state.data = action.payload;
+    },
     updateSongList(state, action) {
       state.data = action.payload;
     },
     setNextSongs(state, action) {
-      state.data.push(action.payload);
+      state.data.unshift(action.payload);
     },
     removeNextSong(state, action) {
       state.data.shift();
@@ -56,13 +58,11 @@ const songsPlaySlice = createSlice({
   extraReducers: {
     [fetchSongsPlayOfAlbum.pending](state, action) {
       state.isLoading = true;
-      state.data = [];
       state.errors = null;
       state.message = "";
     },
     [fetchSongsPlayOfAlbum.fulfilled](state, action) {
-      state.data = action.payload.songs;
-
+      state.data = action.payload;
       state.isLoading = false;
     },
     [fetchSongsPlayOfAlbum.rejected](state, action) {
@@ -78,4 +78,5 @@ export const {
   setNextSongs,
   removeNextSong,
   removeNextSongs,
+  setSongsPlay,
 } = songsPlaySlice.actions;

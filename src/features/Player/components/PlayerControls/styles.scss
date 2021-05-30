@@ -41,6 +41,10 @@
             font-size: 2.2rem;
             color: $color-white;
 
+            &:hover {
+                color: rgb(255, 23, 255);
+            }
+
             &--active {
                 color: #6e0fbd;
             }
