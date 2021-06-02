@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import formatDuration from "format-duration";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
@@ -27,7 +28,6 @@ const PlayerControls = (props) => {
   const playerControls = useSelector((state) => state.playerControls);
   const currentSong = useSelector((state) => state.currentSong);
   const prevSongs = useSelector((state) => state.prevSongs);
-  const displayForm = useSelector((state) => state.displayForm);
 
   const { isPlaying, isRandom, favorites, isRepeat } = playerControls;
   const isFavorite = favorites.find((fav) => fav?._id === currentSong?._id);
@@ -42,11 +42,7 @@ const PlayerControls = (props) => {
     }
   }, [isPlaying, isRandom, songsPlay.data, isRepeat, currentSong]);
   const handleDisplayPlayerQueue = () => {
-    dispatch(
-      setDisplayPlayerQueue({
-        playerQueue: !displayForm.playerQueue,
-      })
-    );
+    dispatch(setDisplayPlayerQueue());
   };
   const togglePlayMusic = (status) => {
     // isPlaying ? audioRef.current.play() : audioRef.current.pause();
@@ -118,10 +114,14 @@ const PlayerControls = (props) => {
       <div className="player-controls">
         <div className="player-buttons">
           <button
-            className={
-              "btn btn--primary player-buttons__favorite " +
-              (isFavorite ? "btn--active" : "")
-            }
+            // className={
+            //   "btn btn--primary player-buttons__favorite " +
+            //   (isFavorite ? "btn--active" : "")
+            // }
+            className={classNames(
+              "btn btn--primary player-buttons__favorite hide-on-mobile",
+              { "btn--active": isFavorite }
+            )}
             onClick={() => handleFavoriteSong()}
           >
             <i className="fas fa-heart"></i>
@@ -129,10 +129,9 @@ const PlayerControls = (props) => {
 
           <button
             onClick={handleRandomSong}
-            className={
-              "btn btn--primary player-buttons__random " +
-              (isRandom ? "btn--active" : "")
-            }
+            className={classNames("btn btn--primary player-buttons__random ", {
+              "btn--active": isRandom,
+            })}
           >
             <i className="fas fa-random"></i>
           </button>
@@ -175,12 +174,21 @@ const PlayerControls = (props) => {
           </button>
           <a
             href={currentSong?.linkMp3}
-            className="btn btn--primary player-buttons__download"
+            className="btn btn--primary player-buttons__download hide-on-mobile"
           >
             <i className="fas fa-download"></i>
           </a>
         </div>
         <div className="player-progress">
+          <button
+            className={
+              "btn btn--primary player-buttons__favorite btn--controls show-on-mobile" +
+              (isFavorite ? "btn--active" : "")
+            }
+            onClick={() => handleFavoriteSong()}
+          >
+            <i className="fas fa-heart"></i>
+          </button>
           <span className="player-progress__start">
             {formatDuration(currentTime * 1000)}
           </span>
@@ -196,6 +204,12 @@ const PlayerControls = (props) => {
           <span className="player-progress__end">
             {formatDuration(duration * 1000)}
           </span>
+          <a
+            href={currentSong?.linkMp3}
+            className="btn btn--primary btn--controls player-buttons__download show-on-mobile"
+          >
+            <i className="fas fa-download"></i>
+          </a>
         </div>
 
         <audio
@@ -225,6 +239,7 @@ const PlayerControls = (props) => {
               <i className="fas fa-volume-mute"></i>
             </p>
           )}
+
           <input
             type="range"
             min={0}

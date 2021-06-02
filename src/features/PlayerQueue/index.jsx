@@ -1,10 +1,9 @@
 import classNames from "classnames";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CardSong from "../../components/CardSong";
+import SongsList from "../../components/SongsList";
 import { setDisplayPlayerQueue } from "../../pages/HomePages/displayFormSlice";
 import { setCurrentSong } from "../Player/currentSongSlice";
-import Songs from "../Songs";
 import { setPrevSongs } from "./prevSongsSlice";
 import { setSongsPlay } from "./songsPlaySlice";
 import "./styles.scss";
@@ -60,7 +59,7 @@ const PlayerQueue = () => {
         {currentSong._id && (
           <h4 className="player-queue-list__heading">Bài hát đang phát</h4>
         )}
-        <Songs songs={prevSongs.data} />
+        <SongsList songs={prevSongs.data} />
         {/* {prevSongs.data.map((song, index) => {
           return (
             <li
@@ -81,7 +80,7 @@ const PlayerQueue = () => {
         {songsList.length > 0 && (
           <h4 className="player-queue-list__heading">Bài hát tiếp theo</h4>
         )}
-        <Songs songs={songsList} />
+        <SongsList songs={songsList} />
         {/* {songsList.map((song, index) => {
           return (
             <li

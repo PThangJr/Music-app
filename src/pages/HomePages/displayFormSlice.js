@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   playerQueue: false,
@@ -8,7 +8,8 @@ const displayFormSlice = createSlice({
   initialState,
   reducers: {
     setDisplayPlayerQueue(state, action) {
-      state.playerQueue = action.payload.playerQueue;
+      const newState = current(state);
+      state.playerQueue = !newState.playerQueue;
     },
   },
 });

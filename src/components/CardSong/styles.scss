@@ -1,4 +1,5 @@
-@import '../../scss/variables';
+@import "../../scss/variables";
+@import "../../scss/responsive";
 
 .card-song {
     display: flex;
@@ -43,6 +44,10 @@
         display: flex;
         cursor: pointer;
 
+        @include mobile {
+            // width: 245px;
+        }
+
         &:hover {
             .card-song-content-image {
                 p.icon {
@@ -76,9 +81,8 @@
                 transform: translate(-50%, -50%);
                 align-items: center;
                 justify-content: center;
-                background-color: rgba(61, 61, 61, .5);
+                background-color: rgba(61, 61, 61, 0.5);
                 color: var(--text-color-reverse);
-
             }
 
             p.icon--playing {
@@ -88,27 +92,30 @@
                     $size: 20px;
                     width: $size;
                     height: $size;
-                    background: url('https://zmp3-static.zadn.vn/skins/zmp3-v6.1/images/icons/icon-playing.gif') center;
+                    background: url("https://zmp3-static.zadn.vn/skins/zmp3-v6.1/images/icons/icon-playing.gif") center;
                     background-size: cover;
                 }
             }
-
         }
-
-
     }
 
     &-info {
-
         &__name {
             // color: var(--text-color-reverse);
             font-size: $font-size-sm;
-            white-space: nowrap;
             font-weight: 600;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            display: -webkit-box;
         }
 
         &__description {
             font-size: $font-size-xs;
+            // -webkit-line-clamp: 1;
+            // -webkit-box-orient: vertical;
+            // overflow: hidden;
+            // display: -webkit-box;
         }
     }
 
@@ -116,12 +123,14 @@
         display: flex;
         align-items: center;
 
+        @include mobile {
+            display: none;
+        }
+
         p.icon {
             margin-right: 8px;
         }
     }
-
-
 }
 
 .card-song--full-info {
@@ -130,7 +139,6 @@
 
         .card-song {
             &-info {
-
                 color: var(--text-color-reverse);
             }
 
@@ -144,7 +152,6 @@
         }
     }
 
-
     .card-song-content {
         align-items: space-between;
         width: 300px;
@@ -157,7 +164,6 @@
     }
 
     .card-song-info {
-
         &__name {
             font-size: $font-size-md;
         }

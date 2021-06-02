@@ -1,0 +1,4 @@
+1. Fix Card in Trending
+2. Responsive on Mobile
+    -) Responsive Player
+3. Scroll to top

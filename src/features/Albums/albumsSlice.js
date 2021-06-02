@@ -15,6 +15,7 @@ export const fetchAlbums = createAsyncThunk(
       return response;
     } catch (error) {
       console.log("Fetch Albums has errors: ", error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -25,17 +26,17 @@ export const fetchAlbumsOfSinger = createAsyncThunk(
       const response = albumsAPI.getAlbumsOfSinger(payload);
       return response;
     } catch (error) {
-      console.log("Fetch Albums has errors: ", error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
+
 const albumsSlice = createSlice({
   name: "albums",
   initialState,
   extraReducers: {
     [fetchAlbums.pending](state, action) {
       state.isLoading = true;
-      state.data = [];
       state.errors = null;
       state.message = "";
     },
@@ -48,7 +49,6 @@ const albumsSlice = createSlice({
     },
     [fetchAlbumsOfSinger.pending](state, action) {
       state.isLoading = true;
-      state.data = [];
       state.errors = null;
       state.message = "";
     },

@@ -10,6 +10,7 @@ import {
 import { setCurrentSong } from "../../features/Player/currentSongSlice";
 import { setPrevSongs } from "../../features/PlayerQueue/prevSongsSlice";
 import { updateSongList } from "../../features/PlayerQueue/songsPlaySlice";
+import CardSongActions from "./components/CardSongActions";
 import "./styles.scss";
 const CardSong = (props) => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const CardSong = (props) => {
 
   const isFavorite = favorites.find((fav) => fav?._id === song?._id);
   const isCurrentSong = currentSong._id === song._id;
+  const { isAdmin } = useSelector((state) => state.auths);
   const handleChooseSong = () => {
     if (currentSong._id === song._id) {
       dispatch(setPlayerControls({ isPlaying: !playerControls.isPlaying }));
@@ -135,6 +137,7 @@ const CardSong = (props) => {
       >
         <i className="fas fa-heart"></i>
       </button>
+      {isAdmin && fullInfo && <CardSongActions song={song} />}
     </div>
   );
 };

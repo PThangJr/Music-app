@@ -1,32 +1,37 @@
 import { configureStore } from "@reduxjs/toolkit";
+import albumsSlice from "../../features/Albums/albumsSlice";
+import authorsSlice from "../../features/Authors/authorsSlice";
+import authsSlice from "../../features/Auths/authsSlice";
+import categoriesSlice from "../../features/Categories/categoriesSlice";
 import playerControlsSlice from "../../features/Player/components/PlayerControls/playerControlsSlice";
 import currentSongSlice from "../../features/Player/currentSongSlice";
-import songsSlice from "../../features/Player/songsSlice";
 import prevSongsSlice from "../../features/PlayerQueue/prevSongsSlice";
-import songsOfAlbumSlice from "../../features/PlayerQueue/songsOfAlbumSlice";
 import songsPlaySlice from "../../features/PlayerQueue/songsPlaySlice";
-import albumsSlice from "../../features/Playlists/albumsSlice";
+import playlistDetailSlice from "../../features/Playlists/playlistDetailSlice";
+import playlistsSlice from "../../features/Playlists/playlistsSlice";
 import songsOfRankingSlice from "../../features/Rank/songsOfRankingSlice";
-import songsOfSingerSlice from "../../features/Singers/songsOfSingerSlice";
+import singersSlice from "../../features/Singers/singersSlice";
+import songsSlice from "../../features/Songs/songsSlice";
 import albumsListSlice from "../../layouts/Details/pages/AlbumsPage/albumsListSlice";
-import playlistDetailSlice from "../../layouts/Details/pages/AlbumsPage/playlistDetailSlice";
 import anthologyAlbumsSlice from "../../pages/HomePages/anthologyAlbumsSlice";
 import balladUsUkAlbumSlice from "../../pages/HomePages/balladUsUkAlbumSlice";
 import displayFormSlice from "../../pages/HomePages/displayFormSlice";
-import playlistsSlice from "../../pages/HomePages/playlistsSlice";
 
 const store = configureStore({
   reducer: {
     displayForm: displayFormSlice,
 
     songs: songsSlice,
-    songsOfAlbum: songsOfAlbumSlice,
-    songsOfSinger: songsOfSingerSlice,
     songsOfRanking: songsOfRankingSlice,
     songsPlay: songsPlaySlice,
     currentSong: currentSongSlice,
     prevSongs: prevSongsSlice,
 
+    categories: categoriesSlice,
+
+    singers: singersSlice,
+
+    authors: authorsSlice,
     playerControls: playerControlsSlice,
 
     playlists: playlistsSlice,
@@ -36,6 +41,8 @@ const store = configureStore({
     albumsList: albumsListSlice,
     anthologyAlbums: anthologyAlbumsSlice,
     balladUsUkAlbums: balladUsUkAlbumSlice,
+
+    auths: authsSlice,
   },
 });
 export default store;

@@ -1,0 +1,10 @@
+.card-song-actions {
+    &-btn {
+        display: flex;
+        flex-direction: column;
+    }
+
+    button {
+        margin: 2px 0;
+    }
+}

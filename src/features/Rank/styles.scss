@@ -1,8 +1,9 @@
 @import '../../scss/variables';
+@import '../../scss/responsive';
 
 .rank {
     &__heading {
-        font-size: $font-size-hg;
+        font-size: var(--font-size-hg);
         margin-bottom: 20px;
     }
 
@@ -24,17 +25,18 @@
     }
 
     &-number {
-        font-size: $font-size-hg;
+        font-size: var(--font-size-hg);
         font-weight: bold;
         // color: red;
-        width: 60px;
+        min-width: 30px;
+
         text-align: center;
     }
 
     &-number {
         &--1 {
             color: #f02f19;
-            font-size: 3.5rem;
+            font-size: var(--font-size-super);
 
         }
 

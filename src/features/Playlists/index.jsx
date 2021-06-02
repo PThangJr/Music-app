@@ -1,54 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Card from "../../components/Card";
-import "./styles.scss";
-const Playlists = (props) => {
-  let {
-    name = "",
-    albums = [],
-    playlist = {},
-    col = "",
-    isLoading = false,
-  } = props;
-  return (
-    <div className="playlists">
-      <h3 className="playlists-header heading-15">
-        <Link
-          to={`/playlists/${playlist?.slug}`}
-          className="playlists-header-link"
-        >
-          {playlist?.name || name}
-          <p className="icon">
-            <i className="fas fa-chevron-right"></i>
-          </p>
-        </Link>
-      </h3>
-      <div className="row">
-        {!isLoading
-          ? albums.map((album) => {
-              return (
-                <div
-                  key={album._id + "-playlists"}
-                  className={col || "col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6"}
-                >
-                  <Card album={album} />
-                </div>
-              );
-            })
-          : [1, 2, 3, 4, 5, 6].map((item, index) => {
-              return (
-                <div
-                  key={index + "-playlists"}
-                  className={col || "col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6"}
-                >
-                  <Card />
-                </div>
-              );
-            })}
+import { Route, Switch, useRouteMatch } from "react-router";
+import AllPlaylists from "./pages/AllPlaylists";
+import PlaylistDetail from "./pages/PlaylistDetail";
 
-        {/* {props.children} */}
-      </div>
-    </div>
+const Playlists = () => {
+  const match = useRouteMatch();
+  console.log(match);
+
+  return (
+    <Switch>
+      <Route path={`${match.path}`} exact component={AllPlaylists} />
+      <Route path={`${match.path}/:playlistSlug`} component={PlaylistDetail} />
+    </Switch>
   );
 };
 

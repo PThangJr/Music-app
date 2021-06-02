@@ -11,6 +11,10 @@ axiosClient.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     // console.log(config);
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
     return config;
   },
   function (error) {
@@ -30,7 +34,11 @@ axiosClient.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    // console.log(error.response);
+    console.log(error.response);
+    if (error.response.status === 401) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("accessToken");
+    }
     return Promise.reject(error.response);
   }
 );

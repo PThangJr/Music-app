@@ -1,14 +1,27 @@
-@import '../../scss/variables';
+@import "../../scss/variables";
+@import "../../scss/responsive";
 
 .header {
-    box-shadow: 2px 10px 10px rgba(0, 0, 0, .2), inset 0 0 5px rgba(0, 0, 0, .2);
+    box-shadow: 2px 10px 10px rgba(0, 0, 0, 0.2), inset 0 0 5px rgba(0, 0, 0, 0.2);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: $zi-header;
     background: $main-bg-color;
-
+    //
+    .button-sidebar {
+        display: none;
+        @include mobile {
+            display: flex;
+        }
+        @include tablet {
+            display: flex;
+        }
+        .btn {
+            font-size: var(--font-size-hg);
+        }
+    }
     .row {
         display: flex;
         flex-direction: column;
@@ -21,22 +34,52 @@
         align-items: center;
         border-bottom: 1px solid rgb(175, 175, 175);
         background: var(--header-bg-color);
-
     }
 
     &-logo {
         // margin-right: 30px;
+        @include mobile {
+            display: none;
+        }
 
         &__image {
             width: 100px;
-            height: $header-top-height;
             object-fit: fill;
+        }
+    }
+
+    .song-info {
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background: #f12711;
+        background: #8a2387;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #f27121, #e94057, #8a2387);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #f27121, #e94057, #8a2387);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        color: white;
+        align-items: center;
+        justify-content: center;
+
+        &__name {
+            font-size: var(--font-size-lg);
+        }
+
+        &__singers {
+            font-size: var(--font-size-sm);
         }
     }
 
     .menu-list {
         display: flex;
         align-items: center;
+
+        @include mobile {
+            display: none;
+        }
     }
 
     .menu-item {
@@ -66,6 +109,10 @@
         border-radius: 4px;
         background-color: $color-white;
 
+        @include mobile {
+            flex: 1;
+        }
+
         &__input {
             height: 100%;
             padding: 8px;
@@ -77,4 +124,23 @@
         }
     }
 
+    .auth {
+        color: var(--text-color-reverse);
+
+        span {
+            margin: 0 10px;
+        }
+
+        &__link {
+            &:hover {
+                color: rgb(236, 14, 236);
+            }
+        }
+    }
+
+    .list-song {
+        .btn {
+            font-size: var(--font-size-hg);
+        }
+    }
 }

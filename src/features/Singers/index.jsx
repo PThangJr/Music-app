@@ -1,56 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import Card from "../../components/Card";
-import { fetchAlbumsOfSinger } from "../Playlists/albumsSlice";
-import Rank from "../Rank";
-import { fetchSongsOfSinger } from "./songsOfSingerSlice";
+import React from "react";
+import { Route, Switch, useRouteMatch } from "react-router";
+import AllSingers from "./pages/AllSingers";
+import SingerDetail from "./pages/SingerDetail";
 
-const Singers = (props) => {
-  const dispatch = useDispatch();
-  const { singerSlug } = useParams();
-  useEffect(() => {
-    dispatch(fetchSongsOfSinger({ singerSlug }));
-    dispatch(fetchAlbumsOfSinger({ singerSlug }));
-  }, [dispatch, singerSlug]);
-  const songsOfSinger = useSelector((state) => state.songsOfSinger);
-  const albums = useSelector((state) => state.albums);
-  const albumsData = albums.data;
-
+const Singers = () => {
+  const match = useRouteMatch();
   return (
-    <div className="albums">
-      <div className="row">
-        <div className="col-xl-9 col-lg-9 col-md-12 col-12">
-          <h3 className="albums__heading heading-15">Bài hát</h3>
-          <Rank songs={songsOfSinger.data} />
-          {/* {songsOfSinger.data.map((song) => {
-            return <CardSong key={song._id} fullInfo song={song} />;
-          })} */}
-        </div>
-        <div className="col-xl-3 col-lg-3 col-md-12 col-12">
-          <h3 className="heading-15">Albums</h3>
-          <div className="row">
-            {albumsData.map((album) => {
-              return (
-                <div
-                  key={album._id}
-                  className="col-xl-6 col-lg-6 col-md-3 col-sm-4 col-6"
-                >
-                  <Card
-                    linkImage={album.linkImage}
-                    title={album.name}
-                    descriptions={album.singers}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </div>
+    <Switch>
+      <Route path={`${match.path}`} exact component={AllSingers} />
+      <Route path={`${match.path}/:singerSlug`} component={SingerDetail} />
+    </Switch>
   );
 };
-
-Singers.propTypes = {};
 
 export default Singers;

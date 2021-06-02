@@ -5,7 +5,7 @@
 
     &-header {
         margin: 10px 0;
-        font-size: $font-size-xl;
+        font-size: var(--font-size-xl);
         vertical-align: middle;
 
         &-link {
@@ -17,7 +17,7 @@
         p.icon {
             display: inline-block;
             margin-left: 8px;
-            font-size: 1.8rem;
+            font-size: var(--font-size-lg);
         }
     }
 }

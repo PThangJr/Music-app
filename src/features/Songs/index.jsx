@@ -1,31 +1,16 @@
 import React from "react";
-import CardSong from "../../components/CardSong";
+import { Route, Switch, useRouteMatch } from "react-router";
+import AllSongs from "./pages/AllSongs";
+import SongDetail from "./pages/SongDetail";
 
-const Songs = (props) => {
-  const { songs = [], fullInfo = false, isLoading = false } = props;
-
-  const renderSongsList = () => {
-    if (isLoading) {
-      const arr = [];
-      for (let i = 0; i < 19; i++) {
-        arr.push(i);
-      }
-      return arr.map((item, index) => <CardSong key={index + "songs"} />);
-    } else {
-      return songs.map((song) => {
-        return (
-          <CardSong
-            fullInfo={fullInfo}
-            key={song?._id + Date.now()}
-            song={song}
-          />
-        );
-      });
-    }
-  };
-  return <>{renderSongsList()}</>;
+const Songs = () => {
+  const match = useRouteMatch();
+  return (
+    <Switch>
+      <Route path={`${match.path}`} exact component={AllSongs} />
+      <Route path={`${match.path}/:songSlug`} component={SongDetail} />
+    </Switch>
+  );
 };
-
-Songs.propTypes = {};
 
 export default Songs;

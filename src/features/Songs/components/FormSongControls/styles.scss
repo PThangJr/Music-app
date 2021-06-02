@@ -1,0 +1,16 @@
+.form-controls-songs {
+    .checkbox-box {
+        margin-bottom: 20px;
+        border: 1px solid rgb(187, 187, 187);
+        border-radius: 8px;
+
+        &__heading {
+            font-size: var(--font-size-hg);
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+}

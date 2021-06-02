@@ -1,10 +1,18 @@
-@import './variables';
+@import "./variables";
 
 :root {
     --main-bg-color: #f5f5f5;
     --text-color: rgb(63, 59, 59);
     --text-color-reverse: #fff;
     --header-bg-color: #02010f;
+
+    --font-size-xs: 1.2rem;
+    --font-size-sm: 1.4rem;
+    --font-size-md: 1.6rem;
+    --font-size-lg: 1.8rem;
+    --font-size-xl: 2rem;
+    --font-size-hg: 2.5rem;
+    --font-size-super: 3.2rem;
 }
 
 a {
@@ -12,6 +20,11 @@ a {
     color: inherit;
     display: inline-block;
     font-size: inherit;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
 }
 
 ul li {
@@ -36,13 +49,24 @@ body {
     min-width: 80px;
     min-height: 30px;
     border-radius: 6px;
-    transition: .5s;
+    transition: 0.5s;
+    font-weight: bold;
+    padding: 0 5px;
+
+    &--auto {
+        min-width: auto;
+    }
+
+    i {
+        margin: 0 5px;
+    }
 
     &:hover {
         opacity: 0.8;
     }
 
-    &--primary {}
+    &--primary {
+    }
 
     &--favorite {
         font-size: 2.2rem;
@@ -61,6 +85,26 @@ body {
 
     &--black {
         color: #3f3b3b;
+    }
+
+    &--green {
+        background-color: rgb(15, 199, 15);
+        color: white;
+    }
+
+    &--blue {
+        background-color: rgb(27, 87, 252);
+        color: white;
+    }
+
+    &--danger {
+        background-color: rgb(252, 0, 0);
+        color: white;
+    }
+
+    &--controls {
+        font-size: var(--font-size-hg);
+        min-width: 45px;
     }
 }
 
@@ -97,7 +141,7 @@ body {
 
 .icon {
     cursor: pointer;
-    transition: opacity .4s;
+    transition: opacity 0.4s;
 
     &:hover {
         opacity: 0.8;
@@ -106,4 +150,7 @@ body {
     &--left {
         margin-right: 10px;
     }
+}
+p.icon {
+    display: inline-block;
 }

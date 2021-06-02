@@ -1,0 +1,14 @@
+@import "../../../../scss/responsive";
+.input-field {
+    min-width: 400px;
+    border-radius: 5px;
+    font-size: 1.8rem;
+    padding: 8px;
+    margin: 10px 0;
+    @include mobile {
+        min-width: 100px;
+    }
+    &--full-width {
+        width: 100%;
+    }
+}

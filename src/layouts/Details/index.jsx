@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSongs } from "../../features/Player/songsSlice";
-import Songs from "../../features/Songs";
+import SongsList from "../../components/SongsList";
+import { fetchSongs } from "../../features/Songs/songsSlice";
 import AlbumsPage from "./pages/AlbumsPage";
 
 const Details = () => {
@@ -25,7 +25,7 @@ const Details = () => {
             <h3 className="songs-suggestion__heading heading-15">
               Bài hát gợi ý
             </h3>
-            <Songs songs={songs.data} />
+            <SongsList songs={songs.data} />
           </div>
         </div>
       </div>

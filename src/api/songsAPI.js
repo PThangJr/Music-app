@@ -24,5 +24,19 @@ const songsAPI = {
     const url = `/albums/songs/${albumSlug}`;
     return axiosClient.get(url);
   },
+  createSong(data) {
+    const url = "/songs";
+    return axiosClient.post(url, data);
+  },
+  updateSong(payload) {
+    const songId = payload?.songId || "";
+    const data = payload?.data;
+    const url = `/songs/${songId}`;
+    return axiosClient.put(url, data);
+  },
+  deleteSong(songId) {
+    const url = `/songs/${songId}`;
+    return axiosClient.delete(url);
+  },
 };
 export default songsAPI;
