@@ -1,19 +1,26 @@
 .albums {
+  &__heading {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     &__heading {
-        text-align: center;
-        font-size: 3.5rem;
-        margin-bottom: 20px;
     }
+  }
 
-    .card-album {
-        margin-bottom: 10px;
+  .card-album {
+    margin-bottom: 10px;
 
-        .card-image {
-            &__img {
-                width: 100%;
-                height: auto;
-                min-height: 180px;
-            }
-        }
+    .card-image {
+      &__img {
+        width: 100%;
+        height: auto;
+        min-height: 180px;
+      }
     }
+  }
 }

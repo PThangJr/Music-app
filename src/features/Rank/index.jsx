@@ -1,10 +1,14 @@
+import classNames from "classnames";
 import React from "react";
 import { useSelector } from "react-redux";
+import ButtonPlayAll from "../../components/Buttons/components/ButtonPlayAll";
 import CardSong from "../../components/CardSong";
-import classNames from "classnames";
 import "./styles.scss";
 const Rank = ({ songs = [], isLoading = false }) => {
+  //Store
   const currentSong = useSelector((state) => state.currentSong);
+  //
+
   const renderSongsOfRanking = () => {
     if (isLoading) {
       const arr = [];
@@ -32,7 +36,10 @@ const Rank = ({ songs = [], isLoading = false }) => {
   };
   return (
     <div className="rank">
-      <h3 className="rank__heading">Bảng xếp hạng</h3>
+      <div className="heading-15 rank-header">
+        <h3 className=" rank-header__heading">Bảng xếp hạng</h3>
+        <ButtonPlayAll songs={songs} />
+      </div>
       <ul className="rank-list">{renderSongsOfRanking()}</ul>
     </div>
   );

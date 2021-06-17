@@ -2,145 +2,122 @@
 @import "../../scss/responsive";
 
 .header {
-    box-shadow: 2px 10px 10px rgba(0, 0, 0, 0.2), inset 0 0 5px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: $zi-header;
-    background: $main-bg-color;
-    //
-    .button-sidebar {
-        display: none;
-        @include mobile {
-            display: flex;
-        }
-        @include tablet {
-            display: flex;
-        }
-        .btn {
-            font-size: var(--font-size-hg);
-        }
+  box-shadow: 2px 10px 10px rgba(0, 0, 0, 0.2), inset 0 0 5px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $zi-header;
+  background: $main-bg-color;
+  //
+  .button-sidebar {
+    display: none;
+    @include mobile {
+      display: flex;
     }
-    .row {
-        display: flex;
-        flex-direction: column;
+    @include tablet {
+      display: flex;
     }
-
-    &-top {
-        display: flex;
-        height: $header-top-height;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid rgb(175, 175, 175);
-        background: var(--header-bg-color);
+    .btn {
+      font-size: var(--font-size-hg);
     }
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
 
-    &-logo {
-        // margin-right: 30px;
-        @include mobile {
-            display: none;
-        }
+  &-top {
+    display: flex;
+    height: $header-top-height;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(175, 175, 175);
+    background: var(--header-bg-color);
+    position: relative;
+  }
 
-        &__image {
-            width: 100px;
-            object-fit: fill;
-        }
+  &-logo {
+    // margin-right: 30px;
+    @include mobile {
+      display: none;
     }
 
-    .song-info {
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        background: #f12711;
-        background: #8a2387;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #f27121, #e94057, #8a2387);
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #f27121, #e94057, #8a2387);
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    &__image {
+      width: 100px;
+      object-fit: fill;
+    }
+  }
 
-        color: white;
-        align-items: center;
-        justify-content: center;
+  .song-info {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #f12711;
+    background: #8a2387;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f27121, #e94057, #8a2387);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f27121, #e94057, #8a2387);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-        &__name {
-            font-size: var(--font-size-lg);
-        }
+    color: white;
+    align-items: center;
+    justify-content: center;
 
-        &__singers {
-            font-size: var(--font-size-sm);
-        }
+    &__name {
+      font-size: var(--font-size-lg);
     }
 
-    .menu-list {
-        display: flex;
-        align-items: center;
+    &__singers {
+      font-size: var(--font-size-sm);
+    }
+  }
 
-        @include mobile {
-            display: none;
-        }
+  .menu-list {
+    display: flex;
+    align-items: center;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  .menu-item {
+    &:hover {
+      .menu-item__link {
+        border-bottom: 2px solid green;
+        color: $main-color;
+      }
     }
 
-    .menu-item {
-        &:hover {
-            .menu-item__link {
-                border-bottom: 2px solid green;
-                color: $main-color;
-            }
-        }
+    &__link {
+      padding: 0 12px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      // color: $color-white;
+      font-weight: 600;
+    }
+  }
 
-        &__link {
-            padding: 0 12px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            // color: $color-white;
-            font-weight: 600;
-        }
+  .auth {
+    color: var(--text-color-reverse);
+
+    span {
+      margin: 0 10px;
     }
 
-    .search {
-        width: 50%;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        border: 1px solid grey;
-        border-radius: 4px;
-        background-color: $color-white;
-
-        @include mobile {
-            flex: 1;
-        }
-
-        &__input {
-            height: 100%;
-            padding: 8px;
-            border: none;
-            outline: none;
-            background-color: $color-white;
-            flex: 1;
-            min-width: 100px;
-        }
+    &__link {
+      &:hover {
+        color: rgb(236, 14, 236);
+      }
     }
+  }
 
-    .auth {
-        color: var(--text-color-reverse);
-
-        span {
-            margin: 0 10px;
-        }
-
-        &__link {
-            &:hover {
-                color: rgb(236, 14, 236);
-            }
-        }
+  .list-song {
+    .btn {
+      font-size: var(--font-size-hg);
     }
-
-    .list-song {
-        .btn {
-            font-size: var(--font-size-hg);
-        }
-    }
+  }
 }

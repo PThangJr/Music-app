@@ -102,6 +102,10 @@
 
   &-info {
     height: 100%;
+    width: 300px;
+    @include mobile {
+      width: 210px;
+    }
     &__name {
       // color: var(--text-color-reverse);
       font-size: $font-size-sm;
@@ -161,7 +165,6 @@
 
   .card-song-content {
     align-items: space-between;
-    width: 300px;
 
     &__img {
       $size: 60px;

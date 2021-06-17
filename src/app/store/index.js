@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import searchSlice from "../../components/Header/compoents/HeaderSearch/searchSlice";
 import albumsSlice from "../../features/Albums/albumsSlice";
 import albumsSuggestionSlice from "../../features/Albums/albumsSuggestionSlice";
 import authorsSlice from "../../features/Authors/authorsSlice";
@@ -21,6 +22,8 @@ import displayFormSlice from "../../pages/HomePages/displayFormSlice";
 const store = configureStore({
   reducer: {
     displayForm: displayFormSlice,
+
+    search: searchSlice,
 
     songs: songsSlice,
     songsOfRanking: songsOfRankingSlice,

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../features/Auths/authsSlice";
 import { setDisplayPlayerQueue } from "../../pages/HomePages/displayFormSlice";
+import HeaderSearch from "./compoents/HeaderSearch";
 import "./styles.scss";
 const Header = ({ toggleSidebar }) => {
   const auths = useSelector((state) => state.auths);
@@ -42,19 +43,9 @@ const Header = ({ toggleSidebar }) => {
               />
             </div>
 
-            <form className="search">
-              <input
-                type="text"
-                className="search__input"
-                placeholder="Nhập từ khóa tìm kiếm..."
-              />
-              <button
-                className="btn btn--primary btn--full-height btn--green btn--search search-btn"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
+            {/* Search */}
+            <HeaderSearch />
+            {/* */}
             <div className="list-song show-on-mobile">
               <button
                 className="btn btn--auto btn--primary"

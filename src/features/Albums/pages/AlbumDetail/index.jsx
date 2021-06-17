@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import ButtonPlayAll from "../../../../components/Buttons/components/ButtonPlayAll";
 import Card from "../../../../components/Card";
 import SongsList from "../../../../components/SongsList";
 import { fetchSongsOfAlbum } from "../../../Songs/songsSlice";
@@ -25,7 +26,10 @@ const AlbumDetail = (props) => {
       <h3 className="albums__heading">{currentAlbum?.name || ""} </h3>
       <div className="row">
         <div className="col-xl-9 col-lg-8 col-md-12 col-12">
-          <h3 className=" heading-15">Bài hát</h3>
+          <div className="heading-15 albums-header">
+            <h3 className="albums-header__heading">Bài hát</h3>
+            <ButtonPlayAll songs={songs.data} />
+          </div>
           <SongsList fullInfo songs={songs.data} isLoading={songs.isLoading} />
         </div>
         <div className="col-xl-3 col-lg-4 col-md-12 col-12">

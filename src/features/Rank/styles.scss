@@ -1,59 +1,68 @@
-@import '../../scss/variables';
-@import '../../scss/responsive';
+@import "../../scss/variables";
+@import "../../scss/responsive";
 
 .rank {
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // margin-bottom: 20px;
     &__heading {
-        font-size: var(--font-size-hg);
-        margin-bottom: 20px;
+      font-size: var(--font-size-hg);
+    }
+    &__play-all {
+      font-size: var(--font-size-md);
+      cursor: pointer;
+      &:hover {
+        color: var(--color-purple);
+      }
+    }
+  }
+
+  .card-song {
+    margin: 0;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    // transition: background .4s;
+    margin: 8px 0;
+
+    &:hover {
+      background: rgb(122, 116, 116);
+    }
+  }
+
+  &-number {
+    font-size: var(--font-size-hg);
+    font-weight: bold;
+    // color: red;
+    min-width: 30px;
+
+    text-align: center;
+  }
+
+  &-number {
+    &--1 {
+      color: #f02f19;
+      font-size: var(--font-size-super);
     }
 
+    &--2 {
+      color: #d35400;
+      font-size: 3.5rem;
+    }
+
+    &--3 {
+      color: #8e44ad;
+      font-size: 3.5rem;
+    }
+  }
+
+  &-card {
     .card-song {
-        margin: 0;
     }
-
-    &-item {
-        display: flex;
-        align-items: center;
-        border-radius: 8px;
-        // transition: background .4s;
-        margin: 8px 0;
-
-        &:hover {
-            background: rgb(122, 116, 116);
-
-        }
-    }
-
-    &-number {
-        font-size: var(--font-size-hg);
-        font-weight: bold;
-        // color: red;
-        min-width: 30px;
-
-        text-align: center;
-    }
-
-    &-number {
-        &--1 {
-            color: #f02f19;
-            font-size: var(--font-size-super);
-
-        }
-
-        &--2 {
-            color: #d35400;
-            font-size: 3.5rem;
-        }
-
-        &--3 {
-            color: #8e44ad;
-            font-size: 3.5rem;
-        }
-    }
-
-
-
-    &-card {
-        .card-song {}
-    }
+  }
 }

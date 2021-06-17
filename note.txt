@@ -1,7 +1,7 @@
 1. Fix Card in Trending ==> Done!
 2. Responsive on Mobile
     -) Responsive Player ==> Done!
-3. Scroll to top
+3. Scroll to top ==> Done!
 4. Loading skeleton
 5. Register Page
 6. Image Categories
@@ -14,5 +14,5 @@
 13. Pagination Albums, Singers, Songs...
 14. Add categories pages
 15. Account header display
-16. Add a button delete  song list on player queue
-17. Add a button playall song list on Rank, Songs of singer
+16. Add a button delete song list on player queue ==> Done!
+17. Add a button playall song list on Rank, Songs of singer ==> Done!

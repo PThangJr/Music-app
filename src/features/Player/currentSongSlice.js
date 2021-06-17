@@ -21,7 +21,11 @@ const currentSongSlice = createSlice({
       const newState = { ...state, ...action.payload };
       return newState;
     },
+    removeCurrerntSong(state, action) {
+      const newState = { ...initialState };
+      return newState;
+    },
   },
 });
 export default currentSongSlice.reducer;
-export const { setCurrentSong } = currentSongSlice.actions;
+export const { setCurrentSong, removeCurrerntSong } = currentSongSlice.actions;

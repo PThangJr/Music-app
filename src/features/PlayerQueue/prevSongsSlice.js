@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 const initialState = {
   data: [],
 };
@@ -24,8 +24,17 @@ const prevSongsSlice = createSlice({
     removePrevSongs(state, action) {
       state.data = [];
     },
+    removePrevSongsExceptCurrentSong(state, action) {
+      const { currentSong } = action.payload;
+      const newData = current(state).data;
+      state.data = newData.filter((dt) => dt._id === currentSong._id);
+    },
   },
 });
 export default prevSongsSlice.reducer;
-export const { setPrevSongs, choosePrevSong, removePrevSongs } =
-  prevSongsSlice.actions;
+export const {
+  setPrevSongs,
+  choosePrevSong,
+  removePrevSongs,
+  removePrevSongsExceptCurrentSong,
+} = prevSongsSlice.actions;

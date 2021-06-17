@@ -17,7 +17,6 @@ import { setCurrentSong } from "../../currentSongSlice";
 import { setFavoriteSongs, setPlayerControls } from "./playerControlsSlice";
 import "./styles.scss";
 const PlayerControls = (props) => {
-  const { handleProgressSong } = props;
   const dispatch = useDispatch();
   const songsPlay = useSelector((state) => state.songsPlay);
   const [currentTime, setCurrentTime] = useState(0);
@@ -38,6 +37,9 @@ const PlayerControls = (props) => {
     if (audioRef) {
       if (currentSong.linkMp3) {
         isPlaying ? audioRef.current.play() : audioRef.current.pause();
+      } else {
+        setCurrentTime(0);
+        setDuration(0);
       }
     }
   }, [isPlaying, isRandom, songsPlay.data, isRepeat, currentSong]);
@@ -46,7 +48,9 @@ const PlayerControls = (props) => {
   };
   const togglePlayMusic = (status) => {
     // isPlaying ? audioRef.current.play() : audioRef.current.pause();
-    dispatch(setPlayerControls({ isPlaying: status }));
+    if (currentSong.linkMp3) {
+      dispatch(setPlayerControls({ isPlaying: status }));
+    }
   };
   const handleNextSong = () => {
     if (!songsList.length) return;
@@ -181,7 +185,10 @@ const PlayerControls = (props) => {
         </div>
         <div className="player-progress">
           <button
-            className={classNames("btn btn--primary player-buttons__favorite btn--controls show-on-mobile", {"btn--active": isFavorite})}
+            className={classNames(
+              "btn btn--primary player-buttons__favorite btn--controls show-on-mobile",
+              { "btn--active": isFavorite }
+            )}
             onClick={() => handleFavoriteSong()}
           >
             <i className="fas fa-heart"></i>

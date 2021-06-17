@@ -7,24 +7,45 @@ import Sidebar from "./components/Sidebar";
 import { isAdminLogin } from "./features/Auths/authsSlice";
 import Player from "./features/Player";
 import PlayerQueue from "./features/PlayerQueue";
+import ScrollToTop from "./features/ScrollToTop";
 import "./index.css";
 import Main from "./layouts/Main";
 import "./scss/base.scss";
 function App() {
-  const [displaySidebar, setDisplaySidebar] = useState(false);
   const dispatch = useDispatch();
+  //State
+  const [displaySidebar, setDisplaySidebar] = useState(false);
+  //
+  //Store
+  const auths = useSelector((state) => state.auths);
+  const playerControls = useSelector((state) => state.playerControls);
+  const { authenticate } = auths;
+  //
+
   const toggleSidebar = () => {
     setDisplaySidebar(!displaySidebar);
   };
-  const auths = useSelector((state) => state.auths);
-  const { authenticate } = auths;
   useEffect(() => {
     if (authenticate) {
       dispatch(isAdminLogin());
     }
   }, [dispatch, authenticate]);
+  //Handle stop handle refresh page when music is playing
+  useEffect(() => {
+    const onUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    if (playerControls.isPlaying) {
+      window.addEventListener("beforeunload", onUnload);
+    }
+    return () => {
+      window.removeEventListener("beforeunload", onUnload);
+    };
+  }, [playerControls.isPlaying]);
   return (
     <div id="app" className="app">
+      <ScrollToTop />
       <Sidebar displaySidebar={displaySidebar} toggleSidebar={toggleSidebar} />
       <Header toggleSidebar={toggleSidebar} />
       <Main />

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import InputField from "../../../../components/Form/FormField/InputField";
-import { fetchLogin } from "../../authsSlice";
+import { clearMessageAndErrorsAuths, fetchLogin } from "../../authsSlice";
 import "./styles.scss";
 
 const Login = () => {
@@ -22,13 +22,15 @@ const Login = () => {
     if (auths.errors) {
       toast.error(auths.errors, {
         position: toast.POSITION.TOP_RIGHT,
+        onClose: () => dispatch(clearMessageAndErrorsAuths()),
       });
     } else if (auths.message) {
       toast.success(auths.message, {
         position: toast.POSITION.TOP_RIGHT,
+        onClose: () => dispatch(clearMessageAndErrorsAuths()),
       });
     }
-  }, [auths.errors, auths.message]);
+  }, [auths.errors, auths.message, dispatch]);
 
   if (auths.authenticate && auths.user?.role === "admin") {
     return <Redirect to="/" />;

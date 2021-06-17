@@ -1,0 +1,24 @@
+.card-search {
+  padding: 8px 20px;
+  display: flex;
+  align-items: flex-start;
+  &:hover {
+    background: var(--color-grey-1);
+  }
+  &-image {
+    margin-right: 20px;
+    &__img {
+      width: 60px;
+      border-radius: 6px;
+    }
+  }
+  &-info {
+    flex: 1;
+    &__name {
+      font-size: var(--font-size-lg);
+    }
+    &__description {
+      font-size: var(--font-size-sm);
+    }
+  }
+}

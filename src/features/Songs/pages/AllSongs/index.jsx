@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import ButtonPlayAll from "../../../../components/Buttons/components/ButtonPlayAll";
 import Card from "../../../../components/Card";
 import Pagination from "../../../../components/Pagination";
 import SongsList from "../../../../components/SongsList";
@@ -38,14 +39,16 @@ const AllSongs = () => {
       });
     }
   }, [dispatch, songs.errors, songs.message]);
+
   return (
     <div className="songs">
-      <div className="songs-header">
-        <h3 className="heading-15">Tất cả bài hát</h3>
-        {isAdmin && <SongControls />}
-      </div>
       <div className="row">
         <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+          <div className="heading-15 songs-header">
+            <h3 className="songs-header__heading">Tất cả bài hát</h3>
+            <ButtonPlayAll songs={songs.data} />
+          </div>
+          {isAdmin && <SongControls />}
           <SongsList songs={songs.data} fullInfo isLoading={songs.isLoading} />
           <Pagination currentPage={currentPage} totalPage={totalPages} />
         </div>

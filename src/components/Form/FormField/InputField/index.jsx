@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./styles.scss";
@@ -12,12 +12,25 @@ const InputField = (props) => {
     fullWidth = "",
     disabled = false,
     defaultValues = "",
+    debounce = false,
   } = props;
+  const typingTimeOutRef = useRef(null);
+
   const handleInputValue = (e) => {
     if (onChange) {
       const name = e.target.name;
       const value = e.target.value;
-      onChange({ [name]: value });
+      if (debounce) {
+        // Debounce
+        if (typingTimeOutRef.current) {
+          clearTimeout(typingTimeOutRef.current);
+        }
+        typingTimeOutRef.current = setTimeout(() => {
+          onChange({ [name]: value });
+        }, 300);
+      } else {
+        onChange({ [name]: value });
+      }
     }
   };
   return (

@@ -49,6 +49,10 @@ const authsSlice = createSlice({
       state.authenticate = false;
       state.isAdmin = false;
     },
+    clearMessageAndErrorsAuths(state) {
+      state.message = "";
+      state.errors = null;
+    },
   },
   extraReducers: {
     [fetchLogin.pending](state, action) {
@@ -70,4 +74,9 @@ const authsSlice = createSlice({
   },
 });
 export default authsSlice.reducer;
-export const { checkAdminLogin, isAdminLogin, logout } = authsSlice.actions;
+export const {
+  checkAdminLogin,
+  isAdminLogin,
+  logout,
+  clearMessageAndErrorsAuths,
+} = authsSlice.actions;
