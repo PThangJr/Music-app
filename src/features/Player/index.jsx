@@ -1,16 +1,11 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchSongs } from "../Songs/songsSlice";
 import PlayerControls from "./components/PlayerControls";
 import "./styles.scss";
 const Player = () => {
-  const dispatch = useDispatch();
   const currentSong = useSelector((state) => state.currentSong);
 
-  useEffect(() => {
-    dispatch(fetchSongs());
-  }, [dispatch]);
   const fallbackImage = (e) => {
     if (e) {
       e.target.src =

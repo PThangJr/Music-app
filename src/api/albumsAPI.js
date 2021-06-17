@@ -20,5 +20,21 @@ const albumsAPI = {
     const url = `/albums/singer/${singerSlug}`;
     return axiosClient.get(url);
   },
+  createAlbum(data) {
+    const url = `/albums`;
+    return axiosClient.post(url, data);
+  },
+  deleteAlbum(payload) {
+    console.log(`payload`, payload);
+    const albumId = payload?.albumId || "";
+    const url = `/albums/${albumId}`;
+    return axiosClient.delete(url);
+  },
+  updateAlbum(payload) {
+    const albumId = payload?.albumId || "";
+    const data = payload?.data || {};
+    const url = `/albums/${albumId}`;
+    return axiosClient.put(url, data);
+  },
 };
 export default albumsAPI;

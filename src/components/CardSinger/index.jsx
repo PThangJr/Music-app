@@ -14,23 +14,22 @@ const CardSinger = (props) => {
       linkImage: "",
       slug: "",
     },
-    isAdmin = false,
   } = props;
   return (
-    <div className="card">
-      <div className="card-image">
+    <div className="card card--singer">
+      <Link to={`/singers/${singer.slug}`} className="card-image">
         <img
           src={singer.linkImage}
           onError={fallBackImage}
           alt=""
           className="card-image__img"
         />
-        <div className="card-image__overlay">
+        {/* <div className="card-image__overlay">
           <p className="icon">
             <i className="far fa-play-circle"></i>
           </p>
-        </div>
-      </div>
+        </div> */}
+      </Link>
       <div className="card-content">
         <div className="card-content-title">
           <Link to={`/singers/${singer.slug}`} className="card-content__link">

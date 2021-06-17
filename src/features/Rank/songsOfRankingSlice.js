@@ -15,6 +15,7 @@ export const fetchSongsOfRanking = createAsyncThunk(
       return response;
     } catch (error) {
       console.log("Fetch Songs has errors: ", error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

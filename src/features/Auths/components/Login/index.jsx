@@ -31,7 +31,7 @@ const Login = () => {
   }, [auths.errors, auths.message]);
 
   if (auths.authenticate && auths.user?.role === "admin") {
-    return <Redirect to="/admin" />;
+    return <Redirect to="/" />;
   }
   if (auths.authenticate && auths.user?.role === "user") {
     return <Redirect to="/" />;

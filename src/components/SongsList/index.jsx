@@ -3,7 +3,7 @@ import CardSong from "../../components/CardSong";
 
 const SongsList = (props) => {
   const { songs = [], fullInfo = false, isLoading = false } = props;
-  console.log("songs", songs);
+  // console.log("songs", songs);
 
   const renderSongsList = () => {
     if (isLoading) {

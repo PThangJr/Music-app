@@ -76,12 +76,16 @@ const CardSong = (props) => {
     e.stopPropagation();
     dispatch(setFavoriteSongs(song));
   };
+  const handleStoppropagation = (e) => {
+    e.stopPropagation();
+  };
   return (
     <div
       className={classNames(
         "card-song ",
         { "card-song--full-info": fullInfo },
-        { "card-song--active": isCurrentSong }
+        { "card-song--active": isCurrentSong },
+        {className: className}
       )}
     >
       <div className="card-song-content" onClick={handleChooseSong}>
@@ -111,6 +115,7 @@ const CardSong = (props) => {
                 key={singer._id + "-singers"}
                 to={`/singers/${singer.slug}`}
                 className="card-song-info__description"
+                onClick={handleStoppropagation}
               >
                 {singer.name}
                 {(singers.length > 1 && index < singers.length - 1 && " , ") ||

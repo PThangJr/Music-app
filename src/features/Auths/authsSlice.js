@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import authsAPI from "../../api/authsAPI";
 
 const initialState = {
@@ -35,6 +35,21 @@ export const fetchLogin = createAsyncThunk(
 const authsSlice = createSlice({
   name: "auths",
   initialState,
+  reducers: {
+    isAdminLogin(state, action) {
+      const isAdmin =
+        JSON.parse(localStorage.getItem("user"))?.role === "admin";
+      if (isAdmin) {
+        state.isAdmin = isAdmin;
+      }
+    },
+    logout(state, action) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+      state.authenticate = false;
+      state.isAdmin = false;
+    },
+  },
   extraReducers: {
     [fetchLogin.pending](state, action) {
       state.isLoading = true;
@@ -55,3 +70,4 @@ const authsSlice = createSlice({
   },
 });
 export default authsSlice.reducer;
+export const { checkAdminLogin, isAdminLogin, logout } = authsSlice.actions;

@@ -8,16 +8,16 @@ import {
   fetchSongsPlayOfAlbum,
   removeNextSongs,
 } from "../../features/PlayerQueue/songsPlaySlice";
+import CardActions from "./components/CardActions";
 import "./styles.scss";
 const Card = (props) => {
   const dispatch = useDispatch();
-  const songsPlay = useSelector((state) => state.songsPlay);
+
+  const { isAdmin } = useSelector((state) => state.auths);
   const {
     title = "",
     linkImage = "",
     linkTitle = "",
-    descriptions = [],
-    titleSlug = "",
     handleChooseAlbum,
     album = {
       name: "",
@@ -25,22 +25,13 @@ const Card = (props) => {
       singers: [],
       slug: "",
     },
-    isAdmin = false,
   } = props;
   const fallBackImage = (e) => {
     if (e) {
       e.target.src = "http://placehold.it/145x145";
     }
   };
-  const renderActionsCard = () => {
-    if (isAdmin === true)
-      return (
-        <div className="card-actions">
-          <button className="btn btn--green">Sửa</button>
-          <button className="btn btn--danger">Xóa</button>
-        </div>
-      );
-  };
+
   const onHandleChooseAlbum = (albumSlug) => {
     dispatch(fetchSongsPlayOfAlbum({ albumSlug: albumSlug }));
     dispatch(setPlayerControls({ isPlaying: true }));
@@ -88,7 +79,7 @@ const Card = (props) => {
           })}
         </div>
       </div>
-      {renderActionsCard()}
+      {isAdmin && <CardActions album={album} />}
     </div>
   );
 };

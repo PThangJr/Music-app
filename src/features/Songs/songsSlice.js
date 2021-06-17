@@ -6,6 +6,12 @@ const initialState = {
   isLoading: false,
   message: "",
   errors: null,
+  pagination: {
+    totalPages: 0,
+    totalItems: 0,
+    page: 0,
+    limit: 0,
+  },
 };
 export const fetchSongs = createAsyncThunk(
   "/songs",
@@ -52,7 +58,7 @@ export const fetchCreateSong = createAsyncThunk(
   }
 );
 export const fetchUpdateSong = createAsyncThunk(
-  "/update-song",
+  "/song/update",
   async (payload, thunkAPI) => {
     try {
       const response = await songsAPI.updateSong(payload);
@@ -74,7 +80,7 @@ export const fetchDeleteSong = createAsyncThunk(
   }
 );
 const songsSlice = createSlice({
-  name: "create-song",
+  name: "songs",
   initialState,
   reducers: {
     clearMessageAndErrors(state, action) {
@@ -91,10 +97,11 @@ const songsSlice = createSlice({
     },
     [fetchSongs.fulfilled](state, action) {
       state.data = action.payload.songs;
-      localStorage.setItem(
-        "songsOfAlbum",
-        JSON.stringify(action.payload.songs)
-      );
+      // localStorage.setItem(
+      //   "songsOfAlbum",
+      //   JSON.stringify(action.payload.songs)
+      // );
+      state.pagination = action.payload.pagination;
       state.isLoading = false;
     },
     [fetchSongs.rejected](state, action) {
@@ -142,19 +149,19 @@ const songsSlice = createSlice({
     },
     [fetchCreateSong.rejected](state, action) {
       state.errors = action.payload.data.errors;
+      state.isLoading = false;
+
       console.log(action.payload);
     },
     [fetchUpdateSong.pending](state, action) {
       state.isLoading = true;
-      // state.errors = null;
-      // state.message = "";
     },
     [fetchUpdateSong.fulfilled](state, action) {
-      // state.data = action.payload.songs;
       state.message = action.payload.message;
       state.isLoading = false;
     },
     [fetchUpdateSong.rejected](state, action) {
+      state.isLoading = false;
       console.log(action.payload);
     },
     [fetchDeleteSong.pending](state, action) {

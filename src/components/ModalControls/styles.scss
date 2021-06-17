@@ -1,0 +1,12 @@
+.controls {
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;
+
+    &__heading {
+      font-size: var(--font-size-hg);
+    }
+  }
+}

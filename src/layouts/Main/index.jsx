@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Albums from "../../features/Albums";
 import Auths from "../../features/Auths";
+import { Categories } from "../../features/Categories";
 import Favorites from "../../features/Favorites";
 import Playlists from "../../features/Playlists";
 import RankPage from "../../features/Rank/pages/RankPage";
@@ -24,6 +25,7 @@ const Main = () => {
           <Route path="/rank" component={RankPage} />
           <Route path="/auths" component={Auths} />
           <Route path="/favorites" component={Favorites} />
+          <Route path="/categories" component={Categories} />
           <PrivateRoute path="/admin" exact component={AdminPage} />
         </Switch>
       </div>

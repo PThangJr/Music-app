@@ -181,10 +181,7 @@ const PlayerControls = (props) => {
         </div>
         <div className="player-progress">
           <button
-            className={
-              "btn btn--primary player-buttons__favorite btn--controls show-on-mobile" +
-              (isFavorite ? "btn--active" : "")
-            }
+            className={classNames("btn btn--primary player-buttons__favorite btn--controls show-on-mobile", {"btn--active": isFavorite})}
             onClick={() => handleFavoriteSong()}
           >
             <i className="fas fa-heart"></i>

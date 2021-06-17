@@ -5,7 +5,6 @@ import Register from "./components/Register";
 import "./styles.scss";
 const Auths = () => {
   const match = useRouteMatch();
-  console.log(match);
 
   return (
     <div className="auths">

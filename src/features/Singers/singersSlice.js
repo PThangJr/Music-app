@@ -18,6 +18,18 @@ export const fetchSingers = createAsyncThunk(
     }
   }
 );
+export const fetchBestRandomSingers = createAsyncThunk(
+  "/best-random-singers",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await singersAPI.getBestRandomSingers(payload);
+      return response;
+    } catch (error) {
+      console.log("Fetch best random singers has errors: ", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 export const fetchCreateSinger = createAsyncThunk(
   "/create-singer",
   async (payload, thunkAPI) => {
@@ -50,6 +62,18 @@ const singersSlice = createSlice({
       state.isLoading = false;
     },
     [fetchSingers.rejected](state, action) {
+      console.log(action.payload);
+    },
+    [fetchBestRandomSingers.pending](state, action) {
+      state.isLoading = true;
+      // state.errors = null;
+      // state.message = "";
+    },
+    [fetchBestRandomSingers.fulfilled](state, action) {
+      state.data = action.payload;
+      state.isLoading = false;
+    },
+    [fetchBestRandomSingers.rejected](state, action) {
       console.log(action.payload);
     },
     [fetchCreateSinger.pending](state, action) {

@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import albumsSlice from "../../features/Albums/albumsSlice";
+import albumsSuggestionSlice from "../../features/Albums/albumsSuggestionSlice";
 import authorsSlice from "../../features/Authors/authorsSlice";
 import authsSlice from "../../features/Auths/authsSlice";
 import categoriesSlice from "../../features/Categories/categoriesSlice";
@@ -39,6 +40,7 @@ const store = configureStore({
 
     albums: albumsSlice,
     albumsList: albumsListSlice,
+    albumsSuggestion: albumsSuggestionSlice,
     anthologyAlbums: anthologyAlbumsSlice,
     balladUsUkAlbums: balladUsUkAlbumSlice,
 

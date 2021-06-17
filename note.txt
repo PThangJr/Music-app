@@ -1,4 +1,18 @@
-1. Fix Card in Trending
+1. Fix Card in Trending ==> Done!
 2. Responsive on Mobile
-    -) Responsive Player
+    -) Responsive Player ==> Done!
 3. Scroll to top
+4. Loading skeleton
+5. Register Page
+6. Image Categories
+7. Fix song information on top
+8. Update Card Singer and fix them
+9. Fix animation when song pause
+10. Add card singers in home pages
+11. Fix stoppropagation link singers on card song ==> Done!
+12. Rotate image when music playing
+13. Pagination Albums, Singers, Songs...
+14. Add categories pages
+15. Account header display
+16. Add a button delete  song list on player queue
+17. Add a button playall song list on Rank, Songs of singer

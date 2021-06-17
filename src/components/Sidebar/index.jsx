@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useRouteMatch } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../../features/Categories/categoriesSlice";
 import classNames from "classnames";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useRouteMatch } from "react-router-dom";
+import { fetchCategories } from "../../features/Categories/categoriesSlice";
 import "./styles.scss";
-import { fetchAlbums } from "../../features/Albums/albumsSlice";
-import SidebarCustomLink from "./components/SidebarCustomLink";
 const Sidebar = (props) => {
   const { displaySidebar, toggleSidebar } = props;
   const isMatchCategories = useRouteMatch({ path: "/categories" });
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCategories());
-    dispatch(fetchAlbums());
   }, [dispatch]);
   const categories = useSelector((state) => state.categories);
-  const albums = useSelector((state) => state.albums);
   const [subCategories, setSubCategories] = useState(false);
   const handleToggleSubSidebar = (type) => {
     setSubCategories(!subCategories);

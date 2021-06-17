@@ -25,15 +25,7 @@ const PlayerQueue = () => {
       }
     }
   }, [dispatch, prevSongs.data, songsPlay.data]);
-  // const handleCurrentSong = (indexCurrentSong, songId) => {
-  //   dispatch(
-  //     setIndexSong({
-  //       indexCurrentSong,
-  //       songId,
-  //     })
-  //   );
-  //   dispatch(setPlayerControls({ isPlaying: true }));
-  // };
+
   const handleFavoriteSong = (e) => {
     e.stopPropagation();
   };
@@ -81,16 +73,6 @@ const PlayerQueue = () => {
           <h4 className="player-queue-list__heading">Bài hát tiếp theo</h4>
         )}
         <SongsList songs={songsList} />
-        {/* {songsList.map((song, index) => {
-          return (
-            <li
-              key={song._id + "-player-queue"}
-              className={"player-queue-item "}
-            >
-              <CardSong song={song} />
-            </li>
-          );
-        })} */}
       </ul>
       {/* {currentSong._id && <SongsSuggestion />} */}
     </div>

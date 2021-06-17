@@ -4,14 +4,8 @@ import CBoxField from "../../../../components/Form/FormField/CBoxField/index.jsx
 import InputField from "../../../../components/Form/FormField/InputField";
 import { fetchAlbums } from "../../../Albums/albumsSlice.js";
 import { fetchAuthors } from "../../../Authors/authorsSlice.js";
-import { fetchCategories } from "../../../Categories/categoriesSlice.js";
 import { fetchSingers } from "../../../Singers/singersSlice.js";
-import {
-  clearMessageAndErrors,
-  fetchCreateSong,
-  fetchUpdateSong,
-} from "../../songsSlice.js";
-import { toast } from "react-toastify";
+import { fetchCreateSong, fetchUpdateSong } from "../../songsSlice.js";
 import "./styles.scss";
 
 const mapObjectToArray = (object) => {
@@ -28,11 +22,11 @@ const mapArrayToIdArray = (array) => {
 };
 
 const FormSongControls = (props) => {
-  const { isUpdate, song = {} } = props;
+  const { isUpdate = false, song = {} } = props;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchSingers());
-    dispatch(fetchCategories());
+    // dispatch(fetchCategories());
     dispatch(fetchAlbums());
     dispatch(fetchAuthors());
   }, [dispatch]);
@@ -40,20 +34,6 @@ const FormSongControls = (props) => {
   const categories = useSelector((state) => state.categories);
   const albums = useSelector((state) => state.albums);
   const authors = useSelector((state) => state.authors);
-  const songs = useSelector((state) => state.songs);
-  console.log(songs.message);
-
-  useEffect(() => {
-    if (songs.errors) {
-      toast.error(songs.errors, {
-        onClose: () => dispatch(clearMessageAndErrors()),
-      });
-    } else if (songs.message) {
-      toast.success(songs.message, {
-        onClose: () => dispatch(clearMessageAndErrors()),
-      });
-    }
-  }, [dispatch, songs.errors, songs.message]);
 
   const [dataInput, setDataInput] = useState({});
   const [dataSingers, setDataSingers] = useState({});
@@ -74,11 +54,16 @@ const FormSongControls = (props) => {
       categories: mapObjectToArray(dataCategories),
     };
     if (isUpdate) {
-      dispatch(fetchUpdateSong({ songId: song._id, data }));
+      // console.log({ ...song, ...data });
+      console.log(`data`, data);
+      dispatch(
+        fetchUpdateSong({ songId: song._id, data: { ...song, ...data } })
+      );
     } else {
       dispatch(fetchCreateSong(data));
     }
   };
+  console.log(`song`, song);
   return (
     <div>
       <form action="" className="form-controls-songs" onSubmit={handleSubmit}>
@@ -149,8 +134,12 @@ const FormSongControls = (props) => {
                     onChange={(values) =>
                       setDataAuthors({ ...dataAuthors, ...values })
                     }
+                    // defaultChecked={
+                    //   mapArrayToIdArray(song?.authors).includes(author?._id) ||
+                    //   false
+                    // }
                     defaultChecked={
-                      mapArrayToIdArray(song?.authors).includes(author?._id) ||
+                      song?.authors?.some((ath) => ath._id === author._id) ||
                       false
                     }
                   />
@@ -171,8 +160,8 @@ const FormSongControls = (props) => {
                       setDataCategories({ ...dataCategories, ...values })
                     }
                     defaultChecked={
-                      mapArrayToIdArray(song?.categories).includes(
-                        category?._id
+                      song?.categories?.some(
+                        (cate) => cate._id === category._id
                       ) || false
                     }
                   />
@@ -193,8 +182,7 @@ const FormSongControls = (props) => {
                       setDataAlbums({ ...dataAlbums, ...values })
                     }
                     defaultChecked={
-                      mapArrayToIdArray(song?.albums).includes(album?._id) ||
-                      false
+                      song?.albums?.some((al) => al._id === album._id) || false
                     }
                   />
                 );

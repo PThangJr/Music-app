@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import "./styles.scss";
-import FormSongControls from "../../../../features/Songs/components/FormSongControls";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
+import FormSongControls from "../../../../features/Songs/components/FormSongControls";
 import { fetchDeleteSong } from "../../../../features/Songs/songsSlice";
+import ModalControls from "../../../ModalControls";
+import "./styles.scss";
 
 const CardSongActions = (props) => {
   const dispatch = useDispatch();
-  const { song } = props;
+  const { song = { _id: "" } } = props;
   const handleDeleteSong = () => {
     if (window.confirm("Bạn có muốn xóa bài hát này không ??")) {
       if (song?._id) {
@@ -32,47 +32,13 @@ const CardSongActions = (props) => {
           Xóa
         </button>
       </div>
-      <Modal
+      <ModalControls
         isOpen={isOpen}
-        aria={{
-          labelledby: "heading",
-          //   describedby: "full_description",
-        }}
-        appElement={document.getElementById("root")}
-        style={{
-          overlay: {
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(255, 255, 255, 0.75)",
-          },
-          content: {
-            position: "absolute",
-            width: "100%",
-            height: "500px",
-            top: "50%",
-            left: "50%",
-            padding: "20px 40px",
-            transform: "translate(-50%, -50%)",
-            border: "1px solid #ccc",
-            background: "#fff",
-            overflow: "auto",
-            WebkitOverflowScrolling: "touch",
-            borderRadius: "4px",
-            outline: "none",
-          },
-        }}
+        handleChangeStatusModal={() => setIsOpen(!isOpen)}
+        headingText="Sửa bài hát"
       >
-        <div className="controls-header">
-          <h4 className="controls-header__heading">Thêm bài hát</h4>
-          <button className="btn btn--danger" onClick={() => setIsOpen(false)}>
-            Thoát
-          </button>
-        </div>
         <FormSongControls song={song} isUpdate />
-      </Modal>
+      </ModalControls>
     </div>
   );
 };

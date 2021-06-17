@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../../features/Auths/authsSlice";
 import { setDisplayPlayerQueue } from "../../pages/HomePages/displayFormSlice";
 import "./styles.scss";
 const Header = ({ toggleSidebar }) => {
@@ -10,8 +11,7 @@ const Header = ({ toggleSidebar }) => {
   const dispatch = useDispatch();
   const { user } = auths;
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("accessToken");
+    dispatch(logout());
   };
   const handleDisplayPlayerQueue = () => {
     dispatch(setDisplayPlayerQueue());
@@ -108,9 +108,9 @@ const Header = ({ toggleSidebar }) => {
                 </Link>
               </li>
               <li className="menu-item">
-                <a href="/" className="menu-item__link">
+                <Link to="/categories" className="menu-item__link">
                   Thể loại
-                </a>
+                </Link>
               </li>
               <li className="menu-item">
                 <Link to="/singers" className="menu-item__link">
