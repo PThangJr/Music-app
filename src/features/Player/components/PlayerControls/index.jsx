@@ -111,7 +111,11 @@ const PlayerControls = (props) => {
     setDuration(audioRef.current.duration);
   };
   const handleEndedData = () => {
-    handleNextSong();
+    if (songsList.length) {
+      handleNextSong();
+    } else {
+      dispatch(setPlayerControls({ isPlaying: false }));
+    }
   };
   return (
     <>

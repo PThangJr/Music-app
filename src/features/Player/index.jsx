@@ -31,11 +31,19 @@ const Player = () => {
             <p className="player-info__name">
               {currentSong.name || "Chọn bài hát"}
             </p>
-            <Link to="/" className="player-info__singers">
-              {currentSong.singers.map((singer) => {
-                return singer.name;
-              }) || "Anonymous"}
-            </Link>
+            <div className="player-info-descriptions">
+              {currentSong.singers.map((singer, index) => {
+                return (
+                  <Link
+                    to={`/singers/${singer?.slug}`}
+                    key={singer?._id + "-player"}
+                    className="player-info-descriptions__link"
+                  >
+                    {index > 0 && ", "} {singer?.name}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
         <PlayerControls />

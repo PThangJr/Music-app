@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import InputField from "../../../../components/Form/FormField/InputField";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import CBoxField from "../../../../components/Form/FormField/CBoxField";
+import InputField from "../../../../components/Form/FormField/InputField";
 import {
   clearMessageAndErrorSinger,
   fetchCreateSinger,
 } from "../../singersSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
-const FormSingerControls = (props) => {
+const FormSingerControls = () => {
   const dispatch = useDispatch();
   const [dataInput, setDataInput] = useState({});
   const [isAuthor, setIsAuthor] = useState({});

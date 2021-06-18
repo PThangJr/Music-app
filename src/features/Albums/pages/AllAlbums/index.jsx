@@ -47,7 +47,10 @@ const AllAlbums = () => {
         <div className="row">
           {albums.data.map((album) => {
             return (
-              <div key={album._id} className="col-xl-2">
+              <div
+                key={album._id}
+                className="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6"
+              >
                 <Card album={album} />
               </div>
             );

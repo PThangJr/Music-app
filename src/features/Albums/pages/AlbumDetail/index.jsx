@@ -4,15 +4,15 @@ import { useParams } from "react-router";
 import ButtonPlayAll from "../../../../components/Buttons/components/ButtonPlayAll";
 import Card from "../../../../components/Card";
 import SongsList from "../../../../components/SongsList";
-import { fetchSongsOfAlbum } from "../../../Songs/songsSlice";
+import { fetchSongs } from "../../../Songs/songsSlice";
 import { fetchAlbums } from "../../albumsSlice";
 import "./styles.scss";
 const AlbumDetail = (props) => {
   const dispatch = useDispatch();
   const { albumSlug } = useParams();
   useEffect(() => {
-    dispatch(fetchSongsOfAlbum({ albumSlug }));
-    dispatch(fetchAlbums());
+    dispatch(fetchSongs({ params: { album: albumSlug } }));
+    dispatch(fetchAlbums({ params: { limit: 7 } }));
   }, [dispatch, albumSlug]);
   const songs = useSelector((state) => state.songs);
   const albums = useSelector((state) => state.albums);
@@ -42,12 +42,7 @@ const AlbumDetail = (props) => {
                   className="col-xl-6 col-lg-6 col-md-3 col-sm-4 col-6"
                 >
                   <div className="card-album">
-                    <Card
-                      linkImage={album.linkImage}
-                      title={album.name}
-                      descriptions={album.singers}
-                      album={album}
-                    />
+                    <Card album={album} />
                   </div>
                 </div>
               );

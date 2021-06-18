@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import categoriesAPI from "../../api/categoriesAPI";
-import singersAPI from "../../api/singersAPI";
 const initialState = {
   isLoading: false,
   data: [],

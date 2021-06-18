@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import songsAPI from "../../api/songsAPI";
-import { setCurrentSong } from "../Player/currentSongSlice";
-import { setPrevSongs } from "./prevSongsSlice";
 
 const initialState = {
   data: [],

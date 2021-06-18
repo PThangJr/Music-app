@@ -2,14 +2,13 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Albums from "../../features/Albums";
 import Auths from "../../features/Auths";
-import { Categories } from "../../features/Categories";
+import Categories from "../../features/Categories";
 import Favorites from "../../features/Favorites";
 import Playlists from "../../features/Playlists";
 import RankPage from "../../features/Rank/pages/RankPage";
+import Results from "../../features/Results";
 import Singers from "../../features/Singers";
 import Songs from "../../features/Songs";
-import PrivateRoute from "../../HOC/PrivateRoute";
-import AdminPage from "../../pages/AdminPage";
 import HomePage from "../../pages/HomePages";
 import "./styles.scss";
 const Main = () => {
@@ -26,7 +25,7 @@ const Main = () => {
           <Route path="/auths" component={Auths} />
           <Route path="/favorites" component={Favorites} />
           <Route path="/categories" component={Categories} />
-          <PrivateRoute path="/admin" exact component={AdminPage} />
+          <Route path="/results" component={Results} />
         </Switch>
       </div>
     </main>

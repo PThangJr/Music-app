@@ -6,7 +6,7 @@ import "./styles.scss";
 const Pagination = ({
   currentPage,
   totalPage,
-  pageRangeDisplay,
+  pageRangeDisplay = 5,
   formatPage = "page",
 }) => {
   // console.log(currentPage, pageRangeDisplay, totalPage);

@@ -10,10 +10,11 @@ import { fetchPlaylistDetail } from "../../playlistDetailSlice";
 const PlaylistDetail = () => {
   const dispatch = useDispatch();
   const { playlistSlug } = useParams();
-  console.log(playlistSlug);
 
   useEffect(() => {
-    dispatch(fetchSongs({ limit: 12 }));
+    const randomPage = Math.floor(Math.random() * 4 + 1);
+    console.log(`randomPage`, randomPage);
+    dispatch(fetchSongs({ params: { limit: 8, page: randomPage } }));
     dispatch(fetchAlbums({ playlistSlug }));
     dispatch(fetchPlaylistDetail({ playlistSlug }));
   }, [dispatch, playlistSlug]);
@@ -23,7 +24,6 @@ const PlaylistDetail = () => {
 
   return (
     <div className="details">
-      <h3 className="details__heading"></h3>
       <div className="row">
         <div className="col-xl-9 col-lg-9 col-md-12">
           <div className="row">

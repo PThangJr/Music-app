@@ -18,7 +18,7 @@ const InputField = (props) => {
 
   const handleInputValue = (e) => {
     if (onChange) {
-      const name = e.target.name;
+      const name = e.target.name.trim();
       const value = e.target.value;
       if (debounce) {
         // Debounce

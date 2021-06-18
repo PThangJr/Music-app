@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Modal from "react-modal";
-import FormSongControls from "../FormSongControls";
 import ModalControls from "../../../../components/ModalControls";
+import FormSongControls from "../FormSongControls";
 import "./styles.scss";
 const SongControls = (props) => {
   const [isOpen, setIsOpen] = useState(false);

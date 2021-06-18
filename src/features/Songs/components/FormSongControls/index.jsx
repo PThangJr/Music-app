@@ -55,7 +55,7 @@ const FormSongControls = (props) => {
     };
     if (isUpdate) {
       // console.log({ ...song, ...data });
-      console.log(`data`, data);
+      // console.log(`data`, data);
       dispatch(
         fetchUpdateSong({ songId: song._id, data: { ...song, ...data } })
       );
@@ -63,7 +63,7 @@ const FormSongControls = (props) => {
       dispatch(fetchCreateSong(data));
     }
   };
-  console.log(`song`, song);
+  // console.log(`song`, song);
   return (
     <div>
       <form action="" className="form-controls-songs" onSubmit={handleSubmit}>

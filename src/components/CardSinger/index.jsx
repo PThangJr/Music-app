@@ -41,6 +41,8 @@ const CardSinger = (props) => {
   );
 };
 
-CardSinger.propTypes = {};
+CardSinger.propTypes = {
+  singer: PropTypes.object,
+};
 
 export default CardSinger;

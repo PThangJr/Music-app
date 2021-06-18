@@ -82,8 +82,11 @@ const Header = ({ toggleSidebar }) => {
               <span className="song-info__name">{currentSong?.name}</span>
               <span>-</span>
               <span className="song-info__singers">
-                {currentSong?.singers.map((singer) => (
-                  <span key={singer._id + "-header"}>{singer?.name}</span>
+                {currentSong?.singers.map((singer, index) => (
+                  <span key={singer._id + "-header"}>
+                    {index > 0 && <span>,</span>}
+                    {singer?.name}
+                  </span>
                 ))}
               </span>
             </div>

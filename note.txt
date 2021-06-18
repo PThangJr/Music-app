@@ -4,15 +4,17 @@
 3. Scroll to top ==> Done!
 4. Loading skeleton
 5. Register Page
-6. Image Categories
+6. Image Categories ==> Done!
 7. Fix song information on top
-8. Update Card Singer and fix them
+8. Update Card Singer and fix them ==> Done!
 9. Fix animation when song pause
-10. Add card singers in home pages
+10. Add card singers in home pages ==> Done!
 11. Fix stoppropagation link singers on card song ==> Done!
 12. Rotate image when music playing
 13. Pagination Albums, Singers, Songs...
-14. Add categories pages
-15. Account header display
+14. Add categories pages ==> Done!
+15. Account header display ==> Continue
 16. Add a button delete song list on player queue ==> Done!
 17. Add a button playall song list on Rank, Songs of singer ==> Done!
+18. Song Detail page
+19. Fix bug when playing last song ==> Done!

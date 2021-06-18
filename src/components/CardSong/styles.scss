@@ -104,7 +104,8 @@
     height: 100%;
     width: 300px;
     @include mobile {
-      width: 210px;
+      max-width: 150px;
+      width: auto;
     }
     &__name {
       // color: var(--text-color-reverse);

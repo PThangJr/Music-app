@@ -52,8 +52,6 @@ const CardSong = (props) => {
       dispatch(setPrevSongs(song));
       dispatch(setCurrentSong(song));
       if (prevSongs.data.find((prevSong) => prevSong._id === song._id)) {
-        console.log("prevSong match");
-
         dispatch(
           updateSongList([
             ...prevSongs.data.filter((songPlay) => songPlay._id !== song._id),
@@ -62,8 +60,7 @@ const CardSong = (props) => {
         );
       }
       if (songsPlay.data.find((songPlay) => songPlay._id === song._id)) {
-        console.log("songPlay match");
-
+        // console.log("songPlay match");
         dispatch(
           updateSongList(songsPlay.data.filter((s) => s._id !== song._id))
         );
@@ -85,7 +82,7 @@ const CardSong = (props) => {
         "card-song ",
         { "card-song--full-info": fullInfo },
         { "card-song--active": isCurrentSong },
-        {className: className}
+        { className: className }
       )}
     >
       <div className="card-song-content" onClick={handleChooseSong}>

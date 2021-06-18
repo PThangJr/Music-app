@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import Modal from "react-modal";
 import { useDispatch } from "react-redux";
 import FormSongControls from "../../../../features/Songs/components/FormSongControls";
 import { fetchDeleteSong } from "../../../../features/Songs/songsSlice";
 import ModalControls from "../../../ModalControls";
 import "./styles.scss";
-
+import PropTypes from "prop-types";
 const CardSongActions = (props) => {
   const dispatch = useDispatch();
   const { song = { _id: "" } } = props;
@@ -43,6 +42,8 @@ const CardSongActions = (props) => {
   );
 };
 
-CardSongActions.propTypes = {};
+CardSongActions.propTypes = {
+  song: PropTypes.object,
+};
 
 export default CardSongActions;

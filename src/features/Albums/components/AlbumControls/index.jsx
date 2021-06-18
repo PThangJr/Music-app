@@ -19,13 +19,23 @@ const AlbumControls = (props) => {
     dispatch(fetchPlaylists());
   }, [dispatch]);
 
+  //Store
   const playlists = useSelector((state) => state.playlists);
+  const categories = useSelector((state) => state.categories);
+
+  //
   const [dataInput, setDataInput] = useState({});
   const [dataPlaylists, setDataPlaylists] = useState({});
+  const [dataCategories, setDataCategories] = useState({});
   const handleSubmitFormAlbum = (e) => {
     e.preventDefault();
     const dataPlaylistsResult = mapObjectToArray(dataPlaylists);
-    const data = { ...dataInput, playlists: dataPlaylistsResult };
+    const dataCategoriesResult = mapObjectToArray(dataCategories);
+    const data = {
+      ...dataInput,
+      playlists: dataPlaylistsResult,
+      categories: dataCategoriesResult,
+    };
     if (isUpdate) {
       dispatch(
         fetchUpdateAlbum({ albumId: album?._id, data: { ...album, ...data } })
@@ -37,10 +47,12 @@ const AlbumControls = (props) => {
   const handleChangeInput = (values) => {
     setDataInput({ ...dataInput, ...values });
   };
-  const handleChangeCheckbox = (values) => {
+  const handleChangePlaylists = (values) => {
     setDataPlaylists({ ...dataPlaylists, ...values });
   };
-  console.log(`dataPlaylists`, dataPlaylists);
+  const handleChangeCategories = (values) => {
+    setDataCategories({ ...dataCategories, ...values });
+  };
   return (
     <div className="controls">
       <div className="row">
@@ -72,10 +84,28 @@ const AlbumControls = (props) => {
                     key={playlist?._id}
                     name={playlist?._id}
                     label={playlist?.name}
-                    onChange={handleChangeCheckbox}
+                    onChange={handleChangePlaylists}
                     defaultChecked={
                       album?.playlists?.some(
                         (pl) => pl._id === playlist?._id
+                      ) || false
+                    }
+                  />
+                );
+              })}
+            </div>
+            <div className="checkbox-box">
+              <h4 className="checkbox-box__heading">Thể loại :</h4>
+              {categories.data.map((category) => {
+                return (
+                  <CBoxField
+                    key={category?._id}
+                    name={category?._id}
+                    label={category?.name}
+                    onChange={handleChangeCategories}
+                    defaultChecked={
+                      album?.categories?.some(
+                        (pl) => pl._id === category?._id
                       ) || false
                     }
                   />

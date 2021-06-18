@@ -12,6 +12,7 @@ import songsPlaySlice from "../../features/PlayerQueue/songsPlaySlice";
 import playlistDetailSlice from "../../features/Playlists/playlistDetailSlice";
 import playlistsSlice from "../../features/Playlists/playlistsSlice";
 import songsOfRankingSlice from "../../features/Rank/songsOfRankingSlice";
+import resultsSlice from "../../features/Results/resultsSlice";
 import singersSlice from "../../features/Singers/singersSlice";
 import songsSlice from "../../features/Songs/songsSlice";
 import albumsListSlice from "../../layouts/Details/pages/AlbumsPage/albumsListSlice";
@@ -24,6 +25,7 @@ const store = configureStore({
     displayForm: displayFormSlice,
 
     search: searchSlice,
+    results: resultsSlice,
 
     songs: songsSlice,
     songsOfRanking: songsOfRankingSlice,

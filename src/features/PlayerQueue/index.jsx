@@ -32,9 +32,9 @@ const PlayerQueue = () => {
     }
   }, [dispatch, prevSongs.data, songsPlay.data]);
 
-  const handleFavoriteSong = (e) => {
-    e.stopPropagation();
-  };
+  // const handleFavoriteSong = (e) => {
+  //   e.stopPropagation();
+  // };
   const handleClosePlayerQueue = () => {
     dispatch(setDisplayPlayerQueue({ playerQueue: false }));
   };
@@ -110,7 +110,7 @@ const PlayerQueue = () => {
               className="player-queue-list-header__remove"
               onClick={handleRemoveSongsPlay}
             >
-              Xoá ds phát
+              Xoá tất cả
             </p>
           </div>
         )}

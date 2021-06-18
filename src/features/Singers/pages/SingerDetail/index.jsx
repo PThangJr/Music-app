@@ -5,13 +5,13 @@ import ButtonPlayAll from "../../../../components/Buttons/components/ButtonPlayA
 import Card from "../../../../components/Card";
 import SongsList from "../../../../components/SongsList";
 import { fetchAlbumsOfSinger } from "../../../Albums/albumsSlice";
-import { fetchSongsOfSinger } from "../../../Songs/songsSlice";
+import { fetchSongs } from "../../../Songs/songsSlice";
 
 const SingerDetail = (props) => {
   const dispatch = useDispatch();
   const { singerSlug } = useParams();
   useEffect(() => {
-    dispatch(fetchSongsOfSinger({ singerSlug }));
+    dispatch(fetchSongs({ params: { singer: singerSlug, limit: 15 } }));
     dispatch(fetchAlbumsOfSinger({ singerSlug }));
   }, [dispatch, singerSlug]);
   const songs = useSelector((state) => state.songs);

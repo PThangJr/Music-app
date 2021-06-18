@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import searchAPI from "../../../../api/searchAPI";
+import searchAPI from "../../api/searchAPI";
 
 const initialState = {
   isLoding: false,
@@ -7,11 +7,12 @@ const initialState = {
     songs: [],
     singers: [],
     albums: [],
+    songsOfSingers: [],
   },
   isSuccess: false,
 };
-export const fetchSearch = createAsyncThunk(
-  "/search",
+export const fetchResults = createAsyncThunk(
+  "/results",
   async (payload, thunkAPI) => {
     try {
       const response = await searchAPI.search(payload);
@@ -21,20 +22,19 @@ export const fetchSearch = createAsyncThunk(
     }
   }
 );
-
-const searchSlice = createSlice({
-  name: "search",
+const resultsSlice = createSlice({
+  name: "results",
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchSearch.pending](state, action) {},
-    [fetchSearch.fulfilled](state, action) {
+    [fetchResults.pending](state, action) {},
+    [fetchResults.fulfilled](state, action) {
       state.data = action.payload.search;
       state.isSuccess = true;
     },
-    [fetchSearch.pending](state, action) {
+    [fetchResults.pending](state, action) {
       state.isSuccess = false;
     },
   },
 });
-export default searchSlice.reducer;
+export default resultsSlice.reducer;

@@ -62,12 +62,7 @@ const AllSongs = () => {
                   className="col-xl-6 col-lg-6 col-md-3 col-sm-4 col-6"
                 >
                   <div className="card-album">
-                    <Card
-                      linkImage={album.linkImage}
-                      title={album.name}
-                      descriptions={album.singers}
-                      album={album}
-                    />
+                    <Card album={album} />
                   </div>
                 </div>
               );

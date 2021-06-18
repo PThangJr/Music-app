@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./styles.scss";
-const CardSearch = (props) => {
+const CardSearch = () => {
   return (
     <Link className="card-search">
       <div className="card-search-image">

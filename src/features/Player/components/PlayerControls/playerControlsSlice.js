@@ -12,8 +12,6 @@ const playerControlsSlice = createSlice({
   initialState,
   reducers: {
     setPlayerControls(state, action) {
-      console.log(action.payload);
-
       return { ...state, ...action.payload };
     },
     setFavoriteSongs(state, action) {

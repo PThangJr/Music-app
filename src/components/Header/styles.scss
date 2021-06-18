@@ -65,6 +65,10 @@
     align-items: center;
     justify-content: center;
 
+    span {
+      padding: 0 1.5px;
+    }
+
     &__name {
       font-size: var(--font-size-lg);
     }
