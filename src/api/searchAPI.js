@@ -12,7 +12,7 @@ const searchAPI = {
   },
   getSearch(payload) {
     const params = payload?.params;
-    const url = "/seach";
+    const url = "/search";
     return axiosClient.get(url, { params });
   },
 };

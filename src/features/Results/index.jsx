@@ -2,15 +2,17 @@ import queryString from "query-string";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { fetchResults } from "./resultsSlice";
-import SongsList from "../../components/SongsList";
-import CardSinger from "../../components/CardSinger";
 import Card from "../../components/Card";
 import CardCategory from "../../components/CardCategory";
+import CardSinger from "../../components/CardSinger";
 import SpinerLoading from "../../components/Loading/SpinerLoading";
+import SongsList from "../../components/SongsList";
+import { fetchResults } from "./resultsSlice";
 import "./styles.scss";
 const Results = (props) => {
   const location = useLocation();
+  const { page } = queryString.parse(location.search);
+
   const dispatch = useDispatch();
   //Store
   const results = useSelector((state) => state.results);
@@ -18,12 +20,12 @@ const Results = (props) => {
   const { songs, albums, singers, songsOfSingers } = results.data;
   useEffect(() => {
     if (location.search) {
-      const { keyword } = queryString.parse(location.search);
-
-      dispatch(fetchResults({ keyword, params: { limit: 5, page: 1 } }));
+      const { keyword, page } = queryString.parse(location.search);
+      // dispatch(fetchResults({ keyword, params: { limit: 5, page: 1 } }));
+      dispatch(fetchResults({ params: { limit: 6, page, keyword } }));
     }
   }, [dispatch, location.search]);
-  if (results.isLoading) {
+  if (!results.isSuccess) {
     // console.log(`results.isLoading`, results.isLoading);
     return <SpinerLoading />;
   }
@@ -39,7 +41,8 @@ const Results = (props) => {
           <div className="results-songs">
             <SongsList fullInfo songs={songs} />
             <SongsList fullInfo songs={songsOfSingers} />
-            {results.isSuccess === false && "Không tìm được bài hát nào"}
+            {/* {results.isSuccess === false && <SpinerLoading />} */}
+            {/* <Pagination totalPage={10} /> */}
           </div>
           <div className="row">
             {(singers.length && <h3 className="heading-15">Ca sĩ</h3>) || ""}

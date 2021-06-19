@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CardSinger from "../../components/CardSinger";
 import PlaylistsList from "../../components/PlaylistsList";
 import Rank from "../../features/Rank";
 import { fetchSongsOfRanking } from "../../features/Rank/songsOfRankingSlice";
@@ -8,7 +9,7 @@ import Trending from "../../features/Trending";
 import { fetchAnthologyAlbums } from "./anthologyAlbumsSlice";
 import { fetchBalladUsUkAlbums } from "./balladUsUkAlbumSlice";
 import { fetchPlaylists } from "./playlistsSlice";
-import CardSinger from "../../components/CardSinger";
+import CardSkeletons from "../../components/Card/loading/CardSkeletons";
 const HomePage = () => {
   const dispatch = useDispatch();
   const anthologyAlbums = useSelector((state) => state.anthologyAlbums);
@@ -46,17 +47,32 @@ const HomePage = () => {
   return (
     <div>
       <Trending />
-      <PlaylistsList
-        playlist={playlists.data[0]}
-        isLoading={anthologyAlbums.loading}
-        albums={anthologyAlbums.data}
-        isHaveSingers={true}
-      />
-      <PlaylistsList
-        playlist={playlists.data[1]}
-        isLoading={balladUsUkAlbums.isLoading}
-        albums={balladUsUkAlbums.data}
-      />
+      {/* {!anthologyAlbums.isLoading && <CardSkeletons totalItems={6} />} */}
+      {anthologyAlbums.isLoading ? (
+        <div className="loading">
+          <h3 className="heading-15">Loading...</h3>
+          <CardSkeletons totalItems={6} />
+        </div>
+      ) : (
+        <PlaylistsList
+          playlist={playlists.data[0]}
+          isLoading={anthologyAlbums.loading}
+          albums={anthologyAlbums.data}
+          isHaveSingers={true}
+        />
+      )}
+      {fetchBalladUsUkAlbums.isLoading ? (
+        <div className="loading">
+          <h3 className="heading-15">Loading...</h3>
+          <CardSkeletons totalItems={6} />
+        </div>
+      ) : (
+        <PlaylistsList
+          playlist={playlists.data[1]}
+          isLoading={balladUsUkAlbums.isLoading}
+          albums={balladUsUkAlbums.data}
+        />
+      )}
 
       <div className="row">
         <div className="col-xl-9 col-lg-9 col-md-12">
@@ -71,19 +87,26 @@ const HomePage = () => {
               <h3 className="heading-15 singers-list-header__heading">Ca sĩ</h3>
             </div>
             <div className="row">
-              {singers.data.map((singer) => {
-                return (
-                  <div
-                    key={singer?._id}
-                    className="col-xl-6 col-lg-6 col-md-3 col-sm-4 col-6"
-                  >
-                    <CardSinger
-                      singer={singer}
-                      isLoading={singers?.isLoading}
-                    />
-                  </div>
-                );
-              })}
+              {singers.isLoading ? (
+                <CardSkeletons
+                  totalItems={8}
+                  className="col-xl-6 col-lg-6 col-md-3 col-sm-4 col-6"
+                />
+              ) : (
+                singers.data.map((singer) => {
+                  return (
+                    <div
+                      key={singer?._id}
+                      className="col-xl-6 col-lg-6 col-md-3 col-sm-4 col-6"
+                    >
+                      <CardSinger
+                        singer={singer}
+                        isLoading={singers?.isLoading}
+                      />
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

@@ -83,6 +83,7 @@ const albumsSlice = createSlice({
   extraReducers: {
     [fetchAlbums.pending](state, action) {
       state.isLoading = true;
+      state.data = [];
       state.errors = null;
       state.message = "";
     },

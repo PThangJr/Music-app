@@ -15,7 +15,7 @@ export const fetchResults = createAsyncThunk(
   "/results",
   async (payload, thunkAPI) => {
     try {
-      const response = await searchAPI.search(payload);
+      const response = await searchAPI.getSearch(payload);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -30,7 +30,7 @@ const resultsSlice = createSlice({
     [fetchResults.pending](state, action) {
       console.log("pending...");
       state.isLoading = true;
-      state.isSuccess = false;
+      state.isSuccess = null;
     },
     [fetchResults.fulfilled](state, action) {
       state.data = action.payload.search;

@@ -10,6 +10,7 @@ import SongsList from "../../../../components/SongsList";
 import { fetchAlbumsSuggestion } from "../../../Albums/albumsSuggestionSlice";
 import SongControls from "../../components/SongControls";
 import { clearMessageAndErrors, fetchSongs } from "../../songsSlice";
+import CardSkeletons from "../../../../components/Card/loading/CardSkeletons";
 import "./styles.scss";
 
 const AllSongs = () => {
@@ -55,18 +56,25 @@ const AllSongs = () => {
         <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
           <h3 className="heading-15">Albums gợi ý</h3>
           <div className="row">
-            {albumsSuggestion.data.map((album) => {
-              return (
-                <div
-                  key={album._id}
-                  className="col-xl-6 col-lg-6 col-md-3 col-sm-4 col-6"
-                >
-                  <div className="card-album">
-                    <Card album={album} />
+            {albumsSuggestion.isLoading ? (
+              <CardSkeletons
+                totalItems={12}
+                className="col-xl-6 col-lg-6 col-md-3 col-sm-4 col-6"
+              />
+            ) : (
+              albumsSuggestion.data.map((album) => {
+                return (
+                  <div
+                    key={album._id}
+                    className="col-xl-6 col-lg-6 col-md-3 col-sm-4 col-6"
+                  >
+                    <div className="card-album">
+                      <Card album={album} />
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </div>
       </div>

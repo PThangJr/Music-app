@@ -4,6 +4,7 @@ import Card from "../../../../components/Card";
 import { clearAllAlbums, fetchAlbums } from "../../albumsSlice";
 import ModalControls from "../../../../components/ModalControls";
 import AlbumControls from "../../components/AlbumControls";
+import CardSkeletons from "../../../../components/Card/loading/CardSkeletons";
 import { toast } from "react-toastify";
 
 const AllAlbums = () => {
@@ -45,16 +46,23 @@ const AllAlbums = () => {
       </ModalControls>
       <div className="albums-list">
         <div className="row">
-          {albums.data.map((album) => {
-            return (
-              <div
-                key={album._id}
-                className="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6"
-              >
-                <Card album={album} />
-              </div>
-            );
-          })}
+          {albums.isLoading ? (
+            <CardSkeletons
+              totalItems={18}
+              className="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6"
+            />
+          ) : (
+            albums.data.map((album) => {
+              return (
+                <div
+                  key={album._id}
+                  className="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6"
+                >
+                  <Card album={album} />
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
     </div>

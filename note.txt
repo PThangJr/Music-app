@@ -2,7 +2,7 @@
 2. Responsive on Mobile
     -) Responsive Player ==> Done!
 3. Scroll to top ==> Done!
-4. Loading skeleton
+4. Loading skeleton ==> Done!
 5. Register Page
 6. Image Categories ==> Done!
 7. Fix song information on top
@@ -11,7 +11,7 @@
 10. Add card singers in home pages ==> Done!
 11. Fix stoppropagation link singers on card song ==> Done!
 12. Rotate image when music playing
-13. Pagination Albums, Singers, Songs...
+13. Pagination Albums, Singers, Songs... ==> Continue....
 14. Add categories pages ==> Done!
 15. Account header display ==> Continue
 16. Add a button delete song list on player queue ==> Done!

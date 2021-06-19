@@ -33,7 +33,7 @@ const Card = (props) => {
       e.target.src = "http://placehold.it/145x145";
     }
   };
-  console.log(isHaveSingers);
+  // console.log(isHaveSingers);
   const onHandleChooseAlbum = (albumSlug) => {
     dispatch(fetchSongsPlayOfAlbum({ albumSlug: albumSlug }));
     dispatch(setPlayerControls({ isPlaying: true }));

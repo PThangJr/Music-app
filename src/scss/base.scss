@@ -12,6 +12,7 @@
   --color-grey-1: rgb(179, 179, 179);
   --color-grey-2: rgb(211, 210, 210);
   --color-grey-3: rgb(230, 230, 230);
+  --color-grey-4: rgb(235, 235, 235);
   --color-blue: rgb(23, 150, 235);
 
   --font-size-xs: 1.2rem;
@@ -74,6 +75,12 @@ body {
 
   &:hover {
     opacity: 0.8;
+    @include mobile {
+      opacity: 1;
+    }
+    @include tablet {
+      opacity: 1;
+    }
   }
 
   &--primary {

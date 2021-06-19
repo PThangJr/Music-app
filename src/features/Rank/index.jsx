@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import ButtonPlayAll from "../../components/Buttons/components/ButtonPlayAll";
 import CardSong from "../../components/CardSong";
+import SongsList from "../../components/SongsList";
 import "./styles.scss";
 const Rank = ({ songs = [], isLoading = false }) => {
   //Store
@@ -40,7 +41,9 @@ const Rank = ({ songs = [], isLoading = false }) => {
         <h3 className=" rank-header__heading">Bảng xếp hạng</h3>
         <ButtonPlayAll songs={songs} />
       </div>
-      <ul className="rank-list">{renderSongsOfRanking()}</ul>
+      <ul className="rank-list">
+        <SongsList songs={songs} isLoading={isLoading} />
+      </ul>
     </div>
   );
 };

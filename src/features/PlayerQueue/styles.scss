@@ -21,6 +21,7 @@
 
   @include mobile {
     width: 75%;
+    min-width: 285px;
   }
 
   &--active {
@@ -59,7 +60,16 @@
     margin: 10px;
     .card-song {
       &-info {
-        width: 180px;
+        width: 150px;
+        flex: 1;
+        &__description {
+          @include mobile {
+            pointer-events: none;
+          }
+          @include tablet {
+            pointer-events: none;
+          }
+        }
       }
     }
     &-header {

@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Card from "../../components/Card";
 import { fetchAlbums } from "../Albums/albumsSlice";
+import CardSkeletons from "../../components/Card/loading/CardSkeletons";
 import "./styles.scss";
 const Trending = () => {
   const dispatch = useDispatch();
@@ -68,19 +69,31 @@ const Trending = () => {
   };
   const albums = useSelector((state) => state.albums);
   useEffect(() => {
-    dispatch(fetchAlbums());
+    dispatch(fetchAlbums({ params: { limit: 20 } }));
   }, [dispatch]);
   return (
     <div className="trending">
-      <Slide {...settings}>
-        {albums.data.map((album) => {
-          return (
-            <div key={`${album._id} album`} className="trending-item">
-              <Card album={album} />
-            </div>
-          );
-        })}
-      </Slide>
+      {albums.isLoading ? (
+        <Slide {...settings}>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => {
+            return (
+              <div key={`${item} album`} className="trending-item">
+                <CardSkeletons totalItems={1} className="col-12" />
+              </div>
+            );
+          })}
+        </Slide>
+      ) : (
+        <Slide {...settings}>
+          {albums.data.map((album) => {
+            return (
+              <div key={`${album?._id} album`} className="trending-item">
+                <Card album={album} />
+              </div>
+            );
+          })}
+        </Slide>
+      )}
     </div>
   );
 };

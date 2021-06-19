@@ -7,7 +7,7 @@ const HeaderSearch = () => {
   const history = useHistory();
   // const dispatch = useDispatch();
 
-  const [dataKeyword, setDataKeyword] = useState({});
+  const [dataKeyword, setDataKeyword] = useState({ keyword: "" });
   const handleChangeSearch = (values) => {
     // dispatch(fetchSearch({ keyword: values.keyword }));
     setDataKeyword({ ...dataKeyword, ...values });
@@ -15,7 +15,7 @@ const HeaderSearch = () => {
   const handleSubmitFormSearch = (e) => {
     e.preventDefault();
     if (dataKeyword.keyword.trim()) {
-      const keyword = removeVietnameseTones(dataKeyword.keyword);
+      const keyword = removeVietnameseTones(dataKeyword.keyword.trim());
       history.push({
         pathname: "/results",
         search: `?keyword=${keyword}`,
