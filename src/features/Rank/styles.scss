@@ -32,6 +32,12 @@
 
     &:hover {
       background: rgb(122, 116, 116);
+      @include mobile {
+        background: transparent;
+      }
+      @include tablet {
+        background: transparent;
+      }
     }
   }
 

@@ -55,6 +55,7 @@ const PlayerControls = (props) => {
   };
   const handleNextSong = () => {
     if (!songsList.length) return;
+    dispatch(setPlayerControls({ isPlaying: false }));
     dispatch(setCurrentSong(songsList[0]));
     dispatch(removeNextSong());
     dispatch(setPrevSongs(songsList[0]));
@@ -63,6 +64,7 @@ const PlayerControls = (props) => {
   const handlePrevSong = () => {
     if (prevSongs.data.length < 2) return;
     if (currentSong._id) {
+      dispatch(setPlayerControls({ isPlaying: false }));
       dispatch(setCurrentSong(prevSongs.data[prevSongs.data.length - 2]));
       dispatch(choosePrevSong());
       dispatch(setNextSongs(prevSongs.data[prevSongs.data.length - 1]));

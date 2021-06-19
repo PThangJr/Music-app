@@ -11,27 +11,38 @@
   margin: 8px 0;
 
   &--active {
-    background: rgb(122, 116, 116);
-
+    background: rgb(122, 116, 116) !important;
+    .text-hover {
+      color: var(--text-color-reverse) !important;
+    }
     .card-song {
-      &-content {
-        color: var(--text-color-reverse);
-      }
-
-      &-views {
-        color: var(--text-color-reverse);
-      }
     }
   }
 
   &:hover {
     background: #7a7474;
+    @include mobile {
+      background: transparent;
+    }
+    @include tablet {
+      background: transparent;
+    }
+    .text-hover {
+      color: var(--text-color-reverse);
+      @include mobile {
+        color: var(--text-color);
+      }
+      @include tablet {
+        color: var(--text-color);
+      }
+    }
 
     .card-song {
       &-content {
         color: var(--text-color-reverse);
       }
-
+      &-info {
+      }
       .btn {
         &--favorite {
           // color: var(--text-color-reverse) !important;
@@ -109,6 +120,7 @@
     }
     &__name {
       // color: var(--text-color-reverse);
+      color: inherit;
       font-size: $font-size-sm;
       font-weight: 600;
       -webkit-line-clamp: 1;
@@ -152,15 +164,24 @@
 .card-song--full-info {
   &:hover {
     background: #7a7474;
-
+    @include mobile {
+      background: transparent;
+    }
+    @include tablet {
+      background: transparent;
+    }
     .card-song {
       &-info {
-        color: var(--text-color-reverse);
+        // color: var(--text-color-reverse);
+        @include mobile {
+        }
+        @include tablet {
+        }
       }
 
-      &-views {
-        color: var(--text-color-reverse);
-      }
+      // &-views {
+      //   color: var(--text-color-reverse);
+      // }
 
       .btn.btn--favorite {
         color: var(--text-color-reverse);
@@ -179,12 +200,6 @@
   }
 
   .card-song-info {
-    &__name {
-      font-size: $font-size-md;
-    }
-
-    &__description {
-      font-size: $font-size-xs;
-    }
+    color: var(--text-color);
   }
 }

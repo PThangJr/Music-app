@@ -42,7 +42,8 @@ const Rank = ({ songs = [], isLoading = false }) => {
         <ButtonPlayAll songs={songs} />
       </div>
       <ul className="rank-list">
-        <SongsList songs={songs} isLoading={isLoading} />
+        {/* <SongsList songs={songs} isLoading={isLoading} fullInfo /> */}
+        {renderSongsOfRanking()}
       </ul>
     </div>
   );

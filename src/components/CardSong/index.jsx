@@ -104,14 +104,14 @@ const CardSong = (props) => {
             </p>
           )}
         </div>
-        <div className="card-song-info">
-          <p className="card-song-info__name">{song.name || name}</p>
+        <div className="card-song-info text-hover">
+          <p className="card-song-info__name text-hover">{song.name || name}</p>
           {singers.map((singer, index) => {
             return (
               <Link
                 key={singer._id + "-singers"}
                 to={`/singers/${singer.slug}`}
-                className="card-song-info__description"
+                className="card-song-info__description text-hover"
                 onClick={handleStoppropagation}
               >
                 {singer.name}
@@ -123,7 +123,7 @@ const CardSong = (props) => {
         </div>
       </div>
       {fullInfo && (
-        <div className="card-song-views">
+        <div className="card-song-views text-hover">
           <p className="icon">
             <i className="fas fa-headphones"></i>
           </p>
