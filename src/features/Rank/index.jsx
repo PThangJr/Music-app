@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import ButtonPlayAll from "../../components/Buttons/components/ButtonPlayAll";
 import CardSong from "../../components/CardSong";
-import SongsList from "../../components/SongsList";
+import CardSongSkeletons from "../../components/CardSong/loading/CardSongSkeletons";
 import "./styles.scss";
 const Rank = ({ songs = [], isLoading = false }) => {
   //Store
@@ -12,11 +12,7 @@ const Rank = ({ songs = [], isLoading = false }) => {
 
   const renderSongsOfRanking = () => {
     if (isLoading) {
-      const arr = [];
-      for (let i = 0; i < 10; i++) {
-        arr.push(i);
-      }
-      return arr.map((item) => <CardSong key={item + "songs-of-ranking"} />);
+      return <CardSongSkeletons totalItems={10} />;
     } else {
       return songs.map((song, index) => {
         return (
