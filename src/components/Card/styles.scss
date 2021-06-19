@@ -72,6 +72,8 @@
   &-content {
     font-size: $font-size-sm;
     height: 70px;
+    &--have-singers {
+    }
 
     &-title {
       margin: 5px 0;
@@ -97,6 +99,4 @@
       }
     }
   }
-
- 
 }

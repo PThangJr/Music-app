@@ -50,6 +50,7 @@ const HomePage = () => {
         playlist={playlists.data[0]}
         isLoading={anthologyAlbums.loading}
         albums={anthologyAlbums.data}
+        isHaveSingers={true}
       />
       <PlaylistsList
         playlist={playlists.data[1]}

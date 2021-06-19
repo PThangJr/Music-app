@@ -30,6 +30,7 @@ const resultsSlice = createSlice({
     [fetchResults.pending](state, action) {
       console.log("pending...");
       state.isLoading = true;
+      state.isSuccess = false;
     },
     [fetchResults.fulfilled](state, action) {
       state.data = action.payload.search;

@@ -9,6 +9,7 @@ import {
   removeNextSongs,
 } from "../../features/PlayerQueue/songsPlaySlice";
 import CardActions from "./components/CardActions";
+import classNames from "classnames";
 import "./styles.scss";
 const Card = (props) => {
   const dispatch = useDispatch();
@@ -25,13 +26,14 @@ const Card = (props) => {
       singers: [],
       slug: "",
     },
+    isHaveSingers,
   } = props;
   const fallBackImage = (e) => {
     if (e) {
       e.target.src = "http://placehold.it/145x145";
     }
   };
-
+  console.log(isHaveSingers);
   const onHandleChooseAlbum = (albumSlug) => {
     dispatch(fetchSongsPlayOfAlbum({ albumSlug: albumSlug }));
     dispatch(setPlayerControls({ isPlaying: true }));
@@ -56,7 +58,11 @@ const Card = (props) => {
           </p>
         </div>
       </div>
-      <div className="card-content">
+      <div
+        className={classNames("card-content", {
+          "card-content--have-singers": isHaveSingers,
+        })}
+      >
         <div className="card-content-title">
           <Link
             to={`/albums/${album.slug}` || linkTitle}

@@ -10,6 +10,7 @@ const PlaylistsList = (props) => {
     col = "",
     isLoading = false,
     isAdmin = false,
+    isHaveSingers = false,
   } = props;
   return (
     <div className="playlists">
@@ -42,7 +43,7 @@ const PlaylistsList = (props) => {
                   key={index + "-playlists"}
                   className={col || "col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6"}
                 >
-                  <Card />
+                  <Card isHaveSingers={isHaveSingers} />
                 </div>
               );
             })}

@@ -8,6 +8,7 @@ import CardSinger from "../../components/CardSinger";
 import Card from "../../components/Card";
 import CardCategory from "../../components/CardCategory";
 import SpinerLoading from "../../components/Loading/SpinerLoading";
+import "./styles.scss";
 const Results = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const Results = (props) => {
       dispatch(fetchResults({ keyword, params: { limit: 5, page: 1 } }));
     }
   }, [dispatch, location.search]);
-  if (results.isLoading) {
+  if (!results.isLoading) {
     // console.log(`results.isLoading`, results.isLoading);
     return <SpinerLoading />;
   }
@@ -35,10 +36,11 @@ const Results = (props) => {
               Kết quả tìm kiếm
             </h3>
           </div>
-
-          <SongsList fullInfo songs={songs} />
-          {/* <h3 className="heading-15"></h3> */}
-          <SongsList fullInfo songs={songsOfSingers} />
+          <div className="results-songs">
+            <SongsList fullInfo songs={songs} />
+            <SongsList fullInfo songs={songsOfSingers} />
+            {!results.isSuccess && "Không tìm được bài hát nào"}
+          </div>
           <div className="row">
             {(singers.length && <h3 className="heading-15">Ca sĩ</h3>) || ""}
             {singers.map((singer) => {
