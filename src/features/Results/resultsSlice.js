@@ -9,7 +9,7 @@ const initialState = {
     albums: [],
     songsOfSingers: [],
   },
-  isSuccess: false,
+  isSuccess: null,
 };
 export const fetchResults = createAsyncThunk(
   "/results",

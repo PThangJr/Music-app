@@ -23,7 +23,7 @@ const Results = (props) => {
       dispatch(fetchResults({ keyword, params: { limit: 5, page: 1 } }));
     }
   }, [dispatch, location.search]);
-  if (!results.isLoading) {
+  if (results.isLoading) {
     // console.log(`results.isLoading`, results.isLoading);
     return <SpinerLoading />;
   }
@@ -39,7 +39,7 @@ const Results = (props) => {
           <div className="results-songs">
             <SongsList fullInfo songs={songs} />
             <SongsList fullInfo songs={songsOfSingers} />
-            {!results.isSuccess && "Không tìm được bài hát nào"}
+            {results.isSuccess === false && "Không tìm được bài hát nào"}
           </div>
           <div className="row">
             {(singers.length && <h3 className="heading-15">Ca sĩ</h3>) || ""}
