@@ -6,7 +6,7 @@ const CardCategory = (props) => {
   const { category } = props;
   const match = useRouteMatch();
   return (
-    <Link to={`${match.path}/${category?.slug}`} className="card-category">
+    <Link to={`/categories/${category?.slug}`} className="card-category">
       <div className="card-category-image">
         <img
           src={
