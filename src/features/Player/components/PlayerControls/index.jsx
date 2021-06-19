@@ -27,6 +27,7 @@ const PlayerControls = (props) => {
   const playerControls = useSelector((state) => state.playerControls);
   const currentSong = useSelector((state) => state.currentSong);
   const prevSongs = useSelector((state) => state.prevSongs);
+  const displayForm = useSelector((state) => state.displayForm);
 
   const { isPlaying, isRandom, favorites, isRepeat } = playerControls;
   const isFavorite = favorites.find((fav) => fav?._id === currentSong?._id);
@@ -258,7 +259,12 @@ const PlayerControls = (props) => {
             onChange={handleVolumeSong}
           />
         </div>
-        <p className="icon list-songs" onClick={handleDisplayPlayerQueue}>
+        <p
+          className={classNames("icon list-songs", {
+            "btn--purple": displayForm.playerQueue,
+          })}
+          onClick={handleDisplayPlayerQueue}
+        >
           <i className="fas fa-list-alt"></i>
         </p>
       </div>

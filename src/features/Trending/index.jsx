@@ -25,7 +25,7 @@ const Trending = () => {
     centerPadding: "60px",
     slidesToShow: 4,
     slidesToScroll: 4,
-    speed: 1000,
+    speed: 1500,
     centerMode: false,
     responsive: [
       {
@@ -61,6 +61,7 @@ const Trending = () => {
           className: "center",
           centerMode: true,
           dots: false,
+          speed: 1000,
         },
       },
     ],

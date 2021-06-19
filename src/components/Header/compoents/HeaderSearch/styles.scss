@@ -7,7 +7,16 @@
   border: 1px solid grey;
   border-radius: 4px;
   background-color: var(--color-white);
-
+  .btn.search-btn {
+    @include mobile {
+      min-width: 60px;
+    }
+    span:first-child {
+      @include mobile {
+        display: none;
+      }
+    }
+  }
   @include mobile {
     flex: 1;
   }

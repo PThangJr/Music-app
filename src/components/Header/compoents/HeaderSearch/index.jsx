@@ -40,7 +40,10 @@ const HeaderSearch = () => {
         className="btn btn--primary btn--full-height btn--green btn--search search-btn"
         type="submit"
       >
-        Search
+        <span className="icon">
+          <i className="fas fa-search"></i>
+        </span>
+        <span>Search</span>
       </button>
     </form>
   );

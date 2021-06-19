@@ -52,7 +52,9 @@
     .btn {
       font-size: var(--font-size-hg);
       color: $color-white;
-
+      &:hover {
+        opacity: 0.6;
+      }
       @include mobile {
         min-width: auto;
       }
@@ -64,6 +66,12 @@
 
       &:hover {
         color: rgb(255, 23, 255);
+        @include mobile {
+          color: var(--color-white);
+        }
+        @include tablet {
+          color: var(--color-white);
+        }
       }
 
       &--active {
