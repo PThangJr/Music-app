@@ -10,6 +10,7 @@ import PlayerQueue from "./features/PlayerQueue";
 import ScrollToTop from "./features/ScrollToTop";
 import "./index.css";
 import Main from "./layouts/Main";
+import { setDisplayPlayerQueue } from "./pages/HomePages/displayFormSlice";
 import "./scss/base.scss";
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function App() {
   //
   //Store
   const auths = useSelector((state) => state.auths);
+  const displayForm = useSelector((state) => state.displayForm);
   const playerControls = useSelector((state) => state.playerControls);
   const { authenticate } = auths;
   //
@@ -52,6 +54,12 @@ function App() {
       <Player />
       <PlayerQueue />
       <ToastContainer autoClose={2000} />
+      {displayForm.playerQueue && (
+        <div
+          className="app-overlay"
+          onClick={() => dispatch(setDisplayPlayerQueue(false))}
+        ></div>
+      )}
     </div>
   );
 }

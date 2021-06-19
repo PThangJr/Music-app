@@ -155,6 +155,18 @@ const Sidebar = (props) => {
         <li className="sidebar-item" onClick={handleToggleSidebar}>
           <NavLink
             activeClassName="sidebar-link--active"
+            to="/favorites"
+            className="sidebar-link sidebar-item__link"
+          >
+            <p className="icon">
+              <i className="fas fa-heart"></i>
+            </p>
+            Favorites
+          </NavLink>
+        </li>
+        <li className="sidebar-item" onClick={handleToggleSidebar}>
+          <NavLink
+            activeClassName="sidebar-link--active"
             to="/auths/register"
             className="sidebar-link sidebar-item__link"
           >

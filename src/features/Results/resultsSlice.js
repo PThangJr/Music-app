@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import searchAPI from "../../api/searchAPI";
 
 const initialState = {
-  isLoding: false,
+  isLoading: false,
   data: {
     songs: [],
     singers: [],
@@ -27,13 +27,18 @@ const resultsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchResults.pending](state, action) {},
+    [fetchResults.pending](state, action) {
+      console.log("pending...");
+      state.isLoading = true;
+    },
     [fetchResults.fulfilled](state, action) {
       state.data = action.payload.search;
+      state.isLoading = false;
       state.isSuccess = true;
     },
     [fetchResults.pending](state, action) {
       state.isSuccess = false;
+      state.isLoading = false;
     },
   },
 });

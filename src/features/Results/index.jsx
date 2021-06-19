@@ -7,6 +7,7 @@ import SongsList from "../../components/SongsList";
 import CardSinger from "../../components/CardSinger";
 import Card from "../../components/Card";
 import CardCategory from "../../components/CardCategory";
+import SpinerLoading from "../../components/Loading/SpinerLoading";
 const Results = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -14,7 +15,6 @@ const Results = (props) => {
   const results = useSelector((state) => state.results);
   const categories = useSelector((state) => state.categories);
   const { songs, albums, singers, songsOfSingers } = results.data;
-  console.log(results);
   useEffect(() => {
     if (location.search) {
       const { keyword } = queryString.parse(location.search);
@@ -22,6 +22,10 @@ const Results = (props) => {
       dispatch(fetchResults({ keyword, params: { limit: 5, page: 1 } }));
     }
   }, [dispatch, location.search]);
+  if (results.isLoading) {
+    // console.log(`results.isLoading`, results.isLoading);
+    return <SpinerLoading />;
+  }
   return (
     <div className="results">
       <div className="row">

@@ -16,3 +16,14 @@ code {
   padding: 0;
   box-sizing: border-box;
 }
+.app {
+}
+.app-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 15;
+  background-color: rgba(83, 83, 83, 0.1);
+}

@@ -26,6 +26,7 @@ const Trending = () => {
     slidesToShow: 4,
     slidesToScroll: 4,
     speed: 500,
+    centerMode: false,
     responsive: [
       {
         breakpoint: 1024,

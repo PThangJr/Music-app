@@ -10,7 +10,9 @@ const RankPage = () => {
   }, [dispatch]);
   const songsOfRanking = useSelector((state) => state.songsOfRanking);
 
-  return <Rank songs={songsOfRanking.data} />;
+  return (
+    <Rank songs={songsOfRanking.data} isLoading={songsOfRanking.isLoading} />
+  );
 };
 
 export default RankPage;

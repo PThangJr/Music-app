@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const searchAPI = {
   search(payload) {
-    console.log(`payload`, payload);
+    // console.log(`payload`, payload);
     const url = "/search";
     return axiosClient.post(
       url,
