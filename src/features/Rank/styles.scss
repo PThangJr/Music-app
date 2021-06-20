@@ -6,9 +6,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     // margin-bottom: 20px;
     &__heading {
       font-size: var(--font-size-hg);
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      &:hover {
+        color: var(--color-purple);
+      }
+      p.icon {
+        transform: translateY(2px);
+        margin-left: 6px;
+        font-size: var(--font-size-lg);
+      }
     }
     &__play-all {
       font-size: var(--font-size-md);

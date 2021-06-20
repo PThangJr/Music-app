@@ -19,7 +19,7 @@ const ButtonPlayAll = (props) => {
   };
   return (
     <button
-      className="btn btn--primary btn--md btn--orange"
+      className="btn btn--primary btn--md btn--green"
       onClick={handlePlayAll}
     >
       Phát tất cả <i className="fas fa-play"></i>

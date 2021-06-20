@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = {
+const initialState = JSON.parse(localStorage.getItem("currentSong")) || {
   _id: "",
   name: "",
   slug: "",
@@ -19,10 +19,12 @@ const currentSongSlice = createSlice({
   reducers: {
     setCurrentSong(state, action) {
       const newState = { ...state, ...action.payload };
+      localStorage.setItem("currentSong", JSON.stringify(newState));
       return newState;
     },
     removeCurrerntSong(state, action) {
       const newState = { ...initialState };
+      localStorage.removeItem("currentSong");
       return newState;
     },
   },

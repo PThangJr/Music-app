@@ -8,7 +8,10 @@ import {
   setPlayerControls,
 } from "../../features/Player/components/PlayerControls/playerControlsSlice";
 import { setCurrentSong } from "../../features/Player/currentSongSlice";
-import { setPrevSongs } from "../../features/PlayerQueue/prevSongsSlice";
+import {
+  setPrevSongs,
+  updatePrevSongs,
+} from "../../features/PlayerQueue/prevSongsSlice";
 import { updateSongList } from "../../features/PlayerQueue/songsPlaySlice";
 import CardSongActions from "./components/CardSongActions";
 import "./styles.scss";
@@ -49,21 +52,38 @@ const CardSong = (props) => {
       dispatch(setPlayerControls({ isPlaying: !playerControls.isPlaying }));
     } else {
       dispatch(setPlayerControls({ isPlaying: true }));
-      dispatch(setPrevSongs(song));
       dispatch(setCurrentSong(song));
-      if (prevSongs.data.find((prevSong) => prevSong._id === song._id)) {
-        dispatch(
-          updateSongList([
-            ...prevSongs.data.filter((songPlay) => songPlay._id !== song._id),
-            ...songsPlay.data,
-          ])
+      if (prevSongs.data.some((prevSong) => prevSong._id === song._id)) {
+        const indexSong = prevSongs.data.findIndex(
+          (item) => item._id === song._id
         );
-      }
-      if (songsPlay.data.find((songPlay) => songPlay._id === song._id)) {
-        // console.log("songPlay match");
+        const songsPlayUpdate = [];
+        const prevSongsUpdate = prevSongs.data
+          .map((song, index) => {
+            if (index <= indexSong) {
+              return song;
+            } else {
+              songsPlayUpdate.push(song);
+            }
+          })
+          .filter((item) => item);
+        // console.log(`prevSongsUpdate`, prevSongsUpdate);
+        // console.log(`songsPlayUpdate`, songsPlayUpdate);
+        dispatch(updatePrevSongs(prevSongsUpdate));
+        dispatch(updateSongList([...songsPlayUpdate, ...songsPlay.data]));
+        // dispatch(
+        //   updateSongList([
+        //     ...prevSongs.data.filter((songPlay) => songPlay._id !== song._id),
+        //     ...songsPlay.data,
+        //   ])
+        // );
+      } else if (songsPlay.data.some((songPlay) => songPlay._id === song._id)) {
+        dispatch(setPrevSongs(song));
         dispatch(
           updateSongList(songsPlay.data.filter((s) => s._id !== song._id))
         );
+      } else {
+        dispatch(setPrevSongs(song));
       }
     }
     // dispatch(updateSongList([song]));
@@ -106,20 +126,24 @@ const CardSong = (props) => {
         </div>
         <div className="card-song-info text-hover">
           <p className="card-song-info__name text-hover">{song.name || name}</p>
-          {singers.map((singer, index) => {
-            return (
-              <Link
-                key={singer._id + "-singers"}
-                to={`/singers/${singer.slug}`}
-                className="card-song-info__description text-hover"
-                onClick={handleStoppropagation}
-              >
-                {singer.name}
-                {(singers.length > 1 && index < singers.length - 1 && " , ") ||
-                  ""}
-              </Link>
-            );
-          })}
+          <div className="card-song-info__descriptions">
+            {singers.map((singer, index) => {
+              return (
+                <Link
+                  key={singer._id + "-singers"}
+                  to={`/singers/${singer.slug}`}
+                  className="card-song-info__description"
+                  onClick={handleStoppropagation}
+                >
+                  {singer.name}
+                  {(singers.length > 1 &&
+                    index < singers.length - 1 &&
+                    " , ") ||
+                    ""}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
       {fullInfo && (

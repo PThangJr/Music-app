@@ -18,3 +18,4 @@
 17. Add a button playall song list on Rank, Songs of singer ==> Done!
 18. Song Detail page
 19. Fix bug when playing last song ==> Done!
+20. Save current song and songsPlaylist on localStorage
