@@ -69,7 +69,7 @@ const Trending = () => {
   };
   const albums = useSelector((state) => state.albums);
   useEffect(() => {
-    dispatch(fetchAlbums({ params: { limit: 20 } }));
+    dispatch(fetchAlbums({ params: { limit: 13 } }));
   }, [dispatch]);
   return (
     <div className="trending">
