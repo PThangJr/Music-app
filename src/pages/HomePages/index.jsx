@@ -10,10 +10,12 @@ import { fetchAnthologyAlbums } from "./anthologyAlbumsSlice";
 import { fetchBalladUsUkAlbums } from "./balladUsUkAlbumSlice";
 import { fetchPlaylists } from "./playlistsSlice";
 import CardSkeletons from "../../components/Card/loading/CardSkeletons";
+import { fetchHotAlbums } from "./hotAlbumsSlice";
 const HomePage = () => {
   const dispatch = useDispatch();
   const anthologyAlbums = useSelector((state) => state.anthologyAlbums);
   const balladUsUkAlbums = useSelector((state) => state.balladUsUkAlbums);
+  const hotAlbums = useSelector((state) => state.hotAlbums);
   const songsOfRanking = useSelector((state) => state.songsOfRanking);
   const playlists = useSelector((state) => state.playlists);
   const singers = useSelector((state) => state.singers);
@@ -41,6 +43,15 @@ const HomePage = () => {
           },
         })
       );
+      dispatch(
+        fetchHotAlbums({
+          playlistSlug: playlists.data[2]?.slug,
+          params: {
+            limit: 6,
+            page: 1,
+          },
+        })
+      );
     }
     dispatch(fetchSongsOfRanking({ params: { limit: 10 } }));
   }, [dispatch, playlists.data]);
@@ -48,6 +59,18 @@ const HomePage = () => {
     <div>
       <Trending />
       {/* {!anthologyAlbums.isLoading && <CardSkeletons totalItems={6} />} */}
+      {hotAlbums.isLoading ? (
+        <div className="loading">
+          <h3 className="heading-15">Loading...</h3>
+          <CardSkeletons totalItems={6} />
+        </div>
+      ) : (
+        <PlaylistsList
+          playlist={playlists.data[2]}
+          isLoading={hotAlbums.isLoading}
+          albums={hotAlbums.data}
+        />
+      )}
       {anthologyAlbums.isLoading ? (
         <div className="loading">
           <h3 className="heading-15">Loading...</h3>
@@ -61,7 +84,7 @@ const HomePage = () => {
           isHaveSingers={true}
         />
       )}
-      {fetchBalladUsUkAlbums.isLoading ? (
+      {balladUsUkAlbums.isLoading ? (
         <div className="loading">
           <h3 className="heading-15">Loading...</h3>
           <CardSkeletons totalItems={6} />

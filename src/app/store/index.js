@@ -19,6 +19,7 @@ import albumsListSlice from "../../layouts/Details/pages/AlbumsPage/albumsListSl
 import anthologyAlbumsSlice from "../../pages/HomePages/anthologyAlbumsSlice";
 import balladUsUkAlbumSlice from "../../pages/HomePages/balladUsUkAlbumSlice";
 import displayFormSlice from "../../pages/HomePages/displayFormSlice";
+import hotAlbumsSlice from "../../pages/HomePages/hotAlbumsSlice";
 
 const store = configureStore({
   reducer: {
@@ -48,6 +49,7 @@ const store = configureStore({
     albumsSuggestion: albumsSuggestionSlice,
     anthologyAlbums: anthologyAlbumsSlice,
     balladUsUkAlbums: balladUsUkAlbumSlice,
+    hotAlbums: hotAlbumsSlice,
 
     auths: authsSlice,
   },

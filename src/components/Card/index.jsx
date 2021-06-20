@@ -36,9 +36,9 @@ const Card = (props) => {
   // console.log(isHaveSingers);
   const onHandleChooseAlbum = (albumSlug) => {
     dispatch(fetchSongsPlayOfAlbum({ albumSlug: albumSlug }));
-    dispatch(setPlayerControls({ isPlaying: true }));
     dispatch(removeNextSongs([]));
     dispatch(removePrevSongs());
+    // dispatch(setPlayerControls({ isPlaying: true }));
     if (handleChooseAlbum) {
       handleChooseAlbum(albumSlug);
     }

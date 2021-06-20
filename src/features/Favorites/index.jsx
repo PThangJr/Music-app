@@ -8,9 +8,11 @@ const Favorites = () => {
     setFavoritesSong(JSON.parse(localStorage.getItem("favorites")));
   }, []);
   const handleDeleteAllFavorites = () => {
-    if (window.confirm("Bạn muốn xoá hết danh sách nhạc yêu thích?")) {
-      localStorage.removeItem("favorites");
-      setFavoritesSong([]);
+    if (favoriteSongs?.length) {
+      if (window.confirm("Bạn muốn xoá hết danh sách nhạc yêu thích?")) {
+        localStorage.removeItem("favorites");
+        setFavoritesSong([]);
+      }
     }
   };
   return (

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import songsAPI from "../../api/songsAPI";
+import { setPlayerControls } from "../Player/components/PlayerControls/playerControlsSlice";
 
 const initialState = {
   data: JSON.parse(localStorage.getItem("songsPlay")) || [],
@@ -17,7 +18,9 @@ export const fetchSongsPlayOfAlbum = createAsyncThunk(
   "/songs-play-of-album",
   async (payload, thunkAPI) => {
     try {
+      thunkAPI.dispatch(setPlayerControls({ isPlaying: false }));
       const response = await songsAPI.getSongsOfAlbum(payload);
+      thunkAPI.dispatch(setPlayerControls({ isPlaying: true }));
 
       // return { ...response, songs: response.songs.slice(1) };
       setLocaleStorage("songsPlay", response.songs);
