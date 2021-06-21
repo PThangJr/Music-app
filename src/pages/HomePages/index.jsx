@@ -59,7 +59,7 @@ const HomePage = () => {
     <div>
       <Trending />
       {/* {!anthologyAlbums.isLoading && <CardSkeletons totalItems={6} />} */}
-      {hotAlbums.isLoading ? (
+      {playlists.isLoading || hotAlbums.isLoading ? (
         <div className="loading">
           <h3 className="heading-15">Loading...</h3>
           <CardSkeletons totalItems={6} />
@@ -71,7 +71,7 @@ const HomePage = () => {
           albums={hotAlbums.data}
         />
       )}
-      {anthologyAlbums.isLoading ? (
+      {playlists.isLoading || anthologyAlbums.isLoading ? (
         <div className="loading">
           <h3 className="heading-15">Loading...</h3>
           <CardSkeletons totalItems={6} />
@@ -84,7 +84,7 @@ const HomePage = () => {
           isHaveSingers={true}
         />
       )}
-      {balladUsUkAlbums.isLoading ? (
+      {playlists.isLoading || balladUsUkAlbums.isLoading ? (
         <div className="loading">
           <h3 className="heading-15">Loading...</h3>
           <CardSkeletons totalItems={6} />
