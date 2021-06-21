@@ -1,15 +1,14 @@
+import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { setPlayerControls } from "../../features/Player/components/PlayerControls/playerControlsSlice";
 import { removePrevSongs } from "../../features/PlayerQueue/prevSongsSlice";
 import {
   fetchSongsPlayOfAlbum,
   removeNextSongs,
 } from "../../features/PlayerQueue/songsPlaySlice";
 import CardActions from "./components/CardActions";
-import classNames from "classnames";
 import "./styles.scss";
 const Card = (props) => {
   const dispatch = useDispatch();
@@ -72,14 +71,14 @@ const Card = (props) => {
           </Link>
         </div>
         <div className="card-content-descriptions">
-          {album?.singers.map((des, index, singers) => {
+          {album?.singers?.map((des, index, singers) => {
             return (
               <Link
                 key={des.id || index}
                 to={`/singers/${des.slug}`}
                 className="card-content__link"
               >
-                {des?.name} {index > 0 && index < singers.length && ", "}
+                {index > 0 && ", "} {des?.name}
               </Link>
             );
           })}

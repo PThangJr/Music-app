@@ -19,17 +19,7 @@ export const fetchAlbums = createAsyncThunk(
     }
   }
 );
-export const fetchAlbumsOfSinger = createAsyncThunk(
-  "/albums/singer",
-  async (payload, thunkAPI) => {
-    try {
-      const response = albumsAPI.getAlbumsOfSinger(payload);
-      return response;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+
 export const fetchCreateAlbum = createAsyncThunk(
   "/album/create",
   async (payload, thunkAPI) => {
@@ -93,19 +83,6 @@ const albumsSlice = createSlice({
     },
     [fetchAlbums.rejected](state, action) {
       console.log(action.payload);
-    },
-    //Fetch Album Of singer
-    [fetchAlbumsOfSinger.pending](state, action) {
-      state.isLoading = true;
-      state.errors = null;
-      state.message = "";
-    },
-    [fetchAlbumsOfSinger.fulfilled](state, action) {
-      state.data = action.payload.albums;
-      state.isLoading = false;
-    },
-    [fetchAlbumsOfSinger.rejected](state, action) {
-      // console.log(action.payload);
     },
     //Fetch create album
     [fetchCreateAlbum.pending](state, action) {

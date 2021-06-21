@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import searchSlice from "../../components/Header/compoents/HeaderSearch/searchSlice";
 import albumsSlice from "../../features/Albums/albumsSlice";
+import albumsOfSingerSlice from "../../features/Albums/albumsOfSingerSlice";
 import albumsSuggestionSlice from "../../features/Albums/albumsSuggestionSlice";
 import authorsSlice from "../../features/Authors/authorsSlice";
 import authsSlice from "../../features/Auths/authsSlice";
@@ -13,9 +14,9 @@ import playlistDetailSlice from "../../features/Playlists/playlistDetailSlice";
 import playlistsSlice from "../../features/Playlists/playlistsSlice";
 import songsOfRankingSlice from "../../features/Rank/songsOfRankingSlice";
 import resultsSlice from "../../features/Results/resultsSlice";
+import singerDetailSlice from "../../features/Singers/singerDetailSlice";
 import singersSlice from "../../features/Singers/singersSlice";
 import songsSlice from "../../features/Songs/songsSlice";
-import albumsListSlice from "../../layouts/Details/pages/AlbumsPage/albumsListSlice";
 import anthologyAlbumsSlice from "../../pages/HomePages/anthologyAlbumsSlice";
 import balladUsUkAlbumSlice from "../../pages/HomePages/balladUsUkAlbumSlice";
 import displayFormSlice from "../../pages/HomePages/displayFormSlice";
@@ -37,6 +38,7 @@ const store = configureStore({
     categories: categoriesSlice,
 
     singers: singersSlice,
+    singerDetail: singerDetailSlice,
 
     authors: authorsSlice,
     playerControls: playerControlsSlice,
@@ -45,7 +47,7 @@ const store = configureStore({
     playlistDetail: playlistDetailSlice,
 
     albums: albumsSlice,
-    albumsList: albumsListSlice,
+    albumsOfSinger: albumsOfSingerSlice,
     albumsSuggestion: albumsSuggestionSlice,
     anthologyAlbums: anthologyAlbumsSlice,
     balladUsUkAlbums: balladUsUkAlbumSlice,

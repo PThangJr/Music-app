@@ -6,7 +6,7 @@ import SongsList from "../../../../components/SongsList";
 import { fetchAlbums } from "../../../Albums/albumsSlice";
 import { fetchSongs } from "../../../Songs/songsSlice";
 import { fetchPlaylistDetail } from "../../playlistDetailSlice";
-
+import CardSkeletons from "../../../../components/Card/loading/CardSkeletons";
 const PlaylistDetail = () => {
   const dispatch = useDispatch();
   const { playlistSlug } = useParams();
@@ -25,22 +25,29 @@ const PlaylistDetail = () => {
   return (
     <div className="details">
       <div className="row">
-        <div className="col-xl-9 col-lg-9 col-md-12">
+        <div className="col-xl-8 col-lg-12 col-md-12">
           <div className="row">
-            <PlaylistsList
-              col="col-xl-2-5 col-lg-3 col-md-4 col-sm-6 col-6"
-              albums={albums.data}
-              isLoading={albums.isLoading}
-              playlist={playlistDetail.data}
-            />
+            {albums.isLoading ? (
+              <CardSkeletons
+                totalItems={15}
+                className="col-xl-2-5 col-lg-3 col-md-4 col-sm-4 col-6"
+              />
+            ) : (
+              <PlaylistsList
+                col="col-xl-2-5 col-lg-3 col-md-4 col-sm-4 col-6"
+                albums={albums.data}
+                isLoading={albums.isLoading}
+                playlist={playlistDetail.data}
+              />
+            )}
           </div>
         </div>
-        <div className="col-xl-3 col-lg-3 col-md-12">
+        <div className="col-xl-4 col-lg-12 col-md-12">
           <div className="songs-suggestion">
             <h3 className="songs-suggestion__heading heading-15">
               Bài hát gợi ý
             </h3>
-            <SongsList songs={songs.data} />
+            <SongsList songs={songs.data} isLoading={songs.isLoading} />
           </div>
         </div>
       </div>

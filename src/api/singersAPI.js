@@ -6,6 +6,10 @@ const singersAPI = {
     const url = "/singers";
     return axiosClient.get(url, { params });
   },
+  getSingerDetail(payload) {
+    const url = `/singers/${payload.singerSlug}`;
+    return axiosClient.get(url);
+  },
   getBestRandomSingers(payload) {
     const params = payload?.params;
     const url = "/singers/random";

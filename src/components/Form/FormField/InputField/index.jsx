@@ -8,11 +8,13 @@ const InputField = (props) => {
     type = "text",
     name = "",
     onChange,
+    onFocus,
     className = "",
     fullWidth = "",
     disabled = false,
     defaultValues = "",
     debounce = false,
+    selectedAllText = false,
   } = props;
   const typingTimeOutRef = useRef(null);
 
@@ -33,6 +35,14 @@ const InputField = (props) => {
       }
     }
   };
+  const handleFocus = (e) => {
+    if (selectedAllText) {
+      e.target.select();
+    }
+    if (onFocus) {
+      onFocus();
+    }
+  };
   return (
     <input
       placeholder={placeholder}
@@ -46,6 +56,7 @@ const InputField = (props) => {
       name={name}
       disabled={disabled}
       defaultValue={defaultValues}
+      onFocus={handleFocus}
     />
   );
 };
@@ -55,6 +66,8 @@ InputField.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string,
   disabled: PropTypes.bool,
+  selectedAllText: PropTypes.bool,
+  onFocus: PropTypes.func,
 };
 
 export default InputField;

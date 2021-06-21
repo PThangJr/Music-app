@@ -5,6 +5,7 @@ import InputField from "../../../../components/Form/FormField/InputField";
 import { fetchPlaylists } from "../../../Playlists/playlistsSlice";
 import { fetchCreateAlbum, fetchUpdateAlbum } from "../../albumsSlice";
 import PropTypes from "prop-types";
+import { fetchSingers } from "../../../Singers/singersSlice";
 const mapObjectToArray = (object) => {
   const keys = Object.keys(object);
   const result = keys.filter((item) => {
@@ -17,24 +18,29 @@ const AlbumControls = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPlaylists());
+    dispatch(fetchSingers());
   }, [dispatch]);
 
   //Store
   const playlists = useSelector((state) => state.playlists);
   const categories = useSelector((state) => state.categories);
+  const singers = useSelector((state) => state.singers);
 
   //
   const [dataInput, setDataInput] = useState({});
   const [dataPlaylists, setDataPlaylists] = useState({});
   const [dataCategories, setDataCategories] = useState({});
+  const [dataSingers, setDataSingers] = useState({});
   const handleSubmitFormAlbum = (e) => {
     e.preventDefault();
     const dataPlaylistsResult = mapObjectToArray(dataPlaylists);
     const dataCategoriesResult = mapObjectToArray(dataCategories);
+    const dataSingersResult = mapObjectToArray(dataSingers);
     const data = {
       ...dataInput,
       playlists: dataPlaylistsResult,
       categories: dataCategoriesResult,
+      singers: dataSingersResult,
     };
     if (isUpdate) {
       dispatch(
@@ -52,6 +58,9 @@ const AlbumControls = (props) => {
   };
   const handleChangeCategories = (values) => {
     setDataCategories({ ...dataCategories, ...values });
+  };
+  const handleChangeSingers = (values) => {
+    setDataSingers({ ...dataSingers, ...values });
   };
   return (
     <div className="controls">
@@ -118,6 +127,25 @@ const AlbumControls = (props) => {
               </button>
             </div>
           </form>
+        </div>
+        <div className="col-6">
+          <div className="checkbox-box">
+            <h4 className="checkbox-box__heading">Ca sĩ :</h4>
+            {singers.data.map((singer) => {
+              return (
+                <CBoxField
+                  key={singer?._id}
+                  name={singer?._id}
+                  label={singer?.name}
+                  onChange={handleChangeSingers}
+                  defaultChecked={
+                    album?.singers?.some((pl) => pl._id === singer?._id) ||
+                    false
+                  }
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
