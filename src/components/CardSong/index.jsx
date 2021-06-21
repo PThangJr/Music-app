@@ -46,6 +46,7 @@ const CardSong = (props) => {
 
   const isFavorite = favorites.find((fav) => fav?._id === song?._id);
   const isCurrentSong = currentSong._id === song._id;
+  // const isCurrentSongPlaying = isCurrentSong && isPlaying === true;
   const { isAdmin } = useSelector((state) => state.auths);
   const handleChooseSong = () => {
     if (currentSong._id === song._id) {
@@ -121,6 +122,11 @@ const CardSong = (props) => {
           {isPlaying && isCurrentSong && (
             <p className="icon icon--playing">
               <i className=""></i>
+            </p>
+          )}
+          {!isPlaying && isCurrentSong && (
+            <p className="icon icon--pause">
+              <i className="far fa-pause-circle"></i>
             </p>
           )}
         </div>

@@ -95,7 +95,9 @@
         background-color: rgba(61, 61, 61, 0.5);
         color: var(--text-color-reverse);
       }
-
+      p.icon--pause {
+        display: flex;
+      }
       p.icon--playing {
         display: flex;
 
