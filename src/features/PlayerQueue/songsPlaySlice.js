@@ -57,8 +57,9 @@ const songsPlaySlice = createSlice({
     },
     setNextSongs(state, action) {
       const newData = [...current(state).data];
-      newData.unshift();
+      newData.unshift(action.payload);
       state.data.unshift(action.payload);
+      console.log(newData);
       setLocaleStorage("songsPlay", newData);
     },
     removeNextSong(state, action) {
