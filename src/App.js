@@ -12,6 +12,7 @@ import "./index.css";
 import Main from "./layouts/Main";
 import { setDisplayPlayerQueue } from "./pages/HomePages/displayFormSlice";
 import "./scss/base.scss";
+// import "sweetalert2/dist/sweetalert2.scss";
 function App() {
   const dispatch = useDispatch();
   //State

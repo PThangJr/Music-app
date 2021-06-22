@@ -14,7 +14,7 @@ const AllSingers = () => {
   const singers = useSelector((state) => state.singers);
 
   return (
-    <div classNames="singers">
+    <div className="singers">
       <h3 className="heading-15">Tất cả ca sĩ</h3>
       {isAdmin && <SingerControls />}
       <div className="row">

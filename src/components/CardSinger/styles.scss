@@ -1,0 +1,8 @@
+.card {
+  &--singer {
+    margin-bottom: 12px;
+    .card-content {
+      height: auto;
+    }
+  }
+}

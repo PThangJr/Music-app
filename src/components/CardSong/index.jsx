@@ -3,10 +3,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  setFavoriteSongs,
-  setPlayerControls,
-} from "../../features/Player/components/PlayerControls/playerControlsSlice";
+import { addFavoriteSong } from "../../features/Favorites/favoriteSongsSlice";
+import { setPlayerControls } from "../../features/Player/components/PlayerControls/playerControlsSlice";
 import { setCurrentSong } from "../../features/Player/currentSongSlice";
 import {
   setPrevSongs,
@@ -38,13 +36,14 @@ const CardSong = (props) => {
     }
   };
   let singers = song.singers.length ? song.singers : descriptions;
-  const { favorites, isPlaying } = useSelector((state) => state.playerControls);
+  const { isPlaying } = useSelector((state) => state.playerControls);
   const songsPlay = useSelector((state) => state.songsPlay);
   const prevSongs = useSelector((state) => state.prevSongs);
   const currentSong = useSelector((state) => state.currentSong);
   const playerControls = useSelector((state) => state.playerControls);
+  const favoriteSongs = useSelector((state) => state.favoriteSongs);
 
-  const isFavorite = favorites.find((fav) => fav?._id === song?._id);
+  const isFavorite = favoriteSongs.find((fav) => fav?._id === song?._id);
   const isCurrentSong = currentSong._id === song._id;
   // const isCurrentSongPlaying = isCurrentSong && isPlaying === true;
   const { isAdmin } = useSelector((state) => state.auths);
@@ -92,7 +91,8 @@ const CardSong = (props) => {
   };
   const handleFavoriteSong = (e) => {
     e.stopPropagation();
-    dispatch(setFavoriteSongs(song));
+    // dispatch(setFavoriteSongs(song));
+    dispatch(addFavoriteSong(song));
   };
   const handleStoppropagation = (e) => {
     e.stopPropagation();

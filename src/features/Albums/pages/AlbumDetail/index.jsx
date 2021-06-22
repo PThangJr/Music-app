@@ -31,7 +31,7 @@ const AlbumDetail = (props) => {
             <h3 className="albums-header__heading">Bài hát</h3>
             <ButtonPlayAll songs={songs.data} />
           </div>
-          <div className="albums-song">
+          <div className="albums-songs">
             <SongsList
               fullInfo
               songs={songs.data}

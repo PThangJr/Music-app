@@ -21,6 +21,7 @@ import anthologyAlbumsSlice from "../../pages/HomePages/anthologyAlbumsSlice";
 import balladUsUkAlbumSlice from "../../pages/HomePages/balladUsUkAlbumSlice";
 import displayFormSlice from "../../pages/HomePages/displayFormSlice";
 import hotAlbumsSlice from "../../pages/HomePages/hotAlbumsSlice";
+import favoriteSongsSlice from "../../features/Favorites/favoriteSongsSlice";
 
 const store = configureStore({
   reducer: {
@@ -34,6 +35,7 @@ const store = configureStore({
     songsPlay: songsPlaySlice,
     currentSong: currentSongSlice,
     prevSongs: prevSongsSlice,
+    favoriteSongs: favoriteSongsSlice,
 
     categories: categoriesSlice,
 

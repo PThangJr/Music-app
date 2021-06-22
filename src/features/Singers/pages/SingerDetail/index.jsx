@@ -10,6 +10,7 @@ import { fetchAlbumsOfSinger } from "../../../Albums/albumsOfSingerSlice";
 import { fetchAlbums } from "../../../Albums/albumsSlice";
 import { fetchSongs } from "../../../Songs/songsSlice";
 import { fetchSingerDetail } from "../../singerDetailSlice";
+import "./styles.scss";
 const SingerDetail = (props) => {
   const dispatch = useDispatch();
   const { singerSlug } = useParams();
@@ -46,11 +47,13 @@ const SingerDetail = (props) => {
               <h3 className="heading-15 albums-header__heading ">Bài hát</h3>
               <ButtonPlayAll songs={songs.data} />
             </div>
-            <SongsList
-              songs={songs.data}
-              isLoading={songs.isLoading}
-              fullInfo
-            />
+            <div className="albums-songs">
+              <SongsList
+                songs={songs.data}
+                isLoading={songs.isLoading}
+                fullInfo
+              />
+            </div>
             <h3 className="heading-15 albums-header__heading ">Albums</h3>
             {albumsOfSinger.isLoading ? (
               <CardSkeletons

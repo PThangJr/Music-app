@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDisplayPlayerQueue } from "../../../../pages/HomePages/displayFormSlice";
+import { addFavoriteSong } from "../../../Favorites/favoriteSongsSlice";
 import {
   choosePrevSong,
   setPrevSongs,
@@ -28,9 +29,10 @@ const PlayerControls = (props) => {
   const currentSong = useSelector((state) => state.currentSong);
   const prevSongs = useSelector((state) => state.prevSongs);
   const displayForm = useSelector((state) => state.displayForm);
+  const favoriteSongs = useSelector((state) => state.favoriteSongs);
 
-  const { isPlaying, isRandom, favorites, isRepeat } = playerControls;
-  const isFavorite = favorites.find((fav) => fav?._id === currentSong?._id);
+  const { isPlaying, isRandom, isRepeat } = playerControls;
+  const isFavorite = favoriteSongs.find((fav) => fav?._id === currentSong?._id);
 
   const audioRef = useRef();
 
@@ -84,7 +86,7 @@ const PlayerControls = (props) => {
   };
   const handleFavoriteSong = () => {
     if (!currentSong._id) return;
-    dispatch(setFavoriteSongs(currentSong));
+    dispatch(addFavoriteSong(currentSong));
   };
   const handleRepeatSong = () => {
     audioRef.current.loop = !isRepeat;

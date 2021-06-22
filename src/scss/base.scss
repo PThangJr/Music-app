@@ -177,3 +177,17 @@ body {
 p.icon {
   display: inline-block;
 }
+.swal2-container {
+  div {
+    font-size: 1.6rem !important;
+  }
+  #swal2-content {
+    font-size: 2rem !important;
+  }
+  .swal2-confirm {
+    min-width: 100px;
+  }
+  .swal2-icon-content {
+    font-size: 1.6rem !important;
+  }
+}
