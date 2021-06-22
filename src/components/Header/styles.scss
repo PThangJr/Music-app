@@ -71,10 +71,18 @@
 
     &__name {
       font-size: var(--font-size-lg);
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      display: -webkit-box;
     }
 
     &__singers {
       font-size: var(--font-size-sm);
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      display: -webkit-box;
     }
   }
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { removeVietnameseTones } from "../../../../js/scripts";
 import InputField from "../../../Form/FormField/InputField";
 import "./styles.scss";
 const HeaderSearch = () => {
@@ -15,7 +14,8 @@ const HeaderSearch = () => {
   const handleSubmitFormSearch = (e) => {
     e.preventDefault();
     if (dataKeyword.keyword.trim()) {
-      const keyword = removeVietnameseTones(dataKeyword.keyword.trim());
+      // const keyword = removeVietnameseTones(dataKeyword.keyword.trim());
+      const keyword = dataKeyword.keyword.trim();
       history.push({
         pathname: "/results",
         search: `?keyword=${keyword}`,

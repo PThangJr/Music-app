@@ -186,6 +186,8 @@ const PlayerControls = (props) => {
           <a
             href={currentSong?.linkMp3}
             className="btn btn--primary player-buttons__download hide-on-mobile"
+            target="_blank"
+            rel="noreferrer"
           >
             <i className="fas fa-download"></i>
           </a>
@@ -218,6 +220,8 @@ const PlayerControls = (props) => {
           <a
             href={currentSong?.linkMp3}
             className="btn btn--primary btn--controls player-buttons__download show-on-mobile"
+            target="_blank"
+            rel="noreferrer"
           >
             <i className="fas fa-download"></i>
           </a>
