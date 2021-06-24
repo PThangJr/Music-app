@@ -11,7 +11,7 @@ import { fetchResults } from "./resultsSlice";
 import "./styles.scss";
 const Results = (props) => {
   const location = useLocation();
-  const { page } = queryString.parse(location.search);
+  // const { page } = queryString.parse(location.search);
 
   const dispatch = useDispatch();
   //Store
@@ -22,7 +22,7 @@ const Results = (props) => {
     if (location.search) {
       const { keyword, page } = queryString.parse(location.search);
       // dispatch(fetchResults({ keyword, params: { limit: 5, page: 1 } }));
-      dispatch(fetchResults({ params: { limit: 6, page, keyword } }));
+      dispatch(fetchResults({ params: { limit: 7, page, keyword } }));
     }
   }, [dispatch, location.search]);
   if (!results.isSuccess) {

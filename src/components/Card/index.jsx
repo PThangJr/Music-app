@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { removePrevSongs } from "../../features/PlayerQueue/prevSongsSlice";
@@ -27,6 +27,8 @@ const Card = (props) => {
     },
     isHaveSingers,
   } = props;
+  const clickTimeoutRef = useRef(null);
+
   const fallBackImage = (e) => {
     if (e) {
       e.target.src = "http://placehold.it/145x145";
@@ -34,13 +36,18 @@ const Card = (props) => {
   };
   // console.log(isHaveSingers);
   const onHandleChooseAlbum = (albumSlug) => {
-    dispatch(fetchSongsPlayOfAlbum({ albumSlug: albumSlug }));
-    dispatch(removeNextSongs([]));
-    dispatch(removePrevSongs());
-    // dispatch(setPlayerControls({ isPlaying: true }));
-    if (handleChooseAlbum) {
-      handleChooseAlbum(albumSlug);
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
     }
+    clickTimeoutRef.current = setTimeout(() => {
+      dispatch(fetchSongsPlayOfAlbum({ albumSlug: albumSlug }));
+      dispatch(removeNextSongs([]));
+      dispatch(removePrevSongs());
+    }, 300);
+    // dispatch(setPlayerControls({ isPlaying: true }));
+    // if (handleChooseAlbum) {
+    //   handleChooseAlbum(albumSlug);
+    // }
   };
   return (
     <div className="card">

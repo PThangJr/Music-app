@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SongsList from "../../components/SongsList";
 import { removeFavoriteSongs } from "./favoriteSongsSlice";
 import Swal from "sweetalert2";
+import ButtonPlayAll from "../../components/Buttons/components/ButtonPlayAll";
 import "./styles.scss";
 const Favorites = () => {
   // let favoriteSongs = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -35,13 +36,16 @@ const Favorites = () => {
         <h3 className="heading-15 favorites-header__heading">
           Bài hát yêu thích
         </h3>
-        <button
-          className="btn btn--primary btn--danger"
-          onClick={handleDeleteAllFavorites}
-        >
-          <i className="fas fa-trash-alt"></i>
-          Xoá tất cả
-        </button>
+        <div className="favorites-buttons">
+          <ButtonPlayAll songs={favoriteSongs} />
+          <button
+            className="btn btn--primary btn--danger"
+            onClick={handleDeleteAllFavorites}
+          >
+            Xoá tất cả
+            <i className="fas fa-trash-alt"></i>
+          </button>
+        </div>
       </div>
       {favoriteSongs?.length ? (
         <SongsList

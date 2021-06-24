@@ -27,7 +27,10 @@ const PlayerQueue = () => {
       if (firstSong) {
         dispatch(setPrevSongs(firstSong));
         dispatch(setCurrentSong(firstSong));
-        dispatch(setSongsPlay(otherSongs));
+        const otherSongsFilter = otherSongs.filter(
+          (song) => song._id !== firstSong._id
+        );
+        dispatch(setSongsPlay(otherSongsFilter));
       }
     }
   }, [dispatch, prevSongs.data, songsPlay.data]);

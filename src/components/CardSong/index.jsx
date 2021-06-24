@@ -64,6 +64,7 @@ const CardSong = (props) => {
               return song;
             } else {
               songsPlayUpdate.push(song);
+              return undefined;
             }
           })
           .filter((item) => item);

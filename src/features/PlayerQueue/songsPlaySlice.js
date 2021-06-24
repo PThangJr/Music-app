@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import songsAPI from "../../api/songsAPI";
 import { setPlayerControls } from "../Player/components/PlayerControls/playerControlsSlice";
+import { setCurrentSong } from "../Player/currentSongSlice";
+import { setPrevSongs } from "./prevSongsSlice";
 
 const initialState = {
   data: JSON.parse(localStorage.getItem("songsPlay")) || [],
@@ -20,10 +22,11 @@ export const fetchSongsPlayOfAlbum = createAsyncThunk(
     try {
       thunkAPI.dispatch(setPlayerControls({ isPlaying: false }));
       const response = await songsAPI.getSongsOfAlbum(payload);
+
       thunkAPI.dispatch(setPlayerControls({ isPlaying: true }));
 
       // return { ...response, songs: response.songs.slice(1) };
-      setLocaleStorage("songsPlay", response.songs);
+      setLocaleStorage("songsPlay", response?.songs);
       return response.songs;
     } catch (error) {
       console.log("Fetch Songs has errors: ", error);
@@ -59,7 +62,6 @@ const songsPlaySlice = createSlice({
       const newData = [...current(state).data];
       newData.unshift(action.payload);
       state.data.unshift(action.payload);
-      console.log(newData);
       setLocaleStorage("songsPlay", newData);
     },
     removeNextSong(state, action) {
@@ -79,6 +81,7 @@ const songsPlaySlice = createSlice({
       state.isLoading = true;
       state.errors = null;
       state.message = "";
+      state.data = [];
     },
     [fetchSongsPlayOfAlbum.fulfilled](state, action) {
       state.data = action.payload;
