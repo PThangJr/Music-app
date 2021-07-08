@@ -5,6 +5,11 @@ const initialState = {
   data: [],
   errors: null,
   message: "",
+  pagination: {
+    page: 1,
+    limit: 1,
+    totalItems: 1,
+  },
 };
 export const fetchSingers = createAsyncThunk(
   "/singers",
@@ -58,7 +63,8 @@ const singersSlice = createSlice({
       // state.message = "";
     },
     [fetchSingers.fulfilled](state, action) {
-      state.data = action.payload;
+      state.data = action.payload.singers;
+      state.pagination = action.payload.pagination;
       state.isLoading = false;
     },
     [fetchSingers.rejected](state, action) {

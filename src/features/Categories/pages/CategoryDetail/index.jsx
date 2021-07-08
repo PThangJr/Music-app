@@ -8,6 +8,8 @@ import Pagination from "../../../../components/Pagination";
 import SongsList from "../../../../components/SongsList";
 import { fetchAlbums } from "../../../Albums/albumsSlice";
 import { fetchSongs } from "../../../Songs/songsSlice";
+import ButtonPlayAll from "../../../../components/Buttons/components/ButtonPlayAll";
+import "./styles.scss";
 const CategoryDetail = (props) => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -36,9 +38,16 @@ const CategoryDetail = (props) => {
     <div className="category-detail">
       <div className="row">
         <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-          <h3 className="heading-15">Bài hát</h3>
+          <div className="heading-15 category-detail-header">
+            <h3 className="category-detail-header__heading">Bài hát</h3>
+            <ButtonPlayAll songs={songs.data} />
+          </div>
           <div className="row">
-            <SongsList songs={songs.data} isLoading={songs.isLoading} />
+            <SongsList
+              songs={songs.data}
+              isLoading={songs.isLoading}
+              fullInfo
+            />
             <Pagination
               currentPage={parseInt(page)}
               totalPage={songs.pagination?.totalPages}

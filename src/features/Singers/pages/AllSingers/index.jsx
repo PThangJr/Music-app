@@ -4,14 +4,30 @@ import CardSinger from "../../../../components/CardSinger";
 import SingerControls from "../../components/SingerControls";
 import { fetchSingers } from "../../singersSlice";
 import CardSkeletons from "../../../../components/Card/loading/CardSkeletons";
+import Pagination from "../../../../components/Pagination";
+import queryString from "query-string";
+import { useLocation } from "react-router";
 const AllSingers = () => {
   const { isAdmin } = useSelector((state) => state.auths);
-
   const dispatch = useDispatch();
+  //Pagination
+  const location = useLocation();
+  const { page, limit } = queryString.parse(location.search, {
+    parseNumbers: true,
+  });
+  //
   useEffect(() => {
-    dispatch(fetchSingers());
-  }, [dispatch]);
+    dispatch(
+      fetchSingers({
+        params: {
+          limit: limit || 24,
+          page,
+        },
+      })
+    );
+  }, [dispatch, limit, page]);
   const singers = useSelector((state) => state.singers);
+  const { pagination } = singers;
 
   return (
     <div className="singers">
@@ -35,6 +51,10 @@ const AllSingers = () => {
             );
           })
         )}
+        <Pagination
+          currentPage={parseInt(page)}
+          totalPage={pagination?.totalPages}
+        />
       </div>
     </div>
   );

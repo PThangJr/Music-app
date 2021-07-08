@@ -5,8 +5,10 @@ import ButtonPlayAll from "../../components/Buttons/components/ButtonPlayAll";
 import CardSong from "../../components/CardSong";
 import CardSongSkeletons from "../../components/CardSong/loading/CardSongSkeletons";
 import { Link } from "react-router-dom";
+import ButtonLoadMore from "../../components/Buttons/components/ButtonLoadMore";
 import "./styles.scss";
-const Rank = ({ songs = [], isLoading = false }) => {
+const Rank = (props) => {
+  const { songs = [], isLoading = false, isLoadingMore = false } = props;
   //Store
   const currentSong = useSelector((state) => state.currentSong);
   //
@@ -32,6 +34,11 @@ const Rank = ({ songs = [], isLoading = false }) => {
       });
     }
   };
+  const handleLoadMore = () => {
+    if (props.handleLoadMore) {
+      props.handleLoadMore();
+    }
+  };
   return (
     <div className="rank">
       <div className="heading-15 rank-header">
@@ -47,6 +54,11 @@ const Rank = ({ songs = [], isLoading = false }) => {
         {/* <SongsList songs={songs} isLoading={isLoading} fullInfo /> */}
         {renderSongsOfRanking()}
       </ul>
+      <ButtonLoadMore
+        isCenter
+        onClick={handleLoadMore}
+        isLoadingMore={isLoadingMore}
+      />
     </div>
   );
 };

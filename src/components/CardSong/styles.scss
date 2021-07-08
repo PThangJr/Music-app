@@ -23,6 +23,7 @@
     background: #7a7474;
     @include mobile {
       background: transparent;
+      color: var(--color-white);
     }
     @include tablet {
       background: transparent;

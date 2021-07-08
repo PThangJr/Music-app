@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import CardSinger from "../../components/CardSinger";
 import PlaylistsList from "../../components/PlaylistsList";
 import Rank from "../../features/Rank";
-import { fetchSongsOfRanking } from "../../features/Rank/songsOfRankingSlice";
+import {
+  fetchLoadMoreSongsOfRanking,
+  fetchSongsOfRanking,
+} from "../../features/Rank/songsOfRankingSlice";
 import { fetchBestRandomSingers } from "../../features/Singers/singersSlice";
 import Trending from "../../features/Trending";
 import { fetchAnthologyAlbums } from "./anthologyAlbumsSlice";
@@ -19,6 +22,8 @@ const HomePage = () => {
   const songsOfRanking = useSelector((state) => state.songsOfRanking);
   const playlists = useSelector((state) => state.playlists);
   const singers = useSelector((state) => state.singers);
+
+  const { isLoadingMore, pagination } = songsOfRanking;
   useEffect(() => {
     dispatch(fetchPlaylists());
     dispatch(fetchBestRandomSingers({ params: { limit: 8 } }));
@@ -55,6 +60,14 @@ const HomePage = () => {
     }
     dispatch(fetchSongsOfRanking({ params: { limit: 10 } }));
   }, [dispatch, playlists.data]);
+  const handleLoadMoreSongs = () => {
+    console.log(songsOfRanking);
+    dispatch(
+      fetchLoadMoreSongsOfRanking({
+        params: { limit: 10, page: songsOfRanking.pagination.page + 1 },
+      })
+    );
+  };
   return (
     <div>
       <Trending />
@@ -102,6 +115,8 @@ const HomePage = () => {
           <Rank
             songs={songsOfRanking.data}
             isLoading={songsOfRanking.isLoading}
+            handleLoadMore={handleLoadMoreSongs}
+            isLoadingMore={isLoadingMore}
           />
         </div>
         <div className="col-xl-3 col-lg-3 col-md-12">

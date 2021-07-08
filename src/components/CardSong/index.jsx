@@ -170,6 +170,12 @@ const CardSong = (props) => {
       >
         <i className="fas fa-heart"></i>
       </button>
+      {/* <div className="sub-controls">
+        
+      </div>
+      <button className="btn btn--primary btn--black btn--check">
+          <i className="fas fa-fast-forward"></i>
+        </button> */}
       {isAdmin && fullInfo && <CardSongActions song={song} />}
     </div>
   );
