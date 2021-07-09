@@ -91,7 +91,8 @@ const PlayerQueue = () => {
     }
     if (
       result.source.droppableId === "songsPlay" &&
-      result.destination.droppableId === "prevSongs"
+      result.destination.droppableId === "prevSongs" &&
+      result.destination.index < prevSongs.data.length
     ) {
       const newSongsPlayData = [...songsPlay.data];
       const newPrevSongsData = [...prevSongs.data];
