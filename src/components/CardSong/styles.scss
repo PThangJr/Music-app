@@ -9,16 +9,7 @@
   width: 100%;
   border-radius: 8px;
   margin: 8px 0;
-
-  &--active {
-    background: rgb(122, 116, 116) !important;
-    .text-hover {
-      color: var(--text-color-reverse) !important;
-    }
-    .card-song {
-    }
-  }
-
+  left: 0 !important;
   &:hover {
     background: #7a7474;
     @include mobile {
@@ -45,10 +36,15 @@
       &-info {
       }
       .btn {
-        &--favorite {
-          // color: var(--text-color-reverse) !important;
-        }
       }
+    }
+  }
+  &--active {
+    background: rgb(122, 116, 116) !important;
+    .text-hover {
+      color: var(--text-color-reverse) !important;
+    }
+    .card-song {
     }
   }
 
@@ -118,8 +114,8 @@
     height: 100%;
     width: 300px;
     @include mobile {
-      max-width: 150px;
-      width: 150px;
+      max-width: 135px;
+      width: 135px;
     }
     &__name {
       // color: var(--text-color-reverse);
@@ -172,6 +168,19 @@
       margin-right: 8px;
     }
   }
+  &-sub-controls {
+    display: flex;
+  }
+  .btn {
+    font-size: var(--font-size-hg);
+    min-width: 40px;
+    &--sort {
+      cursor: default;
+      color: var(--color-grey-2);
+      &:hover {
+      }
+    }
+  }
 }
 
 .card-song--full-info {
@@ -214,5 +223,27 @@
 
   .card-song-info {
     color: var(--text-color);
+  }
+  .card-song-sub-controls {
+    display: flex;
+    align-items: center;
+    button.btn {
+      min-width: 40px;
+      font-size: var(--font-size-hg);
+      @include mobile {
+        min-width: 30px;
+        width: 30px;
+        margin: 0 5px;
+      }
+      &:hover {
+        color: var(--color-white);
+        @include mobile {
+          color: var(--text-color);
+        }
+        @include tablet {
+          color: var(--text-color);
+        }
+      }
+    }
   }
 }

@@ -14,6 +14,7 @@ import { fetchBalladUsUkAlbums } from "./balladUsUkAlbumSlice";
 import { fetchPlaylists } from "./playlistsSlice";
 import CardSkeletons from "../../components/Card/loading/CardSkeletons";
 import { fetchHotAlbums } from "./hotAlbumsSlice";
+import List from "../../components/List";
 const HomePage = () => {
   const dispatch = useDispatch();
   const anthologyAlbums = useSelector((state) => state.anthologyAlbums);
@@ -149,6 +150,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      {/* <List /> */}
     </div>
   );
 };

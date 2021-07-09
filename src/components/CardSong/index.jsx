@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addFavoriteSong } from "../../features/Favorites/favoriteSongsSlice";
@@ -10,10 +10,13 @@ import {
   setPrevSongs,
   updatePrevSongs,
 } from "../../features/PlayerQueue/prevSongsSlice";
-import { updateSongList } from "../../features/PlayerQueue/songsPlaySlice";
+import {
+  addSong,
+  updateSongList,
+} from "../../features/PlayerQueue/songsPlaySlice";
 import CardSongActions from "./components/CardSongActions";
 import "./styles.scss";
-const CardSong = (props) => {
+const CardSong = (props, ref) => {
   const dispatch = useDispatch();
   let {
     fullInfo,
@@ -29,13 +32,15 @@ const CardSong = (props) => {
       slug: "",
       views: 0,
     },
+    sortable = false,
+    provided,
   } = props;
   const fallbackImage = (e) => {
     if (e) {
       e.target.src = "http://placehold.it/60x60";
     }
   };
-  let singers = song.singers.length ? song.singers : descriptions;
+  let singers = song?.singers?.length ? song?.singers : descriptions;
   const { isPlaying } = useSelector((state) => state.playerControls);
   const songsPlay = useSelector((state) => state.songsPlay);
   const prevSongs = useSelector((state) => state.prevSongs);
@@ -98,6 +103,11 @@ const CardSong = (props) => {
   const handleStoppropagation = (e) => {
     e.stopPropagation();
   };
+  const handleAddSong = () => {
+    if (prevSongs.data.find((s) => s._id === song._id)) return;
+    dispatch(addSong(song));
+  };
+  // console.log(provided);
   return (
     <div
       className={classNames(
@@ -106,6 +116,10 @@ const CardSong = (props) => {
         { "card-song--active": isCurrentSong },
         { className: className }
       )}
+      ref={provided?.innerRef}
+      {...provided?.draggableProps}
+
+      // ref={ref}
     >
       <div className="card-song-content" onClick={handleChooseSong}>
         <div className="card-song-content-image">
@@ -162,20 +176,31 @@ const CardSong = (props) => {
         </div>
       )}
 
-      <button
-        className={
-          "btn  btn--black btn--favorite " + (isFavorite ? "btn--purple" : "")
-        }
-        onClick={handleFavoriteSong}
-      >
-        <i className="fas fa-heart"></i>
-      </button>
-      {/* <div className="sub-controls">
-        
-      </div>
-      <button className="btn btn--primary btn--black btn--check">
-          <i className="fas fa-fast-forward"></i>
-        </button> */}
+      {fullInfo && (
+        <div className="card-song-sub-controls">
+          <button
+            className={
+              "btn  btn--black btn--favorite " +
+              (isFavorite ? "btn--purple" : "")
+            }
+            onClick={handleFavoriteSong}
+          >
+            <i className="fas fa-heart"></i>
+          </button>
+
+          <button
+            className="btn  btn--black btn--check"
+            onClick={handleAddSong}
+          >
+            <i className="fas fa-angle-double-right"></i>
+          </button>
+        </div>
+      )}
+      {sortable && (
+        <p className="btn  btn--black btn--sort" {...provided?.dragHandleProps}>
+          <i className="fas fa-align-right"></i>
+        </p>
+      )}
       {isAdmin && fullInfo && <CardSongActions song={song} />}
     </div>
   );

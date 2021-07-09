@@ -74,6 +74,13 @@ const songsPlaySlice = createSlice({
       state.data = [];
       removeLocaleStorage("songsPlay");
     },
+    addSong(state, action) {
+      const newData = [...current(state).data];
+      if (newData.find((song) => song._id === action.payload._id)) return state;
+      newData.push(action.payload);
+      state.data = newData;
+      setLocaleStorage("songsPlay", newData);
+    },
   },
 
   extraReducers: {
@@ -101,4 +108,5 @@ export const {
   removeNextSong,
   removeNextSongs,
   setSongsPlay,
+  addSong,
 } = songsPlaySlice.actions;
