@@ -84,7 +84,7 @@ const songsPlaySlice = createSlice({
     unshiftSongList(state, action) {
       let newData = [...current(state).data];
       newData = action.payload.concat(newData);
-      // setLocaleStorage("songsPlay", newData);
+      setLocaleStorage("songsPlay", newData);
       state.data = newData;
     },
   },
