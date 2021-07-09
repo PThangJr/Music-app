@@ -12,21 +12,16 @@
   left: 0 !important;
   &:hover {
     background: #7a7474;
+
     @include mobile {
-      background: transparent;
+      background: none;
       color: var(--color-white);
     }
     @include tablet {
-      background: transparent;
+      background: none;
     }
     .text-hover {
       color: var(--text-color-reverse);
-      @include mobile {
-        color: var(--text-color);
-      }
-      @include tablet {
-        color: var(--text-color);
-      }
     }
 
     .card-song {
