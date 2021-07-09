@@ -81,6 +81,12 @@ const songsPlaySlice = createSlice({
       state.data = newData;
       setLocaleStorage("songsPlay", newData);
     },
+    unshiftSongList(state, action) {
+      let newData = [...current(state).data];
+      newData = action.payload.concat(newData);
+      // setLocaleStorage("songsPlay", newData);
+      state.data = newData;
+    },
   },
 
   extraReducers: {
@@ -109,4 +115,5 @@ export const {
   removeNextSongs,
   setSongsPlay,
   addSong,
+  unshiftSongList,
 } = songsPlaySlice.actions;

@@ -15,6 +15,7 @@ import {
 import {
   removeNextSongs,
   setSongsPlay,
+  unshiftSongList,
   updateSongList,
 } from "./songsPlaySlice";
 import "./styles.scss";
@@ -65,12 +66,16 @@ const PlayerQueue = () => {
     }
   };
   const handleDragEnd = (result) => {
+    // console.log(result);
     if (!result.destination) {
       if (result.source.droppableId === "songsPlay") {
         const newSongsPlayData = [...songsPlay.data];
         newSongsPlayData.splice(result.source.index, 1);
         dispatch(updateSongList(newSongsPlayData));
-      } else if (result.source.droppableId === "prevSongs") {
+      } else if (
+        result.source.droppableId === "prevSongs" &&
+        result.draggableId !== currentSong._id
+      ) {
         const newPrevSongsData = [...prevSongs.data];
         newPrevSongsData.splice(result.source.index, 1);
         dispatch(updatePrevSongs(newPrevSongsData));
@@ -107,15 +112,41 @@ const PlayerQueue = () => {
       result.destination.droppableId === "prevSongs"
     ) {
       // console.log(songsPlay.data.splice(result.source.index, 1));
-      const newPrevSongsData = [...prevSongs.data];
-      const prevSongDeleted = newPrevSongsData.splice(result.source.index, 1);
-      newPrevSongsData.splice(result.destination.index, 0, ...prevSongDeleted);
-      dispatch(updatePrevSongs(newPrevSongsData));
+      if (result.source.index === prevSongs.data.length - 1) {
+        const newPrevSongsData = [...prevSongs.data];
+        const prevSongsDeleted = newPrevSongsData.splice(
+          result.destination.index,
+          prevSongs.data.length - 1 - result.destination.index
+        );
+        // console.log(result.destination.index, prevSongsDeleted);
+        // newPrevSongsData.splice(
+        //   result.destination.index,
+        //   0,
+        //   prevSongs.data[prevSongs.data.length - 1]
+        // );
+        // prevSongsDeleted.pop();
+        // console.log(prevSongsDeleted);
+        dispatch(unshiftSongList(prevSongsDeleted));
+        dispatch(updatePrevSongs(newPrevSongsData));
+        return;
+      }
+      if (!(result.destination.index === prevSongs.data.length - 1)) {
+        const newPrevSongsData = [...prevSongs.data];
+        const prevSongDeleted = newPrevSongsData.splice(result.source.index, 1);
+        newPrevSongsData.splice(
+          result.destination.index,
+          0,
+          ...prevSongDeleted
+        );
+        dispatch(updatePrevSongs(newPrevSongsData));
+        return;
+      }
       return;
     }
     if (
       result.source.droppableId === "prevSongs" &&
-      result.destination.droppableId === "songsPlay"
+      result.destination.droppableId === "songsPlay" &&
+      result.draggableId !== currentSong._id
     ) {
       const newSongsPlayData = [...songsPlay.data];
       const newPrevSongsData = [...prevSongs.data];
