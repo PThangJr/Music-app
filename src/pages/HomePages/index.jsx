@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CardSkeletons from "../../components/Card/loading/CardSkeletons";
 import CardSinger from "../../components/CardSinger";
 import PlaylistsList from "../../components/PlaylistsList";
 import Rank from "../../features/Rank";
@@ -11,10 +12,8 @@ import { fetchBestRandomSingers } from "../../features/Singers/singersSlice";
 import Trending from "../../features/Trending";
 import { fetchAnthologyAlbums } from "./anthologyAlbumsSlice";
 import { fetchBalladUsUkAlbums } from "./balladUsUkAlbumSlice";
-import { fetchPlaylists } from "./playlistsSlice";
-import CardSkeletons from "../../components/Card/loading/CardSkeletons";
 import { fetchHotAlbums } from "./hotAlbumsSlice";
-import List from "../../components/List";
+import { fetchPlaylists } from "./playlistsSlice";
 const HomePage = () => {
   const dispatch = useDispatch();
   const anthologyAlbums = useSelector((state) => state.anthologyAlbums);
@@ -150,7 +149,6 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      {/* <List /> */}
     </div>
   );
 };

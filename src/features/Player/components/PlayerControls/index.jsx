@@ -33,7 +33,7 @@ const PlayerControls = (props) => {
 
   const { isPlaying, isRandom, isRepeat } = playerControls;
   const isFavorite = favoriteSongs.find((fav) => fav?._id === currentSong?._id);
-
+  const totalSongs = prevSongs.data.length + songsPlay.data.length;
   const audioRef = useRef();
 
   useEffect(() => {
@@ -274,6 +274,7 @@ const PlayerControls = (props) => {
           onClick={handleDisplayPlayerQueue}
         >
           <i className="fas fa-list-alt"></i>
+          <span className="number-of-songs">{totalSongs}</span>
         </p>
       </div>
     </>

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { forwardRef } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addFavoriteSong } from "../../features/Favorites/favoriteSongsSlice";
@@ -15,6 +15,8 @@ import {
   updateSongList,
 } from "../../features/PlayerQueue/songsPlaySlice";
 import CardSongActions from "./components/CardSongActions";
+import { toast } from "react-toastify";
+
 import "./styles.scss";
 const CardSong = (props, ref) => {
   const dispatch = useDispatch();
@@ -105,6 +107,10 @@ const CardSong = (props, ref) => {
   };
   const handleAddSong = () => {
     if (prevSongs.data.find((s) => s._id === song._id)) return;
+    if (songsPlay.data.find((s) => s._id === song._id)) return;
+    toast.success(`🎶 Thêm bài hát "${song.name}" vào Danh sách phát`, {
+      autoClose: 1500,
+    });
     dispatch(addSong(song));
   };
   // console.log(provided);

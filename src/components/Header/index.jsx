@@ -8,7 +8,9 @@ import "./styles.scss";
 const Header = ({ toggleSidebar }) => {
   const auths = useSelector((state) => state.auths);
   const currentSong = useSelector((state) => state.currentSong);
-
+  const prevSongs = useSelector((state) => state.prevSongs);
+  const songsPlay = useSelector((state) => state.songsPlay);
+  const totalSongs = prevSongs.data.length + songsPlay.data.length;
   const dispatch = useDispatch();
   const { user } = auths;
   const handleLogout = () => {
@@ -53,6 +55,7 @@ const Header = ({ toggleSidebar }) => {
               >
                 <i className="fas fa-music"></i>
               </button>
+              <span className="number-of-songs">{totalSongs}</span>
             </div>
             {auths.authenticate ? (
               <div className="auth">

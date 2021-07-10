@@ -18,6 +18,8 @@ import {
   unshiftSongList,
   updateSongList,
 } from "./songsPlaySlice";
+import { toast } from "react-toastify";
+
 import "./styles.scss";
 
 const PlayerQueue = () => {
@@ -67,19 +69,30 @@ const PlayerQueue = () => {
   };
   const handleDragEnd = (result) => {
     // console.log(result);
+
     if (!result.destination) {
+      let songDeleted;
       if (result.source.droppableId === "songsPlay") {
         const newSongsPlayData = [...songsPlay.data];
-        newSongsPlayData.splice(result.source.index, 1);
+        songDeleted = newSongsPlayData.splice(result.source.index, 1);
         dispatch(updateSongList(newSongsPlayData));
       } else if (
         result.source.droppableId === "prevSongs" &&
         result.draggableId !== currentSong._id
       ) {
         const newPrevSongsData = [...prevSongs.data];
-        newPrevSongsData.splice(result.source.index, 1);
+        songDeleted = newPrevSongsData.splice(result.source.index, 1);
         dispatch(updatePrevSongs(newPrevSongsData));
       }
+      toast.error(
+        `🎵 Gỡ bài hát "${songDeleted[0].name}" khỏi Danh sách phát`,
+        {
+          autoClose: 1500,
+        }
+      );
+      return;
+    }
+    if (result.destination.index === result.source.index) {
       return;
     }
     //Remove

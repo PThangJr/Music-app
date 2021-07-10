@@ -126,6 +126,27 @@
 
     .list-songs {
       font-size: var(--font-size-super);
+      position: relative;
+      .number-of-songs {
+        font-size: var(--font-size-md);
+        position: absolute;
+        color: var(--color-white);
+        width: 22px;
+        height: 22px;
+        background: linear-gradient(
+          45deg,
+          var(--color-orange),
+          #f1c40f,
+          #e74c3c
+        );
+        display: inline-block;
+        border-radius: 50%;
+        top: -2px;
+        left: -10px;
+        text-align: center;
+        transition: all 0.4s;
+        box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+      }
     }
   }
 }

@@ -22,8 +22,13 @@
     }
     .text-hover {
       color: var(--text-color-reverse);
+      // @include mobile {
+      //   color: var(--text-color);
+      // }
+      // @include tablet {
+      //   color: var(--text-color);
+      // }
     }
-
     .card-song {
       &-content {
         color: var(--text-color-reverse);
@@ -187,6 +192,15 @@
     @include tablet {
       background: transparent;
     }
+    .text-hover {
+      color: var(--text-color-reverse);
+      @include mobile {
+        color: var(--text-color);
+      }
+      @include tablet {
+        color: var(--text-color);
+      }
+    }
     .card-song {
       &-info {
         // color: var(--text-color-reverse);
@@ -195,10 +209,6 @@
         @include tablet {
         }
       }
-
-      // &-views {
-      //   color: var(--text-color-reverse);
-      // }
 
       .btn.btn--favorite {
         color: var(--text-color-reverse);
