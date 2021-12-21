@@ -47,6 +47,7 @@ const Login = () => {
           type="username"
           name="username"
           fullWidth
+          value={values.username}
           onChange={handleInputValue}
         />
         <InputField
@@ -54,6 +55,7 @@ const Login = () => {
           type="password"
           name="password"
           fullWidth
+          value={values.password}
           onChange={handleInputValue}
         />
         <button type="submit" className="btn btn--green btn--submit">

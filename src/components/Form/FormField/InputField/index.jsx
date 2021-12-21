@@ -15,6 +15,7 @@ const InputField = (props) => {
     defaultValues = "",
     debounce = false,
     selectedAllText = false,
+    value = "",
   } = props;
   const typingTimeOutRef = useRef(null);
 
@@ -55,8 +56,9 @@ const InputField = (props) => {
       type={type}
       name={name}
       disabled={disabled}
-      defaultValue={defaultValues}
+      // defaultValue={defaultValues}
       onFocus={handleFocus}
+      value={value}
     />
   );
 };

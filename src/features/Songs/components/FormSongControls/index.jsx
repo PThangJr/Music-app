@@ -8,62 +8,77 @@ import { fetchSingers } from "../../../Singers/singersSlice.js";
 import { fetchCreateSong, fetchUpdateSong } from "../../songsSlice.js";
 import "./styles.scss";
 
-const mapObjectToArray = (object) => {
-  const keys = Object.keys(object);
-  const result = keys.filter((item) => {
-    return object[item] === true;
-  });
-  return result;
-};
-const mapArrayToIdArray = (array) => {
-  if (array) {
-    return array.map((item) => item?._id);
-  } else return [];
-};
-
 const FormSongControls = (props) => {
-  const { isUpdate = false, song = {} } = props;
+  const {
+    isUpdate = false,
+    song = { singers: [], authors: [], categories: [], albums: [] },
+  } = props;
   const dispatch = useDispatch();
+  const [dataCheckBox, setDataCheckBox] = useState({
+    singers: [],
+    authors: [],
+    categories: [],
+    albums: [],
+  });
+  const [dataInput, setDataInput] = useState({});
+
   useEffect(() => {
     dispatch(fetchSingers());
     // dispatch(fetchCategories());
     dispatch(fetchAlbums());
     dispatch(fetchAuthors());
   }, [dispatch]);
+
+  //Set default values Input
+  useEffect(() => {
+    const { name, linkMp3, linkImage } = song;
+    const singers = song.singers.map((item) => item._id);
+    const authors = song.authors.map((item) => item._id);
+    const categories = song.categories.map((item) => item._id);
+    const albums = song.albums.map((item) => item._id);
+    setDataInput({ ...dataInput, name, linkMp3, linkImage });
+    setDataCheckBox({ singers, authors, categories, albums });
+    // setDataSingers(singers);
+  }, []);
   const singers = useSelector((state) => state.singers);
   const categories = useSelector((state) => state.categories);
   const albums = useSelector((state) => state.albums);
   const authors = useSelector((state) => state.authors);
-
-  const [dataInput, setDataInput] = useState({});
-  const [dataSingers, setDataSingers] = useState({});
-  const [dataAuthors, setDataAuthors] = useState({});
-  const [dataCategories, setDataCategories] = useState({});
-  const [dataAlbums, setDataAlbums] = useState({});
   const handleInputValue = (values) => {
     setDataInput({ ...dataInput, ...values });
   };
+  const handleChangeCheckBox = (name, values) => {
+    const isChecked = dataCheckBox[name].includes(values[name]);
+
+    if (isChecked) {
+      const dataFilter = [...dataCheckBox[name], values[name]].filter(
+        (item) => item !== values[name]
+      );
+      setDataCheckBox({
+        ...dataCheckBox,
+        [name]: dataFilter,
+      });
+    } else {
+      setDataCheckBox({
+        ...dataCheckBox,
+        [name]: [...dataCheckBox[name], values[name]],
+      });
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    mapObjectToArray(dataSingers);
+
     const data = {
       ...dataInput,
-      singers: mapObjectToArray(dataSingers),
-      authors: mapObjectToArray(dataAuthors),
-      albums: mapObjectToArray(dataAlbums),
-      categories: mapObjectToArray(dataCategories),
+      ...dataCheckBox,
     };
     if (isUpdate) {
-      // console.log({ ...song, ...data });
-      // console.log(`data`, data);
-      dispatch(
-        fetchUpdateSong({ songId: song._id, data: { ...song, ...data } })
-      );
+      dispatch(fetchUpdateSong({ songId: song._id, data }));
     } else {
       dispatch(fetchCreateSong(data));
     }
   };
-  // console.log(`song`, song);
+
   return (
     <div>
       <form action="" className="form-controls-songs" onSubmit={handleSubmit}>
@@ -76,7 +91,8 @@ const FormSongControls = (props) => {
                 placeholder="Tên bài hát..."
                 onChange={handleInputValue}
                 fullWidth
-                defaultValues={song?.name}
+                // defaultValues={song?.name}
+                value={dataInput?.name}
               />
               <InputField
                 type="text"
@@ -84,7 +100,8 @@ const FormSongControls = (props) => {
                 placeholder="Link MP3..."
                 onChange={handleInputValue}
                 fullWidth
-                defaultValues={song?.linkMp3}
+                // defaultValues={song?.linkMp3}
+                value={dataInput?.linkMp3}
               />
               <InputField
                 type="text"
@@ -92,7 +109,8 @@ const FormSongControls = (props) => {
                 placeholder="Link Image..."
                 onChange={handleInputValue}
                 fullWidth
-                defaultValues={song?.linkImage}
+                // defaultValues={song?.linkImage}
+                value={song?.linkImage}
               />
             </div>
             <div className="buttons">
@@ -110,14 +128,13 @@ const FormSongControls = (props) => {
                     to="singers"
                     key={singer?._id}
                     label={singer?.name}
-                    name={singer?._id}
+                    // name={singer?._id}
+                    dataId={singer?._id}
+                    name="singers"
                     onChange={(values) =>
-                      setDataSingers({ ...dataSingers, ...values })
+                      handleChangeCheckBox("singers", values)
                     }
-                    defaultChecked={
-                      mapArrayToIdArray(song?.singers).includes(singer?._id) ||
-                      false
-                    }
+                    checked={dataCheckBox.singers.includes(singer?._id)}
                   />
                 );
               })}
@@ -130,18 +147,12 @@ const FormSongControls = (props) => {
                   <CBoxField
                     key={author?._id}
                     label={author?.name}
-                    name={author?._id}
+                    name="authors"
+                    dataId={author?._id}
                     onChange={(values) =>
-                      setDataAuthors({ ...dataAuthors, ...values })
+                      handleChangeCheckBox("authors", values)
                     }
-                    // defaultChecked={
-                    //   mapArrayToIdArray(song?.authors).includes(author?._id) ||
-                    //   false
-                    // }
-                    defaultChecked={
-                      song?.authors?.some((ath) => ath._id === author._id) ||
-                      false
-                    }
+                    checked={dataCheckBox.authors.includes(author?._id)}
                   />
                 );
               })}
@@ -155,14 +166,11 @@ const FormSongControls = (props) => {
                     to="categories"
                     key={category?._id}
                     label={category?.name}
-                    name={category?._id}
+                    name="categories"
+                    dataId={category?._id}
+                    checked={dataCheckBox.categories.includes(category?._id)}
                     onChange={(values) =>
-                      setDataCategories({ ...dataCategories, ...values })
-                    }
-                    defaultChecked={
-                      song?.categories?.some(
-                        (cate) => cate._id === category._id
-                      ) || false
+                      handleChangeCheckBox("categories", values)
                     }
                   />
                 );
@@ -177,12 +185,11 @@ const FormSongControls = (props) => {
                     to="albums"
                     key={album?._id}
                     label={album?.name}
-                    name={album?._id}
+                    name="albums"
+                    dataId={album?._id}
+                    checked={dataCheckBox.albums.includes(album?._id)}
                     onChange={(values) =>
-                      setDataAlbums({ ...dataAlbums, ...values })
-                    }
-                    defaultChecked={
-                      song?.albums?.some((al) => al._id === album._id) || false
+                      handleChangeCheckBox("albums", values)
                     }
                   />
                 );
@@ -196,3 +203,12 @@ const FormSongControls = (props) => {
 };
 
 export default FormSongControls;
+/**
+ * {
+ * singers: [1,2,34,5],
+ * authors: [2,34,5,6]
+ * }
+ * setDataCheckBox({[name]: [...dataCheckBox[name],]})
+ *
+ *
+ */

@@ -11,18 +11,18 @@ import {
 const FormSingerControls = () => {
   const dispatch = useDispatch();
   const [dataInput, setDataInput] = useState({});
-  const [isAuthor, setIsAuthor] = useState({});
+  const [isAuthor, setIsAuthor] = useState(false);
   const handleChangeInput = (values) => {
     setDataInput({ ...dataInput, ...values });
   };
   const handleChangeIsAuthor = (values) => {
-    setIsAuthor({ ...isAuthor, ...values });
+    setIsAuthor(!isAuthor);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(dataInput);
     console.log(isAuthor);
-    const data = { ...dataInput, ...isAuthor };
+    const data = { ...dataInput, isAuthor };
     dispatch(fetchCreateSinger(data));
   };
   const singers = useSelector((state) => state.singers);
@@ -45,24 +45,29 @@ const FormSingerControls = () => {
             onChange={handleChangeInput}
             name="name"
             placeholder="Nhập tên ca sĩ..."
+            value={dataInput?.name}
             fullWidth
           />
           <InputField
             onChange={handleChangeInput}
             name="linkImage"
             placeholder="Nhập Link Image..."
+            value={dataInput?.linkImage}
             fullWidth
           />
           <InputField
             onChange={handleChangeInput}
             name="profile"
             placeholder="Nhập Profile..."
+            value={dataInput?.profile}
             fullWidth
           />
           <CBoxField
             onChange={handleChangeIsAuthor}
             name="isAuthor"
             label="isAuthor"
+            dataId="isAuthor"
+            checked={isAuthor}
           />
           <button type="submit" className="btn btn--full-width btn--blue">
             Thêm ca sĩ

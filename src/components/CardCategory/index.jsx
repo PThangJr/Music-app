@@ -1,10 +1,9 @@
-import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
 import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router-dom";
 import "./styles.scss";
 const CardCategory = (props) => {
   const { category } = props;
-  const match = useRouteMatch();
   return (
     <Link to={`/categories/${category?.slug}`} className="card-category">
       <div className="card-category-image">

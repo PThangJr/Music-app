@@ -6,46 +6,51 @@ import { fetchPlaylists } from "../../../Playlists/playlistsSlice";
 import { fetchCreateAlbum, fetchUpdateAlbum } from "../../albumsSlice";
 import PropTypes from "prop-types";
 import { fetchSingers } from "../../../Singers/singersSlice";
-const mapObjectToArray = (object) => {
-  const keys = Object.keys(object);
-  const result = keys.filter((item) => {
-    return object[item] === true;
-  });
-  return result;
-};
+
 const AlbumControls = (props) => {
-  const { album = {}, isUpdate = false } = props;
+  const {
+    album = { playlists: [], categories: [], singers: [] },
+    isUpdate = false,
+  } = props;
   const dispatch = useDispatch();
+
+  const [dataInput, setDataInput] = useState({});
+  const [dataCheckBox, setDataCheckBox] = useState({
+    playlists: [],
+    categories: [],
+    singers: [],
+  });
+
   useEffect(() => {
     dispatch(fetchPlaylists());
     dispatch(fetchSingers());
   }, [dispatch]);
+  useEffect(() => {
+    if (album) {
+      const { name, linkImage } = album;
+      const playlists = album.playlists.map((item) => item._id);
+      const categories = album.categories.map((item) => item._id);
+      const singers = album.singers.map((item) => item._id);
 
+      setDataInput({ name, linkImage });
+      setDataCheckBox({ playlists, categories, singers });
+    }
+  }, []);
   //Store
   const playlists = useSelector((state) => state.playlists);
   const categories = useSelector((state) => state.categories);
   const singers = useSelector((state) => state.singers);
 
   //
-  const [dataInput, setDataInput] = useState({});
-  const [dataPlaylists, setDataPlaylists] = useState({});
-  const [dataCategories, setDataCategories] = useState({});
-  const [dataSingers, setDataSingers] = useState({});
+
   const handleSubmitFormAlbum = (e) => {
     e.preventDefault();
-    const dataPlaylistsResult = mapObjectToArray(dataPlaylists);
-    const dataCategoriesResult = mapObjectToArray(dataCategories);
-    const dataSingersResult = mapObjectToArray(dataSingers);
     const data = {
       ...dataInput,
-      playlists: dataPlaylistsResult,
-      categories: dataCategoriesResult,
-      singers: dataSingersResult,
+      ...dataCheckBox,
     };
     if (isUpdate) {
-      dispatch(
-        fetchUpdateAlbum({ albumId: album?._id, data: { ...album, ...data } })
-      );
+      dispatch(fetchUpdateAlbum({ albumId: album?._id, data }));
     } else {
       dispatch(fetchCreateAlbum(data));
     }
@@ -53,15 +58,24 @@ const AlbumControls = (props) => {
   const handleChangeInput = (values) => {
     setDataInput({ ...dataInput, ...values });
   };
-  const handleChangePlaylists = (values) => {
-    setDataPlaylists({ ...dataPlaylists, ...values });
+  const handleChangeCheckBox = (name, values) => {
+    const isChecked = dataCheckBox[name].includes(values[name]);
+    if (isChecked) {
+      const dataFilter = [...dataCheckBox[name], values[name]].filter(
+        (item) => item !== values[name]
+      );
+      setDataCheckBox({
+        ...dataCheckBox,
+        [name]: dataFilter,
+      });
+    } else {
+      setDataCheckBox({
+        ...dataCheckBox,
+        [name]: [...dataCheckBox[name], values[name]],
+      });
+    }
   };
-  const handleChangeCategories = (values) => {
-    setDataCategories({ ...dataCategories, ...values });
-  };
-  const handleChangeSingers = (values) => {
-    setDataSingers({ ...dataSingers, ...values });
-  };
+
   return (
     <div className="controls">
       <div className="row">
@@ -75,15 +89,15 @@ const AlbumControls = (props) => {
               placeholder="Tên album..."
               name="name"
               onChange={handleChangeInput}
+              value={dataInput.name}
               fullWidth
-              defaultValues={album?.name}
             />
             <InputField
               placeholder="Link Image..."
               name="linkImage"
               onChange={handleChangeInput}
+              value={dataInput.linkImage}
               fullWidth
-              defaultValues={album?.linkImage}
             />
             <div className="checkbox-box">
               <h4 className="checkbox-box__heading">Playlists :</h4>
@@ -91,14 +105,13 @@ const AlbumControls = (props) => {
                 return (
                   <CBoxField
                     key={playlist?._id}
-                    name={playlist?._id}
+                    name="playlists"
                     label={playlist?.name}
-                    onChange={handleChangePlaylists}
-                    defaultChecked={
-                      album?.playlists?.some(
-                        (pl) => pl._id === playlist?._id
-                      ) || false
+                    dataId={playlist?._id}
+                    onChange={(values) =>
+                      handleChangeCheckBox("playlists", values)
                     }
+                    checked={dataCheckBox.playlists.includes(playlist?._id)}
                   />
                 );
               })}
@@ -109,14 +122,13 @@ const AlbumControls = (props) => {
                 return (
                   <CBoxField
                     key={category?._id}
-                    name={category?._id}
+                    name="categories"
                     label={category?.name}
-                    onChange={handleChangeCategories}
-                    defaultChecked={
-                      album?.categories?.some(
-                        (pl) => pl._id === category?._id
-                      ) || false
+                    dataId={category?._id}
+                    onChange={(values) =>
+                      handleChangeCheckBox("categories", values)
                     }
+                    checked={dataCheckBox.categories.includes(category?._id)}
                   />
                 );
               })}
@@ -135,13 +147,11 @@ const AlbumControls = (props) => {
               return (
                 <CBoxField
                   key={singer?._id}
-                  name={singer?._id}
+                  name="singers"
                   label={singer?.name}
-                  onChange={handleChangeSingers}
-                  defaultChecked={
-                    album?.singers?.some((pl) => pl._id === singer?._id) ||
-                    false
-                  }
+                  dataId={singer?._id}
+                  onChange={(values) => handleChangeCheckBox("singers", values)}
+                  checked={dataCheckBox.singers.includes(singer?._id)}
                 />
               );
             })}

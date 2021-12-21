@@ -31,6 +31,7 @@ const HeaderSearch = () => {
           onChange={handleChangeSearch}
           className="search-content__input"
           selectedAllText
+          value={dataKeyword.keyword}
           // debounce
         />
         {/* <div className="search-results">

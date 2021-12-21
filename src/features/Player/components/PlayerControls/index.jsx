@@ -15,7 +15,7 @@ import {
   setNextSongs,
 } from "../../../PlayerQueue/songsPlaySlice";
 import { setCurrentSong } from "../../currentSongSlice";
-import { setFavoriteSongs, setPlayerControls } from "./playerControlsSlice";
+import { setPlayerControls } from "./playerControlsSlice";
 import "./styles.scss";
 const PlayerControls = (props) => {
   const dispatch = useDispatch();

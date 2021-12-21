@@ -10,14 +10,15 @@ const CBoxField = (props) => {
     className = "",
     label = "",
     disabled = false,
-    defaultChecked = false,
+    checked = false,
+    dataId = "",
   } = props;
   const handleInputValue = (e) => {
     if (onChange) {
       const name = e.target.name;
-      const checked = e.target.checked;
 
-      onChange({ [name]: checked });
+      const dataId = e.target.getAttribute("dataId");
+      onChange({ [name]: dataId });
     }
   };
   return (
@@ -27,11 +28,12 @@ const CBoxField = (props) => {
         className={classNames("checkbox-field", { [className]: className })}
         type="checkbox"
         name={name}
-        id={name}
+        id={dataId}
+        dataId={dataId}
         disabled={disabled}
-        defaultChecked={defaultChecked}
+        checked={checked}
       />
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={dataId}>{label}</label>
     </div>
   );
 };

@@ -23,7 +23,7 @@ const HomePage = () => {
   const playlists = useSelector((state) => state.playlists);
   const singers = useSelector((state) => state.singers);
 
-  const { isLoadingMore, pagination } = songsOfRanking;
+  const { isLoadingMore } = songsOfRanking;
   useEffect(() => {
     dispatch(fetchPlaylists());
     dispatch(fetchBestRandomSingers({ params: { limit: 8 } }));

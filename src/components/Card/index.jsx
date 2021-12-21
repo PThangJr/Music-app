@@ -18,7 +18,6 @@ const Card = (props) => {
     title = "",
     linkImage = "",
     linkTitle = "",
-    handleChooseAlbum,
     album = {
       name: "",
       linkImage: "",

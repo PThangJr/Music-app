@@ -127,9 +127,9 @@ const albumsSlice = createSlice({
       const newData = current(state).data;
       console.log(`action`, action);
       const { albumUpdated, message } = action.payload;
-      const dataMap = [...newData].map((item) =>
-        item._id === albumUpdated._id ? albumUpdated : item
-      );
+      // const dataMap = [...newData].map((item) =>
+      //   item._id === albumUpdated._id ? albumUpdated : item
+      // );
       state.data = [...newData].map((item) =>
         item._id === albumUpdated._id ? albumUpdated : item
       );
